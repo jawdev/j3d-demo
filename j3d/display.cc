@@ -25,12 +25,10 @@ Display::Display() {
 	glutDisplayFunc( callbackDisplay );
 	atexit( callbackQuit );
 	glutSetCursor( Settings::glut_cursor );
-	mp_renderbuffer = new Renderbuffer();
-	mp_renderbuffer->bind();
+	if( Cache::renderbuffers()->empty() ) Cache::renderbuffers()->push( new Renderbuffer );
 }
 
 Display::~Display() {
-	SAFE_DELETE( mp_renderbuffer );
 }
 
 void Display::mainLoop() {
@@ -45,25 +43,17 @@ void Display::callbackReshape( int w, int h ) {
 	glViewport( 0, 0, w, h );
 	Settings::window_width = w;
 	Settings::window_height = h;
-	Engine::display->renderbuffer()->reshape( w, h );
+	Cache::renderbuffer()->reshape( w, h );
 }
 
 void Display::callbackDisplay() {
 	Engine::cycle();
-	Engine::display->renderbuffer()->blit();
+	Cache::renderbuffer()->blit();
 	glutPostRedisplay();
 }
 
 void Display::callbackQuit() {
 	Engine::quit();
-}
-
-//=====================================
-// RENDER BUFFERS
-//=====================================
-
-Renderbuffer* Display::renderbuffer() {
-	return mp_renderbuffer;
 }
 
 }

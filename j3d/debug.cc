@@ -8,7 +8,7 @@
 namespace j3d {
 
 void Debug::formatEcho( const char* type, const char* format, const char* message ) {
-	cout << "\033[" << format << "m[j3d:" << type << "] " << message << "\033[0m" << endl;
+	cout << "\033[" << format << "m[j3d:" << type << "]\t" << message << "\033[0m" << endl;
 }
 
 bool Debug::ok( const char* message ) {

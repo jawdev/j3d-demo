@@ -2,32 +2,43 @@
 * JAW DEVELPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* /display.h
+* /entity.h
 ******************************************************************************/
-#ifndef J3D_DISPLAY_H_
-#define J3D_DISPLAY_H_
+#ifndef J3D_ENTITY_H_
+#define J3D_ENTITY_H_
 namespace j3d {
 
-class Display {
+class Entity {
 public:
 
 	//====================================
-	// MAIN
+	// INIT
 	//====================================
 
-	Display();
-	~Display();
-	void mainLoop();
+	Entity();
+	virtual ~Entity();
 
 	//====================================
-	// CALLBACKS
+	// ATTRIBUTES
 	//====================================
 
-	static void callbackReshape( int w, int h );
-	static void callbackDisplay();
-	static void callbackQuit();
+	Entity* position( vec3 );
+	Entity* rotation( vec3 );
+	Entity* velocity( vec3 );
+	Entity* spin( vec3 );
+
+	vec3 position();
+	vec3 rotation();
+	vec3 velocity();
+	vec3 spin();
 
 private:
+	
+	vec3 m_position;
+	vec3 m_rotation;
+	vec3 m_velocity;
+	vec3 m_spin;
+
 };
 
 }

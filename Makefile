@@ -11,7 +11,6 @@ BINARY=			demo
 				main.cc
 
 DEPENDENCIES:=$(shell find -name '*.h')
-
 SOURCES:=$(shell find -name '*.cc')
 
 ###############################################################################
