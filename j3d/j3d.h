@@ -7,9 +7,12 @@
 #ifndef J3D_J3D_H_
 #define J3D_J3D_H_
 
+#define _USE_MATH_DEFINES
+
 #include <iostream>
 #include <iomanip>
 #include <cstring>
+#include <cmath>
 #include <vector>
 #include <map>
 #include <chrono>
@@ -24,7 +27,7 @@ using namespace std;
 
 #include "util.h"
 #include "stackable.h"
-#include "switchable.h"
+#include "labler.h"
 #include "settings.h"
 #include "debug.h"
 #include "timer.h"

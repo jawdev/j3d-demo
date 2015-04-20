@@ -68,13 +68,15 @@ Scene* Engine::addScene( char* name, Scene* s, bool load ) {
 	if( load ) {
 		unloadScene();
 		scene = s;
+		scene->load();
 	}
 	return s;
 }
 
 Scene* Engine::loadScene( char* name ) {
 	unloadScene();
-	scene = Cache::scenes()->get( name );
+	scene = Cache::scenes()->find( name, true );
+	scene->load();
 	return scene;
 }
 

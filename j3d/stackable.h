@@ -57,7 +57,6 @@ public:
 private:
 	bool m_is_pointer;
 	vector<T> m_elements;
-
 };
 
 }

@@ -8,7 +8,7 @@
 namespace j3d {
 
 stackable<Renderbuffer*> Cache::m_renderbuffers;
-switchable<Scene*> Cache::m_scenes;
+labler<Scene*> Cache::m_scenes;
 stackable<Camera*> Cache::m_cameras;
 
 //====================================
@@ -40,7 +40,7 @@ void Cache::clearScene() {
 stackable<Renderbuffer*>* Cache::renderbuffers() { return &m_renderbuffers; }
 Renderbuffer* Cache::renderbuffer() { return m_renderbuffers.top(); }
 
-switchable<Scene*>* Cache::scenes() { return &m_scenes; }
+labler<Scene*>* Cache::scenes() { return &m_scenes; }
 Scene* Cache::scene() { return m_scenes.active(); }
 
 //====================================

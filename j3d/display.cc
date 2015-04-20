@@ -25,7 +25,7 @@ Display::Display() {
 	glutDisplayFunc( callbackDisplay );
 	atexit( callbackQuit );
 	glutSetCursor( Settings::glut_cursor );
-	if( Cache::renderbuffers()->empty() ) Cache::renderbuffers()->push( new Renderbuffer );
+	if( Cache::renderbuffers()->empty() ) Cache::renderbuffers()->push( new Renderbuffer )->bind();
 }
 
 Display::~Display() {

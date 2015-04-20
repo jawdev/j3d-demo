@@ -26,7 +26,7 @@ public:
 	static stackable<Renderbuffer*>* renderbuffers();
 	static Renderbuffer* renderbuffer();
 
-	static switchable<Scene*>* scenes();
+	static labler<Scene*>* scenes();
 	static Scene* scene();
 
 	//====================================
@@ -39,7 +39,7 @@ public:
 private:
 
 	static stackable<Renderbuffer*> m_renderbuffers;
-	static switchable<Scene*> m_scenes;
+	static labler<Scene*> m_scenes;
 
 	static stackable<Camera*> m_cameras;
 
