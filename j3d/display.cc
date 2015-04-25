@@ -20,7 +20,7 @@ Display::Display() {
 	glutInitWindowPosition( ( glutGet( GLUT_SCREEN_WIDTH )-Settings::window_width )/2.0f, ( glutGet( GLUT_SCREEN_HEIGHT )-Settings::window_height )/2.0f );
 	glutCreateWindow( Settings::window_title );
 	glewExperimental = GL_TRUE;
-	if( glewInit() ) Debug::fatal( "(Display::Display) unable to initialize GLEW" );
+	if( glewInit() ) debug::fatal << "(Display::Display) unable to initialize GLEW" << debug::flush;
 	glutReshapeFunc( callbackReshape );
 	glutDisplayFunc( callbackDisplay );
 	atexit( callbackQuit );

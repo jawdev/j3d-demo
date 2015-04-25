@@ -18,9 +18,7 @@ public:
 	void update( float dtime );
 
 private:
-	j3d::mat4 m_translation;
-	j3d::vec3 m_position;
-	j3d::vec3 m_velocity;
+	j3d::ShaderProgram* mp_shaderProgram;
 };
 
 #endif

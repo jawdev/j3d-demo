@@ -56,9 +56,9 @@ void Renderbuffer::bind() {
 }
 
 void Renderbuffer::blit( unsigned int fid ) {
+	glClear( GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT );
 	glBindFramebuffer( GL_READ_FRAMEBUFFER, m_framebuffer );
 	glBindFramebuffer( GL_DRAW_FRAMEBUFFER, fid );
-	glClear( GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT );
 	glBlitFramebuffer( 0, 0, m_width-1, m_height-1, 0, 0, m_width-1, m_height-1, GL_COLOR_BUFFER_BIT, GL_NEAREST );
 	glutSwapBuffers();
 }

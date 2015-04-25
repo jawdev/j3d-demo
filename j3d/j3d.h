@@ -16,6 +16,8 @@
 #include <vector>
 #include <map>
 #include <chrono>
+#include <fstream>
+#include <sstream>
 using namespace std;
 
 #include <GL/glew.h>
@@ -25,16 +27,17 @@ using namespace std;
 #define SAFE_DELETE( obj ) { if( obj != nullptr ) delete obj; obj = nullptr; }
 #define SAFE_DELETE_ARR( obj ) { if( obj != nullptr ) delete [] obj; obj = nullptr; }
 
+#include "debug.h"
 #include "util.h"
 #include "stackable.h"
 #include "labler.h"
 #include "settings.h"
-#include "debug.h"
 #include "timer.h"
 #include "vmath.h"
 #include "renderbuffer.h"
 #include "entity.h"
 #include "camera.h"
+#include "shader.h"
 #include "scene.h"
 #include "cache.h"
 #include "display.h"

@@ -18,18 +18,18 @@ stackable<Camera*> Cache::m_cameras;
 void Cache::clear() {
 	clearScene();
 	clearGlobal();
-	Debug::ok( "(Cache::clear) complete" );
+	debug::ok << "(Cache::clear) complete" << debug::flush;
 }
 
 void Cache::clearGlobal() {
-	Debug::note( "(Cache::clearGlobal) deleting Scenes ..." );
+	debug::note << "(Cache::clearGlobal) deleting Scenes ..." << debug::flush;
 	m_scenes.clear();
-	Debug::note( "(Cache::clearGlobal) deleting Renderbuffers ..." );
+	debug::note << "(Cache::clearGlobal) deleting Renderbuffers ..." << debug::flush;
 	m_renderbuffers.clear();
 }
 
 void Cache::clearScene() {
-	Debug::note( "(Cache::clearScene) deleting Cameras ..." );
+	debug::note << "(Cache::clearScene) deleting Cameras ..." << debug::flush;
 	m_cameras.clear();
 }
 

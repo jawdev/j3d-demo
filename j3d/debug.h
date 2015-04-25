@@ -7,21 +7,38 @@
 #ifndef J3D_DEBUG_H_
 #define J3D_DEBUG_H_
 namespace j3d {
+namespace debug {
 
-class Debug {
-public:
+	enum class debug_flush_t { FLUSH };
+	static const debug_flush_t flush = debug_flush_t::FLUSH;
 
-	static void formatEcho( const char* type, const char* format, const char* message );
+	class DebugStream {
+	public:
+		DebugStream( const char* color, const char* label, bool is_fatal = false );
+		~DebugStream() {}
 
-	static bool ok( const char* );
-	static bool info( const char* );
-	static bool code( const char* );
-	static bool note( const char* );
-	static bool warn( const char* );
-	static bool error( const char* );
-	static bool fatal( const char* );
+		template<class T>
+		DebugStream& operator<<( const T& t ) { m_stream << t; return *this; }
 
-};
+		DebugStream& operator<<( const debug_flush_t& t ) { flush(); return *this; }
+		DebugStream& operator<<( const std::nullptr_t& t ) { flush(); return *this; }
 
+		void flush();
+
+	private:
+		char m_prefix[20];
+		ostringstream m_stream;
+		bool m_fatal;
+	};
+
+	static DebugStream ok( "\033[0;92m", "OK" );
+	static DebugStream info( "\033[0;36m", "INFO" );
+	static DebugStream code( "\033[0;34m", "CODE" );
+	static DebugStream note( "\033[0;35m", "NOTE" );
+	static DebugStream warn( "\033[0;93m", "WARN" );
+	static DebugStream error( "\033[0;91m", "ERROR" );
+	static DebugStream fatal( "\033[1;91m", "FATAL", true );
+
+}
 }
 #endif

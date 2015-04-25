@@ -20,37 +20,37 @@ Scene* Engine::scene = nullptr;
 
 void Engine::init( int _argc, char** _argv ) {
 	if( init_complete ) {
-		Debug::warn( "(Engine::init) Engine has already been initialized" );
+		debug::warn << "(Engine::init) Engine has already been initialized" << debug::flush;
 		return;
 	}
 	argc = _argc;
 	argv = _argv;
-	Debug::note( "(Engine::init) creating Display ..." );
+	debug::note << "(Engine::init) creating Display ..." << debug::flush;
 	display = new Display();
-	Debug::note( "(Engine::init) creating Timer ..." );
+	debug::note << "(Engine::init) creating Timer ..." << debug::flush;
 	timer = new Timer();
-	Debug::ok( "(Engine::init) complete" );
+	debug::ok << "(Engine::init) complete" << debug::flush;
 	init_complete = true;
 }
 
 void Engine::quit( int exit_code ) {
 	if( init_complete ) {
-		Debug::note( "(Engine::quit) deleting Timer ..." );
+		debug::note << "(Engine::quit) deleting Timer ..." << debug::flush;
 		SAFE_DELETE( timer );
-		Debug::note( "(Engine::quit) deleting Display ..." );
+		debug::note << "(Engine::quit) deleting Display ..." << debug::flush;
 		SAFE_DELETE( display );
-		Debug::note( "(Engine::quit) clearing Cache ..." );
+		debug::note << "(Engine::quit) clearing Cache ..." << debug::flush;
 		Cache::clear();
 		argc = 0;
 		argv = nullptr;
 		init_complete = false;
-		Debug::ok( "(Engine::quit) complete" );
-	} else Debug::warn( "(Engine::quit) Engine has not been initialized" );
+		debug::ok << "(Engine::quit) complete" << debug::flush;
+	} else debug::warn << "(Engine::quit) Engine has not been initialized" << debug::flush;
 	if( exit_code >= 0 ) exit( exit_code );
 }
 
 void Engine::run() {
-	if( scene == nullptr ) Debug::fatal( "(Engine::run) no Scene" );
+	if( scene == nullptr ) debug::fatal << "(Engine::run) no Scene" << debug::flush;
 	display->mainLoop();
 }
 

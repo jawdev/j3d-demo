@@ -1,5 +1,5 @@
 COMPILER=		g++
-CFLAGS=			-I. -Wall -Wno-write-strings -m64 -pthread -std=c++14 -g
+CFLAGS=			-I. -Wall -Wno-write-strings -m64 -pthread -std=c++14 -g -rdynamic -fopenmp
 LIBRARIES=		-lm -lGLEW -lGL -lGLU -lglut
 OBJDIR=			.obj
 BINARY=			demo
