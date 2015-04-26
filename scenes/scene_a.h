@@ -18,10 +18,12 @@ public:
 	void update( float dtime );
 
 private:
+	float ang;
+	float counter;
+	float time_agg;
 	j3d::ShaderProgram* mp_shaderProgram;
 	j3d::Camera* mp_camera;
-	j3d::Object* mp_object;
-	j3d::Object* mp_object2;
+	vector<j3d::Object*> m_cubes;
 };
 
 #endif

@@ -9,7 +9,8 @@
 SceneA::SceneA() {
 	mp_shaderProgram = nullptr;
 	mp_camera = nullptr;
-	mp_object = nullptr;
+	ang = M_PI/2.0f;
+	counter = time_agg = 0;
 }
 
 void SceneA::load() {
@@ -22,44 +23,57 @@ void SceneA::load() {
 
 	mp_camera = new j3d::Camera();
 	mp_camera->position( j3d::vec3( 0, 2, 5 ) );
-	mp_camera->look( j3d::vec3( 0, 0, 0 ) );
-	mp_shaderProgram->bind( "m4_camera", mp_camera->transform() );
 
 	j3d::Engine::loadMesh( "box", new j3d::BoxMesh() );
 	j3d::Engine::loadMesh( "floor", new j3d::FloorMesh( 10 ) );
 
-	mp_object = new j3d::Object( "box", j3d::vec4( 0, 0, 1, 1 ) );
-	mp_object->position( j3d::vec3( -2, 0, 0 ) );
-	mp_object->spin( j3d::vec3( 0, 1, 0 ) );
-
-	mp_object2 = new j3d::Object( "box", j3d::vec4( 0, 1, 0, 1 ) );
-	mp_object2->position( j3d::vec3( 2, 0, 0 ) );
-	mp_object2->spin( j3d::vec3( 0, -1, 0 ) );
+	unsigned int iter = 0;
+	unsigned int max = 2000;
+	unsigned int per = 5;
+	float dist = 0;
+	float r;
+	for( unsigned int i = 0; i < max; i++ ) {
+		r = (float)( iter%per )/(float)per;
+		if( iter%per == 0 ) {
+			iter = 0;
+			dist += 2;
+			per += 5;
+		}
+		j3d::Object* o = new j3d::Object( "box", j3d::vec4( r, 0, 1-r, 1 ) );
+		o->position( j3d::vec3( dist*cos( r*2.0f*M_PI ), 0, dist*sin( r*2.0f*M_PI ) ) );
+		m_cubes.push_back( o );
+		iter++;
+	}
 	
 }
 
 void SceneA::unload() {
-	SAFE_DELETE( mp_object );
-	SAFE_DELETE( mp_object2 );
+	for( unsigned int i = 0; i < m_cubes.size(); i++ ) SAFE_DELETE( m_cubes[i] );
 	SAFE_DELETE( mp_camera );
 	SAFE_DELETE( mp_shaderProgram );
 	glClearColor( 0, 0, 0, 1 );
 }
 
 void SceneA::update( float dtime ) {
-	if( j3d::trigger::reshape ) {
-		mp_camera->reshape();
-		mp_shaderProgram->bind( "m4_camera", mp_camera->transform() );
+	if( j3d::trigger::reshape ) mp_camera->reshape();
+
+	for( unsigned int i = 0; i < m_cubes.size(); i++ ) {
+		mp_shaderProgram->bind( "v4_color", m_cubes[i]->color() );
+		mp_shaderProgram->bind( "m4_model", m_cubes[i]->transform() );
+		m_cubes[i]->render();
 	}
 
-	mp_object->update( dtime );
-	mp_object2->update( dtime );
+	mp_camera->position( j3d::vec3( 20.0f*cos( ang ), 12.0f, 20.0f*sin( ang ) ) );
+	mp_camera->look( j3d::vec3() );
+	mp_shaderProgram->bind( "m4_camera", mp_camera->transform() );
 
-	mp_shaderProgram->bind( "v4_color", mp_object->color() );
-	mp_shaderProgram->bind( "m4_model", mp_object->transform() );
-	mp_object->render();
-
-	mp_shaderProgram->bind( "v4_color", mp_object2->color() );
-	mp_shaderProgram->bind( "m4_model", mp_object2->transform() );
-	mp_object2->render();
+	ang += dtime/2.0f;
+	counter += 1;
+	time_agg += dtime;
+	if( ang >= 2.0*M_PI ) ang = 0;
+	if( time_agg >= 1 ) {
+		cout << (int)( counter/time_agg ) << endl;
+		counter = 0;
+		time_agg = 0;
+	}
 }

@@ -48,10 +48,15 @@ public:
 
 	Mesh* pushVertex( const vec4& );
 	Mesh* pushVertices( unsigned int, vec4* );
-	Mesh* pushVertices( initializer_list<vec4> vlist );
+	Mesh* pushVertices( initializer_list<vec4> );
+
 	Mesh* pushIndex( const unsigned short& );
 	Mesh* pushIndices( unsigned int, unsigned short* );
-	Mesh* pushIndices( initializer_list<unsigned short> ilist );
+	Mesh* pushIndices( initializer_list<unsigned short> );
+
+	Mesh* pushNormal( const vec3& );
+	Mesh* pushNormals( unsigned int, vec3* );
+	Mesh* pushNormals( initializer_list<vec3> );
 
 	//=====================================
 	// BIND
@@ -67,12 +72,15 @@ protected:
 	bool m_has_restart;
 	bool m_bound;
 	vector<vec4> m_vertex_vector;
+	vector<vec3> m_normal_vector;
 	vector<unsigned short> m_index_vector;
 	GLuint m_vertex_array_id;
 	GLuint* mp_buffer;
 	GLfloat* mp_vertices;
+	GLfloat* mp_normals;
 	GLushort* mp_indices;
 	unsigned int m_vertex_size;
+	unsigned int m_normal_size;
 	unsigned int m_index_size;
 };
 

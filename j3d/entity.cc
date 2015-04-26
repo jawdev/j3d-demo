@@ -35,10 +35,10 @@ Entity* Entity::spin( vec3 v ) { m_spin = v; return this; }
 
 Entity* Entity::look( vec3 v ) {
 	float dx = m_position.x-v.x;
-	float dz = m_position.z-v.z;
-	m_rotation.y = atan2( dx, dz );
+	float dz = v.z-m_position.z;
+	m_rotation.y = atan2( dz, dx );
 	float hyp = sqrt( dx*dx+dz*dz );
-	m_rotation.x = ( hyp == 0 ? 0 : -atan( ( m_position.y-v.y )/hyp ) );
+	m_rotation.x = ( hyp == 0 ? 0 : atan( ( v.y-m_position.y )/hyp ) );
 	return this;
 }
 

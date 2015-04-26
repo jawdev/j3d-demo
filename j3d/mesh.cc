@@ -15,13 +15,15 @@ Mesh::Mesh( mesh_draw_t draw_type, mesh_shape_t shape_type, unsigned int restart
 	m_restart_index = restart_index;
 	m_has_restart = ( m_restart_index > 0 );
 	m_bound = false;
-	mp_indices = nullptr;
 	mp_vertices = nullptr;
+	mp_normals = nullptr;
+	mp_indices = nullptr;
 	mp_buffer = nullptr;
 }
 
 Mesh::~Mesh() {
 	SAFE_DELETE( mp_indices );
+	SAFE_DELETE( mp_normals );
 	SAFE_DELETE( mp_vertices );
 	SAFE_DELETE( mp_buffer );
 }
@@ -44,6 +46,23 @@ Mesh* Mesh::pushVertices( unsigned int c, vec4* vlist ) {
 
 Mesh* Mesh::pushVertices( initializer_list<vec4> vlist ) {
 	for( vec4 v : vlist ) m_vertex_vector.push_back( v );
+	return this;
+}
+
+Mesh* Mesh::pushNormal( const vec3& v ) {
+	if( m_bound ) debug::warn << "(Mesh::pushNormal) mesh has already been built" << debug::flush;
+	m_normal_vector.push_back( v );
+	return this;
+}
+
+Mesh* Mesh::pushNormals( unsigned int c, vec3* vlist ) {
+	if( m_bound ) debug::warn << "(Mesh::pushNormals) mesh has already been built" << debug::flush;
+	for( unsigned int i = 0; i < c; i++ ) m_normal_vector.push_back( vlist[i] );
+	return this;
+}
+
+Mesh* Mesh::pushNormals( initializer_list<vec3> vlist ) {
+	for( vec3 v : vlist ) m_normal_vector.push_back( v );
 	return this;
 }
 
@@ -83,6 +102,18 @@ void Mesh::bind() {
 		mp_vertices[iter++] = (GLfloat)m_vertex_vector[i].z;
 		mp_vertices[iter++] = (GLfloat)m_vertex_vector[i].w;
 	}
+
+	bool normals = ( m_normal_vector.size() > 0 );
+	if( normals ) {
+		m_normal_size = m_normal_vector.size()*3*sizeof( GLfloat );
+		mp_normals = new GLfloat[m_normal_vector.size()*3];
+		iter = 0;
+		for( unsigned int i = 0; i < m_normal_vector.size(); i++ ) {
+			mp_normals[iter++] = (GLfloat)m_normal_vector[i].x;
+			mp_normals[iter++] = (GLfloat)m_normal_vector[i].y;
+			mp_normals[iter++] = (GLfloat)m_normal_vector[i].z;
+		}
+	}
 	
 	if( m_draw_type == mesh_draw_t::ELEMENT ) {
 		m_index_size = m_index_vector.size()*sizeof( GLushort );
@@ -101,7 +132,11 @@ void Mesh::bind() {
 		glBufferData( GL_ELEMENT_ARRAY_BUFFER, m_index_size, mp_indices, GL_STATIC_DRAW );
 	case mesh_draw_t::ARRAY:
 		glBindBuffer( GL_ARRAY_BUFFER, mp_buffer[0] );
-		glBufferData( GL_ARRAY_BUFFER, m_vertex_size, mp_vertices, GL_STATIC_DRAW );
+		if( normals ) {
+			glBufferData( GL_ARRAY_BUFFER, m_vertex_size+m_normal_size, NULL, GL_STATIC_DRAW );
+			glBufferSubData( GL_ARRAY_BUFFER, 0, m_vertex_size, mp_vertices );
+			glBufferSubData( GL_ARRAY_BUFFER, m_vertex_size, m_normal_size, mp_normals );
+		} else glBufferData( GL_ARRAY_BUFFER, m_vertex_size, mp_vertices, GL_STATIC_DRAW );
 		break;
 	default:
 		debug::fatal << "(Mesh::bind) invalid mesh draw type: " << (unsigned int)m_draw_type << debug::flush;
@@ -110,6 +145,11 @@ void Mesh::bind() {
 
 	glVertexAttribPointer( 0, 4, GL_FLOAT, GL_FALSE, 0, 0 );
 	glEnableVertexAttribArray( 0 );
+	if( normals ) {
+		//glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 0, (void*)(m_vertex_vector.size()) );
+		glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 0, (void*)( (long)m_vertex_size ) );
+		glEnableVertexAttribArray( 1 );
+	}
 	
 	m_bound = true;
 }
@@ -117,9 +157,7 @@ void Mesh::bind() {
 void Mesh::render() {
 	if( !m_bound ) bind();
 
-	glBindVertexArray( m_vertex_array_id );
-	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, mp_buffer[1] );
-	glBindBuffer( GL_ARRAY_BUFFER, mp_buffer[0] );
+	//glVertexAttrib3fv( 1, vec3( 1, 0, 1 ).glfloat() );
 
 	switch( m_shape_type ) {
 	case mesh_shape_t::LINE_STRIP:

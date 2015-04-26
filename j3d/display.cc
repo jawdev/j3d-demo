@@ -27,6 +27,7 @@ Display::Display() {
 	glutSetCursor( Settings::glut_cursor );
 	if( Cache::renderbuffers()->empty() ) Cache::renderbuffers()->push( new Renderbuffer )->bind();
 	glEnable( GL_DEPTH_TEST );
+	glEnable( GL_CULL_FACE );
 }
 
 Display::~Display() {

@@ -258,25 +258,25 @@ namespace vmath {
 		m->iden();
 		float cos_ang = cos( f );
 		float sin_ang = sin( f );
-		m->set( 0, 0, cos_ang );
-		m->set( 0, 2, sin_ang );
-		m->set( 2, 0, -sin_ang );
-		m->set( 2, 2, cos_ang );
+		m->set( 0, 0, sin_ang );
+		m->set( 0, 2, -cos_ang );
+		m->set( 2, 0, cos_ang );
+		m->set( 2, 2, sin_ang );
 	}
 	static inline void rotationZ( mat4* m, const float& f ) {
 		m->iden();
 		float cos_ang = cos( f );
 		float sin_ang = sin( f );
 		m->set( 0, 0, cos_ang );
-		m->set( 0, 1, sin_ang );
-		m->set( 1, 0, -sin_ang );
-		m->set( 1, 1, -cos_ang );
+		m->set( 0, 1, -sin_ang );
+		m->set( 1, 0, sin_ang );
+		m->set( 1, 1, cos_ang );
 	}
 	static inline void rotation( mat4* m, const vec3& v ) {
 		mat4 mx, my, mz;
-		if( v.x != 0 ) rotationX( &mx, v.x );
-		if( v.y != 0 ) rotationY( &my, v.y );
-		if( v.z != 0 ) rotationZ( &mz, v.z );
+		rotationX( &mx, v.x );
+		rotationY( &my, v.y );
+		rotationZ( &mz, v.z );
 		*m = mz*mx*my;
 	}
 	static inline void rotation( mat4* m, const vec4& v ) {

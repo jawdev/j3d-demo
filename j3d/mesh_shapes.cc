@@ -34,12 +34,21 @@ void BoxMesh::build() {
 		vec4( m_width/2.0f, m_height/-2.0f, m_length/2.0f ),	// 6
 		vec4( m_width/-2.0f, m_height/-2.0f, m_length/2.0f ),	// 7
 	} );
+	pushNormals( {
+		vec3( -1, 1, -1 ),
+		vec3( 1, 1, -1 ),
+		vec3( 1, 1, 1 ),
+		vec3( -1, 1, 1 ),
+		vec3( -1, -1, -1 ),
+		vec3( 1, -1, -1 ),
+		vec3( 1, -1, 1 ),
+		vec3( -1, -1, 1 )
+	} );
 	pushIndices( {
 		1, 0, 2, 3, 6, 7, 5, 4,
 		0xff,
 		2, 6, 1, 5, 0, 4, 3, 7
-	} );
-}
+	} ); }
 
 ///////////////////////////////////////////////// FloorMesh
 

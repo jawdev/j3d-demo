@@ -49,6 +49,7 @@ void Camera::update( float dtime ) {
 
 mat4 Camera::transform() {
 	vmath::translation( &m_mat_translation, -m_position );
+	//vmath::rotation( &m_mat_rotation, vec3( -m_rotation.x, -m_rotation.y, m_rotation.z ) );
 	vmath::rotation( &m_mat_rotation, -m_rotation );
 	m_mat_transform = m_mat_rotation*m_mat_translation;
 	m_mat_transform = m_mat_proj*m_mat_transform;
