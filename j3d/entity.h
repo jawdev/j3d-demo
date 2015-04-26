@@ -34,6 +34,9 @@ public:
 	Entity* velocity( vec3 );
 	Entity* spin( vec3 );
 
+	Entity* move( vec3 );
+	Entity* rotate( vec3 );
+
 	Entity* look( vec3 );
 
 	vec3 position();

@@ -35,6 +35,7 @@ using namespace std;
 #include "settings.h"
 #include "timer.h"
 #include "vmath.h"
+#include "control.h"
 #include "renderbuffer.h"
 #include "mesh.h"
 #include "mesh_shapes.h"

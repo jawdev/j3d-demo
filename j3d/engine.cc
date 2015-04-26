@@ -31,6 +31,8 @@ void Engine::init( int _argc, char** _argv ) {
 	display = new Display();
 	debug::note << "(Engine::init) creating Timer ..." << debug::flush;
 	timer = new Timer();
+	debug::note << "(Engine::init) initializing Control ..." << debug::flush;
+	Control::init();
 	debug::ok << "(Engine::init) complete" << debug::flush;
 	init_complete = true;
 }
@@ -58,6 +60,7 @@ void Engine::run() {
 
 void Engine::cycle() {
 	timer->calculateDelta();
+	Control::update( timer->delta );
 	scene->update( timer->delta );
 	trigger::flush();
 }

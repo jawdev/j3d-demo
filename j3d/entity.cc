@@ -33,6 +33,9 @@ Entity* Entity::rotation( vec3 v ) { m_rotation = v; return this; }
 Entity* Entity::velocity( vec3 v ) { m_velocity = v; return this; }
 Entity* Entity::spin( vec3 v ) { m_spin = v; return this; }
 
+Entity* Entity::move( vec3 v ) { m_position += v; return this; }
+Entity* Entity::rotate( vec3 v ) { m_rotation += v; return this; }
+
 Entity* Entity::look( vec3 v ) {
 	float dx = m_position.x-v.x;
 	float dz = v.z-m_position.z;

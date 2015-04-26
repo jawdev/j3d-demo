@@ -2,18 +2,18 @@
 * JAW DEVELPMENT LLC
 * J3D Demo
 * github.com/jawdev/j3d-demo
-* /scenes/scene_a.cc
+* /scenes/scene_test.cc
 ******************************************************************************/
-#include "scenes.h"
+#include "inc.h"
 
-SceneA::SceneA() {
+SceneTest::SceneTest() {
 	mp_shaderProgram = nullptr;
 	mp_camera = nullptr;
-	ang = M_PI/2.0f;
+	move_x = move_z = 0;
 	counter = time_agg = 0;
 }
 
-void SceneA::load() {
+void SceneTest::load() {
 	glClearColor( 0.1f, 0.1f, 0.1f, 1 );
 
 	mp_shaderProgram = new j3d::ShaderProgram;
@@ -22,7 +22,7 @@ void SceneA::load() {
 	mp_shaderProgram->link( { "m4_camera", "m4_model", "v4_color" } );
 
 	mp_camera = new j3d::Camera();
-	mp_camera->position( j3d::vec3( 0, 2, 5 ) );
+	mp_camera->position( j3d::vec3( 0, 12, 20 ) );
 
 	j3d::Engine::loadMesh( "box", new j3d::BoxMesh() );
 	j3d::Engine::loadMesh( "floor", new j3d::FloorMesh( 10 ) );
@@ -47,14 +47,14 @@ void SceneA::load() {
 	
 }
 
-void SceneA::unload() {
+void SceneTest::unload() {
 	for( unsigned int i = 0; i < m_cubes.size(); i++ ) SAFE_DELETE( m_cubes[i] );
 	SAFE_DELETE( mp_camera );
 	SAFE_DELETE( mp_shaderProgram );
 	glClearColor( 0, 0, 0, 1 );
 }
 
-void SceneA::update( float dtime ) {
+void SceneTest::update( float dtime ) {
 	if( j3d::trigger::reshape ) mp_camera->reshape();
 
 	for( unsigned int i = 0; i < m_cubes.size(); i++ ) {
@@ -62,18 +62,23 @@ void SceneA::update( float dtime ) {
 		mp_shaderProgram->bind( "m4_model", m_cubes[i]->transform() );
 		m_cubes[i]->render();
 	}
-
-	mp_camera->position( j3d::vec3( 20.0f*cos( ang ), 12.0f, 20.0f*sin( ang ) ) );
+	
+	mp_camera->move( j3d::vec3( 2*move_x*dtime, 0, 2*move_z*dtime ) );
 	mp_camera->look( j3d::vec3() );
 	mp_shaderProgram->bind( "m4_camera", mp_camera->transform() );
 
-	ang += dtime/2.0f;
 	counter += 1;
 	time_agg += dtime;
-	if( ang >= 2.0*M_PI ) ang = 0;
 	if( time_agg >= 1 ) {
 		cout << (int)( counter/time_agg ) << endl;
 		counter = 0;
 		time_agg = 0;
 	}
+}
+
+void SceneTest::onKeyDown( unsigned char key ) {
+	move_x = ( j3d::Control::keyDown( 'a' ) ? -1 : 0 );
+	move_x += ( j3d::Control::keyDown( 'd' ) ? 1 : 0 );
+	move_z = ( j3d::Control::keyDown( 'w' ) ? -1 : 0 );
+	move_z += ( j3d::Control::keyDown( 's' ) ? 1 : 0 );
 }

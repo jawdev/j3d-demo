@@ -2,23 +2,27 @@
 * JAW DEVELPMENT LLC
 * J3D Demo
 * github.com/jawdev/j3d-demo
-* /scenes/scene_a.h
+* /scene_test.h
 ******************************************************************************/
-#ifndef J3D_DEMO_SCENE_A_H_
-#define J3D_DEMO_SCENE_A_H_
+#ifndef J3D_DEMO_SCENE_TEST_H_
+#define J3D_DEMO_SCENE_TEST_H_
 
-class SceneA : public j3d::Scene {
+class SceneTest : public j3d::Scene {
 public:
 
-	SceneA();
-	~SceneA() { unload(); }
+	SceneTest();
+	~SceneTest() { unload(); }
 
 	void load();
 	void unload();
 	void update( float dtime );
 
+	void onKeyDown( unsigned char key );
+	void onKeyUp( unsigned char key ) { onKeyDown( key ); }
+
 private:
-	float ang;
+	float move_x;
+	float move_z;
 	float counter;
 	float time_agg;
 	j3d::ShaderProgram* mp_shaderProgram;

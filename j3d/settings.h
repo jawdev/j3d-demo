@@ -18,6 +18,8 @@ public:
 	static char* 		window_title;
 
 	static unsigned int	glut_cursor;
+	static float		mouse_buffer_time;
+	static bool			mouse_warp;
 
 	static float		render_distance_near;
 	static float		render_distance_far;
