@@ -36,12 +36,15 @@ public:
 	static stackable<Camera*>* cameras();
 	static Camera* camera();
 
+	static labler<Mesh*>* meshes();
+
 private:
 
 	static stackable<Renderbuffer*> m_renderbuffers;
 	static labler<Scene*> m_scenes;
 
 	static stackable<Camera*> m_cameras;
+	static labler<Mesh*> m_meshes;
 
 };
 

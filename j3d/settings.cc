@@ -7,12 +7,15 @@
 #include "j3d.h"
 namespace j3d {
 
-bool Settings::debug				= true;
+bool Settings::debug					= true;
 
-int Settings::window_width			= 800;
-int Settings::window_height			= 600;
-char* Settings::window_title		= "J3D";
+int Settings::window_width				= 800;
+int Settings::window_height				= 600;
+char* Settings::window_title			= "J3D";
 
-unsigned int Settings::glut_cursor	= GLUT_CURSOR_NONE;
+unsigned int Settings::glut_cursor		= GLUT_CURSOR_NONE;
+
+float Settings::render_distance_near	= 1;
+float Settings::render_distance_far		= 1000;
 
 }

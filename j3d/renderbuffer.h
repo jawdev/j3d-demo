@@ -29,8 +29,8 @@ public:
 	//====================================
 
 	void reshape( unsigned int w, unsigned int h );
-	void bind();
-	void blit( unsigned int fid = 0 );
+	void bind( unsigned int fid = 0 );
+	void blit();
 
 	//====================================
 	// GET

@@ -36,8 +36,8 @@ namespace debug {
 	static DebugStream code( "\033[0;34m", "CODE" );
 	static DebugStream note( "\033[0;35m", "NOTE" );
 	static DebugStream warn( "\033[0;93m", "WARN" );
-	static DebugStream error( "\033[0;91m", "ERROR" );
-	static DebugStream fatal( "\033[1;91m", "FATAL", true );
+	static DebugStream error( "\033[0;31m", "ERROR" );
+	static DebugStream fatal( "\033[0;91m", "FATAL", true );
 
 }
 }

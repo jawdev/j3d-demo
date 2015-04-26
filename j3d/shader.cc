@@ -7,6 +7,8 @@
 #include "j3d.h"
 namespace j3d {
 
+///////////////////////////////////////////////// Shader
+
 Shader::Shader( const char* path, GLenum type ) {
 	GLuint id = glCreateShader( type );
 	const char* source = util::file_get_contents( path, true );
@@ -23,6 +25,7 @@ Shader::Shader( const char* path, GLenum type ) {
 		debug::fatal << "(Shader::Shader) compilation failed: " << path << "\n" << log << debug::flush;
 		delete [] log;
 	}
+	debug::info << "(Shader::Shader) compiled: " << path << debug::flush;
 	m_id = id;
 	m_type = type;
 }
@@ -31,6 +34,8 @@ Shader::~Shader() {}
 
 GLuint Shader::id() { return m_id; }
 GLenum Shader::type() { return m_type; }
+
+///////////////////////////////////////////////// ShaderProgram
 
 ShaderProgram::ShaderProgram() {
 	for( int i = 0; i < SHADER_COUNT; i++ ) mp_shaders[i] = nullptr;
@@ -67,13 +72,39 @@ void ShaderProgram::link( initializer_list<char*> unames ) {
 		debug::fatal << "(ShaderProgram::link) shader program could not be linked\n" << log << debug::flush;
 		delete [] log;
 	}
-	for( char* uname : unames ) {
-		m_ulocs.insert( pair<char*,GLint>( uname, glGetUniformLocation( m_id, uname ) ) );
-	}
+	for( char* uname : unames ) m_ulocs.insert( pair<char*,GLint>( uname, glGetUniformLocation( m_id, uname ) ) );
+	debug::info << "(ShaderProgram::link) program " << m_id << " linked" << debug::flush;
+	glUseProgram( m_id );
 	m_linked = true;
 }
 
 GLuint ShaderProgram::id() { return m_id; }
 bool ShaderProgram::linked() { return m_linked; }
+
+//====================================
+// BIND
+//====================================
+
+bool ShaderProgram::hasUniform( char* key, bool debug_fatal ) {
+	try { m_ulocs.at( key ); }
+	catch( ... ) {
+		if( debug_fatal ) debug::fatal << "(ShaderProgram::hasUniform) uniform does not exist: " << key << debug::flush;
+		return false;
+	}
+	return true;
+}
+
+ShaderProgram* ShaderProgram::bind( char* key, vec4 v ) {
+	glUniform4fv( m_ulocs.at( key ), 1, v.glfloat() );
+	return this;
+}
+
+ShaderProgram* ShaderProgram::bind( char* key, mat4 m ) {
+	glUniformMatrix4fv( m_ulocs.at( key ), 1, GL_FALSE, m.glfloat() );
+	return this;
+}
+
+
+
 
 }

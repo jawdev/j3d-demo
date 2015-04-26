@@ -25,6 +25,7 @@ Renderbuffer::Renderbuffer() {
 	glFramebufferRenderbuffer( GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, mp_renderbuffers[COLOR_BUFFER] );
 	glFramebufferRenderbuffer( GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mp_renderbuffers[DEPTH_BUFFER] );
 	glEnable( GL_DEPTH_TEST );
+	//glEnable( GL_CULL_FACE );
 }
 
 Renderbuffer::~Renderbuffer() {
@@ -50,17 +51,14 @@ void Renderbuffer::reshape( unsigned int w, unsigned int h ) {
 	glFramebufferRenderbuffer( GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mp_renderbuffers[DEPTH_BUFFER] );
 }
 
-void Renderbuffer::bind() {
+void Renderbuffer::bind( unsigned int fid ) {
 	glBindFramebuffer( GL_DRAW_FRAMEBUFFER, m_framebuffer );
+	glBindFramebuffer( GL_DRAW_FRAMEBUFFER, fid );
 	glClear( GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT );
 }
 
-void Renderbuffer::blit( unsigned int fid ) {
-	glClear( GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT );
-	glBindFramebuffer( GL_READ_FRAMEBUFFER, m_framebuffer );
-	glBindFramebuffer( GL_DRAW_FRAMEBUFFER, fid );
+void Renderbuffer::blit() {
 	glBlitFramebuffer( 0, 0, m_width-1, m_height-1, 0, 0, m_width-1, m_height-1, GL_COLOR_BUFFER_BIT, GL_NEAREST );
-	glutSwapBuffers();
 }
 
 //=====================================

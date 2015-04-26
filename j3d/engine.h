@@ -37,6 +37,8 @@ public:
 	static Scene* loadScene( char* name );
 	static void unloadScene();
 
+	static Mesh* loadMesh( char* name, Mesh* m );
+
 };
 
 }

@@ -7,6 +7,8 @@
 #include "j3d.h"
 namespace j3d {
 
+bool trigger::reshape = false;
+
 bool Engine::init_complete = false;
 int Engine::argc = 0;
 char** Engine::argv = nullptr;
@@ -57,6 +59,7 @@ void Engine::run() {
 void Engine::cycle() {
 	timer->calculateDelta();
 	scene->update( timer->delta );
+	trigger::flush();
 }
 
 //====================================
@@ -65,6 +68,7 @@ void Engine::cycle() {
 
 Scene* Engine::addScene( char* name, Scene* s, bool load ) {
 	Cache::scenes()->add( name, s, load );
+	debug::info << "(Engine::addScene) scene added: " << name << debug::flush;
 	if( load ) {
 		unloadScene();
 		scene = s;
@@ -77,6 +81,7 @@ Scene* Engine::loadScene( char* name ) {
 	unloadScene();
 	scene = Cache::scenes()->find( name, true );
 	scene->load();
+	debug::info << "(Engine::loadScene) scene loaded: " << name << debug::flush;
 	return scene;
 }
 
@@ -84,6 +89,12 @@ void Engine::unloadScene() {
 	if( scene == nullptr ) return;
 	scene->unload();
 	scene = nullptr;
+}
+
+Mesh* Engine::loadMesh( char* name, Mesh* m ) {
+	Cache::meshes()->add( name, m );
+	debug::info << "(Engine::loadMesh) mesh loaded: " << name << debug::flush;
+	return m;
 }
 
 }

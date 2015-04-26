@@ -26,6 +26,7 @@ Display::Display() {
 	atexit( callbackQuit );
 	glutSetCursor( Settings::glut_cursor );
 	if( Cache::renderbuffers()->empty() ) Cache::renderbuffers()->push( new Renderbuffer )->bind();
+	glEnable( GL_DEPTH_TEST );
 }
 
 Display::~Display() {
@@ -40,6 +41,7 @@ void Display::mainLoop() {
 //=====================================
 
 void Display::callbackReshape( int w, int h ) {
+	trigger::reshape = true;
 	glViewport( 0, 0, w, h );
 	Settings::window_width = w;
 	Settings::window_height = h;
@@ -47,8 +49,11 @@ void Display::callbackReshape( int w, int h ) {
 }
 
 void Display::callbackDisplay() {
+	Cache::renderbuffer()->bind();
 	Engine::cycle();
 	Cache::renderbuffer()->blit();
+	glFlush();
+	glutSwapBuffers();
 	glutPostRedisplay();
 }
 

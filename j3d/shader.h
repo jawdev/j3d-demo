@@ -8,6 +8,8 @@
 #define J3D_SHADER_H_
 namespace j3d {
 
+///////////////////////////////////////////////// Shader
+
 class Shader {
 public:
 
@@ -32,6 +34,8 @@ public:
 	FragmentShader( const char* path ) : Shader( path, GL_FRAGMENT_SHADER ) {}
 };
 
+///////////////////////////////////////////////// ShaderProgram
+
 class ShaderProgram {
 public:
 	static const int SHADER_COUNT = 2;
@@ -46,6 +50,14 @@ public:
 
 	GLuint id();
 	bool linked();
+
+	//====================================
+	// BIND
+	//====================================
+
+	bool hasUniform( char*, bool = false );
+	ShaderProgram* bind( char*, vec4 );
+	ShaderProgram* bind( char*, mat4 );
 
 private:
 	GLuint m_id;

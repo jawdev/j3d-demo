@@ -10,7 +10,6 @@
 
 int main( int argc, char* argv[] ) {
 
-
 	j3d::Settings::glut_cursor = GLUT_CURSOR_LEFT_ARROW;
 	j3d::Engine::init( argc, argv );
 

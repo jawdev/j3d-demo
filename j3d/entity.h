@@ -19,6 +19,13 @@ public:
 	virtual ~Entity();
 
 	//====================================
+	// UPDATE
+	//====================================
+
+	void simulate( float dtime );
+	virtual void update( float dtime ) {}
+
+	//====================================
 	// ATTRIBUTES
 	//====================================
 
@@ -27,17 +34,25 @@ public:
 	Entity* velocity( vec3 );
 	Entity* spin( vec3 );
 
+	Entity* look( vec3 );
+
 	vec3 position();
 	vec3 rotation();
 	vec3 velocity();
 	vec3 spin();
 
-private:
+	virtual mat4 transform();
+
+protected:
 	
 	vec3 m_position;
 	vec3 m_rotation;
 	vec3 m_velocity;
 	vec3 m_spin;
+
+	mat4 m_mat_translation;
+	mat4 m_mat_rotation;
+	mat4 m_mat_transform;
 
 };
 

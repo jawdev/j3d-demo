@@ -19,6 +19,9 @@ public:
 
 	static unsigned int	glut_cursor;
 
+	static float		render_distance_near;
+	static float		render_distance_far;
+
 };
 
 }

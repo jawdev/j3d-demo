@@ -29,20 +29,22 @@ using namespace std;
 
 #include "debug.h"
 #include "util.h"
+#include "trigger.h"
 #include "stackable.h"
 #include "labler.h"
 #include "settings.h"
 #include "timer.h"
 #include "vmath.h"
 #include "renderbuffer.h"
+#include "mesh.h"
+#include "mesh_shapes.h"
 #include "entity.h"
 #include "camera.h"
+#include "object.h"
 #include "shader.h"
 #include "scene.h"
 #include "cache.h"
 #include "display.h"
 #include "engine.h"
 
-namespace j3d {
-}
 #endif

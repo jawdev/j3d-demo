@@ -19,6 +19,9 @@ public:
 
 private:
 	j3d::ShaderProgram* mp_shaderProgram;
+	j3d::Camera* mp_camera;
+	j3d::Object* mp_object;
+	j3d::Object* mp_object2;
 };
 
 #endif

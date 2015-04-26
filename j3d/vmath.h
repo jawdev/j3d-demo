@@ -35,14 +35,7 @@ struct vec2 {
 	vec2& operator*=( const float f ) { x *= f; y *= f; return *this; }
 	vec2& operator/=( const float f ) { x /= f; y /= f; return *this; }
 
-	const float operator[]( int i ) const { return *( &x+i ); }
-	GLfloat& operator[]( int i ) { return *( &x+i ); }
-
-	operator const float*() const { return static_cast<const float*>( &x ); }
-	operator float*() { return static_cast<float*>( &x ); }
-	operator const GLfloat*() const { return static_cast<const GLfloat*>( &x ); }
-	operator GLfloat*() { return static_cast<GLfloat*>( &x ); }
-
+	GLfloat* glfloat() { return (GLfloat*)this; }
 	friend ostream& operator<<( ostream& os, const vec2& v );
 
 };
@@ -81,14 +74,7 @@ struct vec4 {
 	vec4& operator*=( const float f ) { x *= f; y *= f; z *= f; if( !lock_w ) w *= f; return *this; }
 	vec4& operator/=( const float f ) { x /= f; y /= f; z /= f; if( !lock_w ) w /= f; return *this; }
 
-	const float operator[]( int i ) const { return *( &x+i ); }
-	GLfloat& operator[]( int i ) { return *( &x+i ); }
-
-	operator const float*() const { return static_cast<const float*>( &x ); }
-	operator float*() { return static_cast<float*>( &x ); }
-	operator const GLfloat*() const { return static_cast<const GLfloat*>( &x ); }
-	operator GLfloat*() { return static_cast<GLfloat*>( &x ); }
-
+	GLfloat* glfloat() { return (GLfloat*)this; }
 	friend ostream& operator<<( ostream& os, const vec4& v );
 
 };
@@ -125,15 +111,8 @@ struct vec3 {
 	vec3& operator*=( const float f ) { x *= f; y *= f; z *= f; return *this; }
 	vec3& operator/=( const float f ) { x /= f; y /= f; z /= f; return *this; }
 
-	const float operator[]( int i ) const { return *( &x+i ); }
-	GLfloat& operator[]( int i ) { return *( &x+i ); }
-
-	operator const float*() const { return static_cast<const float*>( &x ); }
-	operator float*() { return static_cast<float*>( &x ); }
-	operator const GLfloat*() const { return static_cast<const GLfloat*>( &x ); }
-	operator GLfloat*() { return static_cast<GLfloat*>( &x ); }
 	operator vec4() { return vec4( x, y, z, 1 ); }
-
+	GLfloat* glfloat() { return (GLfloat*)this; }
 	friend ostream& operator<<( ostream& os, const vec3& v );
 
 };
@@ -195,11 +174,7 @@ struct mat4 {
 		return result;
 	}
 
-	operator const float*() const { return static_cast<const float*>( &data[0][0] ); }
-	operator float*() { return static_cast<float*>( &data[0][0] ); }
-	operator const GLfloat*() const { return static_cast<const GLfloat*>( &data[0][0] ); }
-	operator GLfloat*() { return static_cast<GLfloat*>( &data[0][0] ); }
-
+	GLfloat* glfloat() { return (GLfloat*)this; }
 	friend ostream& operator<<( ostream& os, const mat4& m );
 
 };

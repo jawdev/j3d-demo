@@ -10,6 +10,7 @@ namespace j3d {
 stackable<Renderbuffer*> Cache::m_renderbuffers;
 labler<Scene*> Cache::m_scenes;
 stackable<Camera*> Cache::m_cameras;
+labler<Mesh*> Cache::m_meshes;
 
 //====================================
 // CLEAR
@@ -29,6 +30,8 @@ void Cache::clearGlobal() {
 }
 
 void Cache::clearScene() {
+	debug::note << "(Cache::clearScene) deleting Meshes ..." << debug::flush;
+	m_meshes.clear();
 	debug::note << "(Cache::clearScene) deleting Cameras ..." << debug::flush;
 	m_cameras.clear();
 }
@@ -49,5 +52,7 @@ Scene* Cache::scene() { return m_scenes.active(); }
 
 stackable<Camera*>* Cache::cameras() { return &m_cameras; }
 Camera* Cache::camera() { return m_cameras.top(); }
+
+labler<Mesh*>* Cache::meshes() { return &m_meshes; }
 
 }
