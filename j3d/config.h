@@ -2,17 +2,17 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/setup.h
+* j3d/config.h
 *******************************************************************************/
-#ifndef __J3D_SETUP_H__
-#define __J3D_SETUP_H__
+#ifndef __J3D_CONFIG_H__
+#define __J3D_CONFIG_H__
 namespace j3d {
 
 /*******************************************************************************
 * SETUP
 *******************************************************************************/
 
-struct Setup {
+struct Config {
 
 	int argc;
 	char **argv;
@@ -24,7 +24,7 @@ struct Setup {
 	bool register_atexit;
 	bool register_sigint;
 
-	Setup() { reset(); }
+	Config() { reset(); }
 	void reset()
 	{
 		argc = 0;

@@ -15,7 +15,7 @@ namespace j3d {
 class engine {
 public:
 
-	static void init(const Setup &);
+	static void init(const Config &);
 	static void quit(int exit_code = 0);
 	static void atexit_callback();
 	static void sigint_handler(int);
@@ -23,12 +23,12 @@ public:
 	static void update();
 
 	static bool initialized();
-	static Setup *setup();
+	static Config *config();
 	static Display *display();
 
 private:
 	static bool m_init_complete;
-	static Setup m_setup;
+	static Config m_config;
 	static Display *mp_display;
 	
 };

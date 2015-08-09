@@ -9,14 +9,14 @@ namespace j3d {
 
 Display::Display()
 {
-	glutInit(&engine::setup()->argc, engine::setup()->argv);
+	glutInit(&engine::config()->argc, engine::config()->argv);
 	glutInitDisplayMode(GLUT_RGBA);
 	glutInitContextVersion(4, 3);
 	glutInitContextProfile(GLUT_CORE_PROFILE);
-	glutInitWindowSize(engine::setup()->window_width,
-			engine::setup()->window_height);
+	glutInitWindowSize(engine::config()->window_width,
+			engine::config()->window_height);
 	glutInitWindowPosition(100, 100);
-	glutCreateWindow(engine::setup()->window_title.c_str());
+	glutCreateWindow(engine::config()->window_title.c_str());
 	glewExperimental = GL_TRUE;
 	if (glewInit())
 		J3D_DEBUG_FATAL("unable to initialize GLEW");
@@ -47,8 +47,8 @@ void Display::reshape(int w, int h)
 {
 	util::cycle::triggers.reshape = true;
 	glViewport(0, 0, w, h);
-	engine::setup()->window_width = w;
-	engine::setup()->window_height = h;
+	engine::config()->window_width = w;
+	engine::config()->window_height = h;
 }
 
 void Display::display()

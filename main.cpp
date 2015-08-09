@@ -5,13 +5,13 @@ int main(int argc, char *argv[])
 {
 	debug(J3D_DEBUG_LEVEL_ALL, true);
 	
-	Setup setup;
-		setup.argc = argc;
-		setup.argv = argv;
-		setup.window_width = 800;
-		setup.window_height = 600;
-		setup.window_title = "TEST";
-	engine::init(setup);
+	Config config;
+		config.argc = argc;
+		config.argv = argv;
+		config.window_width = 800;
+		config.window_height = 600;
+		config.window_title = "TEST";
+	engine::init(config);
 	
 	engine::quit();
 	return 0;

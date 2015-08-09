@@ -31,7 +31,7 @@ using namespace std;
 #include "util/cycle.h"
 #include "core/renderbuffer.h"
 #include "display.h"
-#include "setup.h"
+#include "config.h"
 #include "engine.h"
 
 #endif

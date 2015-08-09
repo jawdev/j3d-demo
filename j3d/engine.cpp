@@ -12,13 +12,13 @@ namespace j3d {
 *******************************************************************************/
 
 bool engine::m_init_complete = false;
-Setup engine::m_setup;
+Config engine::m_config;
 Display *engine::mp_display = nullptr;
 
 ////////////////////////////////////////
 // INIT
 
-void engine::init(const Setup &s)
+void engine::init(const Config &s)
 {
 	if (m_init_complete) {
 		J3D_DEBUG_WARN("already initialized");
@@ -26,14 +26,14 @@ void engine::init(const Setup &s)
 	}
 	m_init_complete = true;
 
-	J3D_DEBUG_TODO("loading Setup");
-	m_setup = s;
+	J3D_DEBUG_TODO("loading Config");
+	m_config = s;
 
-	if (m_setup.register_atexit) {
+	if (m_config.register_atexit) {
 		J3D_DEBUG_TODO("registering atexit callback");
 		atexit(j3d::engine::atexit_callback);
 	}
-	if (m_setup.register_sigint) {
+	if (m_config.register_sigint) {
 		J3D_DEBUG_TODO("registering sigint handler");
 		struct sigaction a;
 		a.sa_handler = j3d::engine::sigint_handler;
@@ -63,7 +63,7 @@ void engine::quit(int exit_code)
 	J3D_DEBUG_TODO("deleting Display");
 	delete mp_display;
 
-	if (m_setup.register_sigint) {
+	if (m_config.register_sigint) {
 		J3D_DEBUG_TODO("releasing sigint handler");
 		signal(SIGINT, SIG_DFL);
 	}
@@ -103,8 +103,7 @@ void engine::update()
 // GET SET
 
 bool engine::initialized() { return m_init_complete; }
-Setup *engine::setup() { return &m_setup; }
+Config *engine::config() { return &m_config; }
 Display *engine::display() { return mp_display; }
-
 
 }

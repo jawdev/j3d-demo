@@ -13,8 +13,8 @@ namespace j3d { namespace core {
 
 Renderbuffer::Renderbuffer(const char *id) : util::cache(CACHE_ID, id)
 {
-	m_width = engine::setup()->window_width;
-	m_height = engine::setup()->window_height;
+	m_width = engine::config()->window_width;
+	m_height = engine::config()->window_height;
 	mp_renderbuffers = new GLuint[NUM_BUFFERS];
 	glGenRenderbuffers(NUM_BUFFERS, mp_renderbuffers);
 
@@ -43,8 +43,8 @@ Renderbuffer::~Renderbuffer()
 
 void Renderbuffer::reshape(int w, int h)
 {
-	m_width = engine::setup()->window_width;
-	m_height = engine::setup()->window_height;
+	m_width = engine::config()->window_width;
+	m_height = engine::config()->window_height;
 	glDeleteRenderbuffers(NUM_BUFFERS, mp_renderbuffers);
 	glGenRenderbuffers(NUM_BUFFERS, mp_renderbuffers);
 
