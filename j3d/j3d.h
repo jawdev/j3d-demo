@@ -37,6 +37,7 @@ using namespace std;
 #include "cycle.h"
 #include "core/renderbuffer.h"
 #include "core/display.h"
+#include "shader.h"
 #include "control.h"
 #include "mesh.h"
 #include "mesh_shapes.h"

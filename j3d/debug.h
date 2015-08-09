@@ -69,7 +69,7 @@ struct debug_settings {
 
 #define J3D_DEBUG_FATAL(m) do {\
 	if (J3D_DEBUG_LEVEL_ERROR >= j3d::debug_settings::level)\
-		J3D_DEBUG(std::cerr, "0;30m\033[101", "FATAL", " " << m << " ");\
+		J3D_DEBUG(std::cerr, "0;31", "FATAL", " " << m << " ");\
 	exit(1);\
 } while (0)
 

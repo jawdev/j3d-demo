@@ -14,6 +14,11 @@ int main(int argc, char *argv[])
 	engine::init(config);
 
 	Scene *s = new Scene("a");
+
+	ShaderProgram *sp = new ShaderProgram();
+	sp->addVertexShader("assets/shaders/basic.vs");
+	sp->addFragmentShader("assets/shaders/basic.fs");
+	sp->link({"m4_camera", "m4_model", "v4_color"});
 	
 	engine::run();
 	return 0;
