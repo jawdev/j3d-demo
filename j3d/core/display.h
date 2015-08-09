@@ -2,11 +2,11 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/display.h
+* j3d/core/display.h
 *******************************************************************************/
-#ifndef __J3D_DISPLAY_H__
-#define __J3D_DISPLAY_H__
-namespace j3d {
+#ifndef __J3D_CORE_DISPLAY_H__
+#define __J3D_CORE_DISPLAY_H__
+namespace j3d { namespace core {
 
 /*******************************************************************************
 * DISPLAY
@@ -26,5 +26,5 @@ public:
 
 };
 
-}
+} }
 #endif

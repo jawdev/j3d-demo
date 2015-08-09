@@ -12,6 +12,8 @@ int main(int argc, char *argv[])
 		config.window_height = 600;
 		config.window_title = "TEST";
 	engine::init(config);
+
+	engine::start();
 	
 	engine::quit();
 	return 0;

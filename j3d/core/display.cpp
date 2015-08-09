@@ -2,10 +2,10 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/display.cpp
+* j3d/core/display.cpp
 *******************************************************************************/
-#include "j3d.h"
-namespace j3d {
+#include "../j3d.h"
+namespace j3d { namespace core {
 
 Display::Display()
 {
@@ -24,10 +24,10 @@ Display::Display()
 	glutReshapeFunc(on_reshape);
 	glutDisplayFunc(on_display);
 
-	if (J3D_CACHE_EXISTS(core::Renderbuffer)) 
-		J3D_CACHE_ACTIVE(core::Renderbuffer)->bind();
+	if (J3D_CACHE_EXISTS(Renderbuffer)) 
+		J3D_CACHE_ACTIVE(Renderbuffer)->bind();
 	else
-		(new core::Renderbuffer("primary"))->bind();
+		(new Renderbuffer("primary"))->bind();
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -45,7 +45,7 @@ void Display::loop()
 
 void Display::reshape(int w, int h)
 {
-	util::cycle::triggers.reshape = true;
+	cycle::triggers.reshape = true;
 	glViewport(0, 0, w, h);
 	engine::config()->window_width = w;
 	engine::config()->window_height = h;
@@ -69,4 +69,4 @@ void Display::on_display()
 	engine::display()->display();
 }
 
-}
+} }

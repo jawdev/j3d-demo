@@ -2,11 +2,11 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/util/cycle.h
+* j3d/cycle.h
 *******************************************************************************/
-#ifndef __J3D_UTIL_CYCLE_H__
-#define __J3D_UTIL_CYCLE_H__
-namespace j3d { namespace util {
+#ifndef __J3D_CYCLE_H__
+#define __J3D_CYCLE_H__
+namespace j3d {
 
 struct cycle_triggers {
 	bool reshape;
@@ -28,5 +28,5 @@ struct cycle {
 	static void flush();
 };
 
-} }
+}
 #endif

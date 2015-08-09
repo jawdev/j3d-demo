@@ -33,10 +33,11 @@ using namespace std;
 #include "util/flaggable.h"
 #include "util/cache.h"
 #include "math/vmath.h"
-#include "util/cycle.h"
+#include "cycle.h"
 #include "core/renderbuffer.h"
-#include "display.h"
+#include "core/display.h"
 #include "control.h"
+#include "scene.h"
 #include "config.h"
 #include "engine.h"
 

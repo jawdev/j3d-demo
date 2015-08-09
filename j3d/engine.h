@@ -17,19 +17,20 @@ public:
 
 	static void init(const Config &);
 	static void quit(int exit_code = 0);
+	static void start();
+
 	static void atexit_callback();
 	static void sigint_handler(int);
-
 	static void update();
 
 	static bool initialized();
 	static Config *config();
-	static Display *display();
+	static core::Display *display();
 
 private:
 	static bool m_init_complete;
 	static Config m_config;
-	static Display *mp_display;
+	static core::Display *mp_display;
 	
 };
 

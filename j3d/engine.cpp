@@ -13,7 +13,7 @@ namespace j3d {
 
 bool engine::m_init_complete = false;
 Config engine::m_config;
-Display *engine::mp_display = nullptr;
+core::Display *engine::mp_display = nullptr;
 
 ////////////////////////////////////////
 // INIT
@@ -43,10 +43,9 @@ void engine::init(const Config &s)
 	}
 
 	J3D_DEBUG_TODO("creating Display");
-	mp_display = new Display();
+	mp_display = new core::Display();
 
 	J3D_DEBUG_OK("engine initialized");
-	mp_display->loop();
 }
 
 void engine::quit(int exit_code)
@@ -58,7 +57,7 @@ void engine::quit(int exit_code)
 	m_init_complete = false;
 
 	J3D_DEBUG_TODO("clearing Cache");
-	util::cache::cache_group_destroy_all();
+	util::cache::group_destroy_all();
 
 	J3D_DEBUG_TODO("deleting Display");
 	delete mp_display;
@@ -75,6 +74,16 @@ void engine::quit(int exit_code)
 	}
 }
 
+void engine::start()
+{
+	if (!J3D_CACHE_EXISTS(Scene))
+		J3D_DEBUG_FATAL("please create a Scene");
+	mp_display->loop();
+}
+
+////////////////////////////////////////
+// CORE
+
 void engine::atexit_callback()
 {
 	if (m_init_complete)
@@ -89,14 +98,11 @@ void engine::sigint_handler(int code)
 	exit(0);
 }
 
-////////////////////////////////////////
-// CORE
-
 void engine::update()
 {
-	util::cycle::tick();
-	
-	util::cycle::flush();
+	cycle::tick();
+	J3D_CACHE_ACTIVE(Scene)->update();
+	cycle::flush();
 }
 
 ////////////////////////////////////////
@@ -104,6 +110,6 @@ void engine::update()
 
 bool engine::initialized() { return m_init_complete; }
 Config *engine::config() { return &m_config; }
-Display *engine::display() { return mp_display; }
+core::Display *engine::display() { return mp_display; }
 
 }

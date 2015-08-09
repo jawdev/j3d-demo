@@ -12,9 +12,9 @@ namespace j3d { namespace core {
 * RENDERBUFFER
 *******************************************************************************/
 
-class Renderbuffer : public util::cache {
+class Renderbuffer : public util::Cacheable {
 public:
-	static const char constexpr	*CACHE_ID		= "j3d_renderbuffer";
+	static const char constexpr	*J3D_CACHE_ID	= "renderbuffer";
 	static const int			NUM_BUFFERS		= 2;
 	static const int			COLOR_BUFFER	= 0;
 	static const int			DEPTH_BUFFER 	= 1;

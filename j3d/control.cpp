@@ -42,7 +42,7 @@ void control::update()
 {
 	if (!m_recording)
 		return;
-	m_record_time += util::cycle::delta;
+	m_record_time += cycle::delta;
 	if (m_record_time < engine::config()->mouse_buffer_time)
 		return;
 	m_record_time = 0;
