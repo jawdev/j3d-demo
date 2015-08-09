@@ -21,6 +21,8 @@ struct Config {
 	int window_height;
 	string window_title;
 
+	float mouse_buffer_time;
+
 	bool register_atexit;
 	bool register_sigint;
 
@@ -31,6 +33,7 @@ struct Config {
 		argv = nullptr;
 		window_width = 800;
 		window_height = 600;
+		mouse_buffer_time = 0.01f;
 		register_atexit = true;
 		register_sigint = true;
 	}

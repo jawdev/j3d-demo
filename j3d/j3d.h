@@ -7,6 +7,8 @@
 #ifndef __J3D_J3D_H__
 #define __J3D_J3D_H__
 
+#define _USE_MATH_DEFINES
+
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -17,7 +19,9 @@
 #include <signal.h>
 #include <unistd.h>
 #include <cinttypes>
+#include <cmath>
 #include <unordered_map>
+#include <initializer_list>
 using namespace std;
 
 #include <GL/glew.h>
@@ -28,9 +32,11 @@ using namespace std;
 #include "util/helpers.h"
 #include "util/flaggable.h"
 #include "util/cache.h"
+#include "math/vmath.h"
 #include "util/cycle.h"
 #include "core/renderbuffer.h"
 #include "display.h"
+#include "control.h"
 #include "config.h"
 #include "engine.h"
 
