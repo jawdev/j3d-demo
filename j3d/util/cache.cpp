@@ -11,16 +11,15 @@ namespace j3d { namespace util {
 * CACHE
 *******************************************************************************/
 
-unordered_map<const char *,
-		unordered_map<const char *, void *>> cache::m_caches;
-unordered_map<const char *, void *> cache::m_active;
+unordered_map<string, unordered_map<string, void *>> cache::m_caches;
+unordered_map<string, void *> cache::m_active;
 bool cache::m_destroy_all = false;
 
 
 ////////////////////////////////////////
 // STATICS
 
-bool cache::group_exists(const char *id)
+bool cache::group_exists(string id)
 {
 	try {
 		m_caches.at(id);
@@ -30,13 +29,13 @@ bool cache::group_exists(const char *id)
 	return true;
 }
 
-void cache::group_create(const char *id)
+void cache::group_create(string id)
 {
-	m_caches[id] = unordered_map<const char *, void *>();
+	m_caches[id] = unordered_map<string , void *>();
 	m_active[id] = nullptr;
 }
 
-void cache::group_destroy(const char *id, bool destroy)
+void cache::group_destroy(string id, bool destroy)
 {
 	if (!destroy) {
 		m_active.erase(id);
@@ -70,19 +69,19 @@ void cache::group_destroy_all(bool destroy)
 	m_destroy_all = false;
 }
 
-bool cache::exists(const char *id1)
+bool cache::exists(string id1)
 {
 	if (!group_exists(id1))
 		return false;
 	try {
-		return (m_caches[id1].size() > 0);
+		return !m_caches[id1].empty();
 	} catch (...) {
 		J3D_DEBUG_ERROR("cache group could not be found: [" << id1 << "]");
 		return false;
 	}
 }
 
-bool cache::has(const char *id1, const char *id2)
+bool cache::has(string id1, string id2)
 {
 	try {
 		m_caches.at(id1).at(id2);
@@ -92,7 +91,7 @@ bool cache::has(const char *id1, const char *id2)
 	return true;
 }
 
-bool cache::add(const char *id1, const char *id2, void *el)
+bool cache::add(string id1, string id2, void *el)
 {
 	try {
 		m_caches[id1][id2] = el;
@@ -103,7 +102,7 @@ bool cache::add(const char *id1, const char *id2, void *el)
 	return true;
 }
 
-void *cache::get(const char *id1, const char *id2)
+void *cache::get(string id1, string id2)
 {
 	try {
 		return m_caches[id1][id2];
@@ -114,7 +113,7 @@ void *cache::get(const char *id1, const char *id2)
 	}
 }
 
-void *cache::active(const char *id1)
+void *cache::active(string id1)
 {
 	try {
 		return m_active[id1];
@@ -124,12 +123,12 @@ void *cache::active(const char *id1)
 	}
 }
 
-void cache::activate(const char *id1, const char *id2)
+void cache::activate(string id1, string id2)
 {
 	m_active[id1] = m_caches[id1][id2];
 }
 
-bool cache::remove(const char *id1, const char *id2, bool destroy)
+bool cache::remove(string id1, string id2, bool destroy)
 {
 	if (m_destroy_all)
 		return true;
@@ -143,17 +142,17 @@ bool cache::remove(const char *id1, const char *id2, bool destroy)
 	}
 	m_caches[id1].erase(id2);
 	if (m_active[id1] == c) {
-		if (m_caches.size() == 0)
+		if (m_caches[id1].empty())
 			m_active[id1] = nullptr;
 		else
-			m_active[id1] = m_caches[id1].end()->second;
+			m_active[id1] = m_caches[id1].begin()->second;
 	}
 	if (destroy)
 		delete (Cacheable *)c;
 	return true;
 }
 
-bool cache::dne_fatal(const char *id1, const char *id2)
+bool cache::dne_fatal(string id1, string id2)
 {
 	if (has(id1, id2)) {
 		J3D_DEBUG_FATAL("cached item already exists: [" << id1 << "][" << id2
@@ -163,16 +162,28 @@ bool cache::dne_fatal(const char *id1, const char *id2)
 	return true;
 }
 
+void cache::print()
+{
+	for (auto iter = m_caches.begin(); iter != m_caches.end(); ++iter)
+		print(iter->first);
+}
+
+void cache::print(string id1)
+{
+	cout << id1 << " {\n";
+	for (auto iter = m_caches[id1].begin(); iter != m_caches[id1].end(); ++iter)
+		cout << "\t" << iter->first << " -> " << iter->second << "\n";
+	cout << "}" << endl;
+}
+
 /*******************************************************************************
 * CACHEABLE
 *******************************************************************************/
 
-Cacheable::Cacheable(const char *id1, const char *id2, bool activate)
+Cacheable::Cacheable(string id1, string id2, bool activate)
 {
-	m_id1 = new char[strlen(id1) + 1];
-	strcpy(m_id1, id1);
-	m_id2 = new char[strlen(id2) + 1];
-	strcpy(m_id2, id2);
+	m_id1 = id1;
+	m_id2 = id2;
 	if (!cache::group_exists(m_id1))
 		cache::group_create(m_id1);
 	cache::dne_fatal(m_id1, m_id2);
@@ -183,14 +194,24 @@ Cacheable::Cacheable(const char *id1, const char *id2, bool activate)
 
 Cacheable::~Cacheable()
 {
-	cache::remove(m_id1, m_id2);
-	delete [] m_id1;
-	delete [] m_id2;
+	cache::remove(m_id1, m_id2, false);
 }
 
 void Cacheable::cacheActivate()
 {
 	cache::activate(m_id1, m_id2);
+}
+
+const char *Cacheable::cacheId()
+{
+	return m_id2.c_str();
+}
+
+const char *Cacheable::cacheIdFull()
+{
+	stringstream ss;
+	ss << m_id1 << "." << m_id2 << " -> " << (void *)this;
+	return ss.str().c_str();
 }
 
 } }

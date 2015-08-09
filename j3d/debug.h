@@ -32,8 +32,8 @@ struct debug_settings {
 	if (j3d::debug_settings::colorize)\
 		s << "\033[0m\033[0;90m";\
 	ss << "[" << __FUNCTION__ << ":" << __FILE__ << ":" << __LINE__ << "]";\
-	s << std::setw(60) << ss.str();\
-	s << std::setw(10) << std::right << t << " | ";\
+	s << std::setw(50) << ss.str();\
+	s << std::setw(20) << std::right << t << " | ";\
 	if (j3d::debug_settings::colorize)\
 		s << "\033[" << c << "m";\
 	s << m;\
@@ -71,6 +71,10 @@ struct debug_settings {
 	if (J3D_DEBUG_LEVEL_ERROR >= j3d::debug_settings::level)\
 		J3D_DEBUG(std::cerr, "0;30m\033[101", "FATAL", " " << m << " ");\
 	exit(1);\
+} while (0)
+
+#define J3D_DEBUG_EXTRA(k, m) do {\
+	J3D_DEBUG(std::cout, "0;94", k, m);\
 } while (0)
 
 namespace j3d {

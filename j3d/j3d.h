@@ -21,6 +21,7 @@
 #include <cinttypes>
 #include <cmath>
 #include <unordered_map>
+#include <vector>
 #include <initializer_list>
 using namespace std;
 
@@ -37,6 +38,11 @@ using namespace std;
 #include "core/renderbuffer.h"
 #include "core/display.h"
 #include "control.h"
+#include "mesh.h"
+#include "mesh_shapes.h"
+#include "collider.h"
+#include "core/entity.h"
+#include "object.h"
 #include "scene.h"
 #include "config.h"
 #include "engine.h"

@@ -74,7 +74,7 @@ void engine::quit(int exit_code)
 	}
 }
 
-void engine::start()
+void engine::run()
 {
 	if (!J3D_CACHE_EXISTS(Scene))
 		J3D_DEBUG_FATAL("please create a Scene");

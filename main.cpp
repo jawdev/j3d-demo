@@ -13,8 +13,8 @@ int main(int argc, char *argv[])
 		config.window_title = "TEST";
 	engine::init(config);
 
-	engine::start();
+	Scene *s = new Scene("a");
 	
-	engine::quit();
+	engine::run();
 	return 0;
 }

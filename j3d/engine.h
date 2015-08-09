@@ -17,7 +17,7 @@ public:
 
 	static void init(const Config &);
 	static void quit(int exit_code = 0);
-	static void start();
+	static void run();
 
 	static void atexit_callback();
 	static void sigint_handler(int);

@@ -27,7 +27,7 @@ Display::Display()
 	if (J3D_CACHE_EXISTS(Renderbuffer)) 
 		J3D_CACHE_ACTIVE(Renderbuffer)->bind();
 	else
-		(new Renderbuffer("primary"))->bind();
+		(new Renderbuffer("j3d_default"))->bind();
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);

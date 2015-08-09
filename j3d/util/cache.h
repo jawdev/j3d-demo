@@ -14,24 +14,26 @@ namespace j3d { namespace util {
 
 class cache {
 public:
-	static bool group_exists(const char *);
-	static void group_create(const char *);
-	static void group_destroy(const char *, bool destroy = true);
+	static bool group_exists(string);
+	static void group_create(string);
+	static void group_destroy(string, bool destroy = true);
 	static void group_destroy_all(bool destroy = true);
 
-	static bool exists(const char *id1);
-	static bool has(const char *, const char *);
-	static bool add(const char *, const char *, void *);
-	static void *get(const char *, const char *);
-	static void *active(const char *);
-	static void activate(const char *id1, const char *id2);
-	static bool remove(const char *, const char *, bool destroy = false);
-	static bool dne_fatal(const char *, const char *);
+	static bool exists(string id1);
+	static bool has(string, string);
+	static bool add(string, string, void *);
+	static void *get(string, string);
+	static void *active(string);
+	static void activate(string id1, string id2);
+	static bool remove(string, string, bool destroy = false);
+	static bool dne_fatal(string, string);
+
+	static void print();
+	static void print(string);
 
 private:
-	static unordered_map<const char *,
-			unordered_map<const char *, void *>> m_caches;
-	static unordered_map<const char *, void *> m_active;
+	static unordered_map<string, unordered_map<string, void *>> m_caches;
+	static unordered_map<string, void *> m_active;
 	static bool m_destroy_all;
 
 };
@@ -42,13 +44,16 @@ private:
 
 class Cacheable {
 public:
-	Cacheable(const char *id1, const char *id2, bool activate = true);
+	Cacheable(string id1, string id2, bool activate = true);
 	virtual ~Cacheable();
 	void cacheActivate();
 
+	const char *cacheId();
+	const char *cacheIdFull();
+
 private:
-	char *m_id1;
-	char *m_id2;
+	string m_id1;
+	string m_id2;
 
 };
 
@@ -56,6 +61,9 @@ private:
 
 #define J3D_CACHE_EXISTS(obj)\
 	j3d::util::cache::exists(obj::J3D_CACHE_ID)
+
+#define J3D_CACHE_HAS(obj, id)\
+	j3d::util::cache::has(obj::J3D_CACHE_ID, id)
 
 #define J3D_CACHE_ACTIVE(obj)\
 	((obj *)j3d::util::cache::active(obj::J3D_CACHE_ID))
