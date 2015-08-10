@@ -154,6 +154,7 @@ void Mesh::build()
 
 	if (o_draw_t == mesh_draw_t::ELEMENT) {
 		o_sz_i = o_vec_i.size() * sizeof(GLushort);
+		J3D_DEBUG_INFO("size = " << o_vec_i.size());
 		op_indices = new GLushort[o_vec_i.size()];
 		for (i = 0; i < o_vec_i.size(); ++i)
 			op_indices[i] = (GLushort)o_vec_i[i];

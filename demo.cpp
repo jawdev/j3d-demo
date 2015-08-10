@@ -20,7 +20,6 @@ Demo::~Demo() {}
 
 void Demo::load()
 {
-	glDisable(GL_CULL_FACE);
 	glClearColor(0.1f, 0.12f, 0.1f, 1);
 
 	mp_shader = new ShaderProgram();
@@ -33,7 +32,7 @@ void Demo::load()
 	mp_obj = new Object("box1");
 
 	mp_cam = new Camera();
-	mp_cam->pos(vec3(1, 0.5f, 2));
+	mp_cam->pos(vec3(2, 1, 3));
 	mp_cam->lookAt(vec3());
 	mp_cam->lock();
 }
