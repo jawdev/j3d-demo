@@ -12,7 +12,7 @@ class engine;
 
 class Scene : public util::Cacheable {
 	friend class engine;
-	friend class control;
+	friend class util::control;
 public:
 	static const char constexpr *J3D_CACHE_ID = "scene";
 

@@ -2,10 +2,10 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/control.cpp
+* j3d/util/control.cpp
 *******************************************************************************/
-#include "j3d.h"
-namespace j3d {
+#include "../j3d.h"
+namespace j3d { namespace util {
 
 /*******************************************************************************
 * CONTROL
@@ -42,7 +42,7 @@ void control::update()
 {
 	if (!m_recording)
 		return;
-	m_record_time += cycle::delta;
+	m_record_time += cycle::delta();
 	if (m_record_time < engine::config()->mouse_buffer_time)
 		return;
 	m_record_time = 0;
@@ -139,4 +139,4 @@ bool control::combo(initializer_list<int> s, initializer_list<unsigned char> k)
 	return (specials_down(s) && keys_down(k));
 }
 
-}
+} }

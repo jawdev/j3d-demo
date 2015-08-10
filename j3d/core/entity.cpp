@@ -34,8 +34,8 @@ void Entity::spatialize(bool force_delta)
 		o_rot = op_attachment->rot() + o_attachment_offsets[1];
 		return;
 	}
-	o_pos += o_vel * cycle::delta;
-	o_rot += o_rvel * cycle::delta;
+	o_pos += o_vel * util::cycle::delta();
+	o_rot += o_rvel * util::cycle::delta();
 }
 
 void Entity::update()

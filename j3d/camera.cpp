@@ -46,7 +46,7 @@ void Camera::reshape()
 
 void Camera::update()
 {
-	if (cycle::triggers.reshape)
+	if (util::cycle::advise_reshape())
 		reshape();
 	spatialize();
 }

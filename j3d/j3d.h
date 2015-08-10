@@ -29,16 +29,23 @@ using namespace std;
 #include <GL/freeglut.h>
 #include <GL/glu.h>
 
+namespace j3d {
+	class engine;
+	namespace util {
+		class control;
+	}
+}
+
 #include "debug.h"
-#include "util/helpers.h"
-#include "util/flaggable.h"
+#include "util/util.h"
+#include "util/cycle.h"
+#include "util/control.h"
 #include "util/cache.h"
 #include "math/vmath.h"
-#include "cycle.h"
+#include "core/flaggable.h"
 #include "core/renderbuffer.h"
 #include "core/display.h"
 #include "shader.h"
-#include "control.h"
 #include "mesh.h"
 #include "mesh_shapes.h"
 #include "collider.h"

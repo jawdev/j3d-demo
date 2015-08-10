@@ -38,7 +38,7 @@ void Demo::load()
 	mp_floor->lock();
 
 	mp_cam = new Camera();
-	mp_cam->pos(vec3(2, 4, 3));
+	mp_cam->pos(vec3(2, 2, 3));
 	mp_cam->lookAt(vec3());
 	mp_cam->lock();
 }
@@ -57,7 +57,7 @@ void Demo::unload()
 
 void Demo::update()
 {
-	if (cycle::triggers.reshape)
+	if (util::cycle::advise_reshape())
 		mp_cam->reshape();
 
 /*
@@ -73,7 +73,7 @@ void Demo::update()
 	mp_shader->bind("m4_camera", mp_cam->transform());
 
 	++m_counter;
-	m_time_agg += cycle::delta;
+	m_time_agg += util::cycle::delta();
 	if (m_time_agg >= 1) {
 		cout << "FPS = " << (int)(m_counter / m_time_agg) <<
 				"     " << '\r' << flush;

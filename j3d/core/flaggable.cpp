@@ -2,10 +2,10 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/util/flaggable.cpp
+* j3d/core/flaggable.cpp
 *******************************************************************************/
 #include "../j3d.h"
-namespace j3d { namespace util {
+namespace j3d { namespace core {
 
 /*******************************************************************************
 * FLAGGABLE

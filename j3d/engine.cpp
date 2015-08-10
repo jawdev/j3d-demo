@@ -108,9 +108,9 @@ void engine::sigint_handler(int code)
 
 void engine::update()
 {
-	cycle::tick();
+	util::cycle::tick();
 	J3D_CACHE_ACTIVE(Scene)->update();
-	cycle::flush();
+	util::cycle::flush();
 }
 
 ////////////////////////////////////////

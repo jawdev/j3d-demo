@@ -32,6 +32,7 @@ Display::Display()
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 }
 
 Display::~Display() {}
@@ -47,7 +48,7 @@ void Display::loop()
 void Display::reshape(int w, int h)
 {
 	J3D_DEBUG_INFO("reshape");
-	cycle::triggers.reshape = true;
+	util::cycle::advise_reshape(true);
 	glViewport(0, 0, w, h);
 	engine::config()->window_width = w;
 	engine::config()->window_height = h;

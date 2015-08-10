@@ -2,33 +2,37 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/util/flaggable.h
+* j3d/util/cycle.h
 *******************************************************************************/
-#ifndef __J3D_UTIL_FLAGGABLE_H__
-#define __J3D_UTIL_FLAGGABLE_H__
+#ifndef __J3D_UTIL_CYCLE_H__
+#define __J3D_UTIL_CYCLE_H__
 namespace j3d { namespace util {
 
 /*******************************************************************************
-* FLAGGABLE
+* CYCLE
 *******************************************************************************/
 
-class Flaggable {
+class cycle {
+	friend class j3d::engine;
 public:
-	Flaggable(uint64_t start_flags = 0x0);
-	~Flaggable();
 
-	void flag(uint64_t f);
-	void unflag(uint64_t f);
-	void noflags();
+	static float delta();
+	template<class T> static T delta();
 
-	bool flagged(uint64_t f);
-	bool unflagged(uint64_t f);
+	static bool advise_reshape();
 
-	uint64_t flags();
+	static void advise_reshape(bool);
+
+private:
+	static void tick();
+	static void flush();
 	
-protected:
-	uint64_t o_flags;
-
+private:
+	static double m_last_time;
+	static double m_new_time;
+	static double m_delta;
+	static bool m_advise_reshape;
+	
 };
 
 } }

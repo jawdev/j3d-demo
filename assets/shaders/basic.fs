@@ -1,6 +1,6 @@
 #version 330 core
 
-uniform vec3 v3_ambient = vec3(0.1, 0.1, 0.1);
+uniform vec3 v3_ambient = vec3(0.2, 0.2, 0.2);
 uniform vec3 v3_light_col = vec3(1, 1, 1);
 uniform vec3 v3_light_dir = vec3(0.5, -1, -0.2);
 

@@ -2,22 +2,17 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/control.h
+* j3d/util/control.h
 *******************************************************************************/
 #ifndef __J3D_CONTROL_H__
 #define __J3D_CONTROL_H__
-namespace j3d {
+namespace j3d { namespace util {
 
 /*******************************************************************************
 * CONTROL
 *******************************************************************************/
 
 class control {
-private:
-	static const int K = 300;
-	static const int S = 150;
-	static const int M = 10;
-
 public:
 	static void init();
 	static void update();
@@ -36,6 +31,10 @@ public:
 	static bool combo(initializer_list<int>, initializer_list<unsigned char>);
 
 private:
+	static const int K = 300;
+	static const int S = 150;
+	static const int M = 10;
+
 	static bool m_init_complete;
 
 	static bool m_key_down[K];
@@ -50,5 +49,5 @@ private:
 
 };
 
-}
+} }
 #endif
