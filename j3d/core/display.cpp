@@ -15,7 +15,8 @@ Display::Display()
 	glutInitContextProfile(GLUT_CORE_PROFILE);
 	glutInitWindowSize(engine::config()->window_width,
 			engine::config()->window_height);
-	glutInitWindowPosition(100, 100);
+	glutInitWindowPosition(engine::config()->window_start_x,
+			engine::config()->window_start_y);
 	glutCreateWindow(engine::config()->window_title.c_str());
 	glewExperimental = GL_TRUE;
 	if (glewInit())
@@ -30,7 +31,7 @@ Display::Display()
 		(new Renderbuffer("j3d_default"))->bind();
 	
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 }
 
 Display::~Display() {}
@@ -45,15 +46,19 @@ void Display::loop()
 
 void Display::reshape(int w, int h)
 {
+	J3D_DEBUG_INFO("reshape");
 	cycle::triggers.reshape = true;
 	glViewport(0, 0, w, h);
 	engine::config()->window_width = w;
 	engine::config()->window_height = h;
+	J3D_CACHE_ACTIVE(Renderbuffer)->reshape(w, h);
 }
 
 void Display::display()
 {
+	J3D_CACHE_ACTIVE(Renderbuffer)->bind();
 	engine::update();
+	J3D_CACHE_ACTIVE(Renderbuffer)->blit();
 	glFlush();
 	glutSwapBuffers();
 	glutPostRedisplay();

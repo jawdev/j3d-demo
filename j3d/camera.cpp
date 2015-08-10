@@ -16,8 +16,8 @@ Camera::Camera(camera_mode_t m, camera_proj_t p, float n, float f)
 {
 	o_mode = m;
 	o_proj = p;
-	o_near = (n == 0 ? n : engine::config()->render_distance_near);
-	o_far = (f == 0 ? n : engine::config()->render_distance_far);
+	o_near = (n == 0 ? engine::config()->render_distance_near : n);
+	o_far = (f == 0 ? engine::config()->render_distance_far : f);
 	reshape();
 }
 

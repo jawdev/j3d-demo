@@ -49,7 +49,7 @@ const mat4 &Entity::transform()
 		return o_mat_transform;
 	vmath::translation(&o_mat_pos, o_pos);
 	vmath::rotation(&o_mat_rot, o_rot);
-	o_mat_transform = o_mat_rot * o_mat_pos;
+	o_mat_transform = o_mat_pos * o_mat_rot;
 	o_calcd_transform = true;
 	return o_mat_transform;
 }

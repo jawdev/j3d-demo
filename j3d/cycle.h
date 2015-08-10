@@ -19,8 +19,8 @@ struct cycle_triggers {
 };
 
 struct cycle {
-	static float last_time;
-	static float new_time;
+	static double last_time;
+	static double new_time;
 	static float delta;
 	static cycle_triggers triggers;
 

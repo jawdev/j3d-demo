@@ -142,6 +142,7 @@ void Mesh::build()
 
 	bool normals = !o_vec_n.empty();
 	if (normals) {
+		J3D_DEBUG_TODO("configuring normals: " << cacheIdFull());
 		o_sz_n = o_vec_n.size() * 3 * sizeof(GLfloat);
 		op_normals = new GLfloat[o_vec_n.size() * 3];
 		for (iter = 0, i = 0; i < o_vec_n.size(); ++i) {
@@ -160,7 +161,7 @@ void Mesh::build()
 		glGenBuffers(2, op_buffers);
 	} else {
 		op_buffers = new GLuint[1];
-		glGenBuffers(2, op_buffers);
+		glGenBuffers(1, op_buffers);
 	}
 
 	switch (o_draw_t) {
@@ -183,6 +184,15 @@ void Mesh::build()
 				cacheIdFull());
 		break;
 	}
+
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(0);
+	if (normals) {
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0,
+				(void *)((uintptr_t)o_sz_v));
+		glEnableVertexAttribArray(1);
+	}
+	
 	J3D_DEBUG_OK("Mesh built: " << cacheIdFull());
 }
 
@@ -199,6 +209,7 @@ void Mesh::render()
 			glPrimitiveRestartIndex(o_restart_index);
 		} else
 			glDisable(GL_PRIMITIVE_RESTART);
+		break;
 	default:
 		break;
 	}

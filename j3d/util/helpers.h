@@ -13,7 +13,7 @@ struct is_pointer { static const bool value = false; };
 template<class T>
 struct is_pointer<T *> { static const bool value = true; };
 
-float now();
+double now();
 
 char *file_get_contents(const char *filename, bool zero_term = false);
 

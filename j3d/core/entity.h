@@ -25,7 +25,7 @@ public:
 	virtual Entity *rotate(const vec3 &);
 	virtual Entity *lookAt(const vec3 &);
 	
-	virtual Entity *lock(bool);
+	virtual Entity *lock(bool = true);
 	virtual Entity *pos(const vec3 &);
 	virtual Entity *rot(const vec3 &);
 	virtual Entity *vel(const vec3 &);

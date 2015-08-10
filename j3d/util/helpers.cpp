@@ -7,9 +7,9 @@
 #include "../j3d.h"
 namespace j3d { namespace util {
 
-float now()
+double now()
 {
-	return chrono::duration_cast<chrono::duration<float>>
+	return chrono::duration_cast<chrono::duration<double>>
 			(chrono::high_resolution_clock::now().time_since_epoch()).count();
 }
 

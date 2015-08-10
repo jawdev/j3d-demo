@@ -12,15 +12,15 @@ cycle_triggers::cycle_triggers()
 	reset();
 }
 
-float cycle::last_time = 0;
-float cycle::new_time = 0;
+double cycle::last_time = 0;
+double cycle::new_time = 0;
 float cycle::delta = 0;
 cycle_triggers cycle::triggers;
 
 void cycle::tick()
 {
 	new_time = util::now();
-	delta = new_time - last_time;
+	delta = (float)(new_time - last_time);
 }
 
 void cycle::flush()

@@ -22,7 +22,13 @@ protected:
 	void update();
 
 private:
+	float m_time_agg;
+	unsigned int m_counter;
+
+	Object *mp_obj;
 	ShaderProgram *mp_shader;
+	Camera *mp_cam;
+	
 };
 
 #endif

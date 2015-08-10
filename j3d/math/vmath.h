@@ -88,9 +88,9 @@ struct vec4 {
 	vec4 operator-(const vec4 &v) const { return vec4(x - v.x, y - v.y,
 			z - v.z, (lock_w ? w : w - v.w)); }
 	vec4 operator*(const float &f) const { return vec4(x * f, y * f, z * f,
-			(lock_w ? w : f * w)); }
+			(lock_w ? w : w * f)); }
 	vec4 operator/(const float &f) const { return vec4(x / f, y / f, z / f,
-			(lock_w ? w : f / w)); }
+			(lock_w ? w : w / f)); }
 
 	vec4 &operator+=(const vec4 &v) { x += v.x; y += v.y; z += v.z;
 			if (!lock_w) w += v.w; return *this; }
@@ -170,10 +170,10 @@ inline ostream &operator<<(ostream &os, const vec3 &v)
 struct mat4 {
 	float data[4][4];
 	//         c  r
-	int c, r;
 
 	mat4() { iden(); }
 
+/*
 	float *row(const int &r)
 	{
 		float *row_data = new float[4];
@@ -189,12 +189,14 @@ struct mat4 {
 			col_data[r] = data[c][r];
 		return col_data;
 	}
+*/
 
 	float get(const int &r, const int &c) { return data[c][r]; }
 	void set(const int &r, const int &c, const float &val) { data[c][r] = val; }
 
 	void zero()
 	{
+		int c, r;
 		for (c = 0; c < 4; ++c)
 			for (r = 0; r < 4; ++r)
 				data[c][r] = 0;
@@ -202,6 +204,7 @@ struct mat4 {
 
 	void iden()
 	{
+		int c, r;
 		for (c = 0; c < 4; ++c)
 			for (r = 0; r < 4; ++r)
 				data[c][r] = (c == r ? 1 : 0);
@@ -209,6 +212,7 @@ struct mat4 {
 
 	mat4 &operator=(const mat4 &m)
 	{
+		int c, r;
 		for (c = 0; c < 4; ++c)
 			for (r = 0; r < 4; ++r)
 				data[c][r] = m.data[c][r];
@@ -217,6 +221,7 @@ struct mat4 {
 
 	mat4 &operator*=(const mat4 &m)
 	{
+		int c, r;
 		mat4 cp = *this;
 		for (c = 0; c < 4; ++c)
 			for (r = 0; r < 4; ++r)
@@ -361,8 +366,12 @@ public:
 			float n, float f)
 	{
 		m->iden();
-		if (r == l || t == b || n == f || n < 0 || f < 0)
+		if (r == l || t == b || n == f || n < 0 || f < 0) {
+			J3D_DEBUG_FATAL("invalid perspective args: {l = " << l <<
+					", r = " << r << ", b = " << b << ", t = " << t <<
+					", n = " << n << ", f = " << f << "}");
 			return;
+		}
 		float nt2 = n * 2.0f;
 		float rml = r - l;
 		float tmb = t - b;

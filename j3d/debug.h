@@ -36,7 +36,7 @@ struct debug_settings {
 	s << std::setw(20) << std::right << t << " | ";\
 	if (j3d::debug_settings::colorize)\
 		s << "\033[" << c << "m";\
-	s << m;\
+	s << std::setfill(' ') << m;\
 	if (j3d::debug_settings::colorize)\
 		s << "\033[0m";\
 	s << std::endl;\

@@ -9,13 +9,13 @@
 namespace j3d {
 
 enum class mesh_draw_t : int {
-	ARRAY,
+	ARRAY = 0,
 	ELEMENT,
 	_len
 };
 
 enum class mesh_shape_t : int {
-	POINTS,
+	POINTS = 0,
 	LINES,
 	LINE_STRIP,
 	LINE_LOOP,
