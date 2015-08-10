@@ -93,7 +93,7 @@ Mesh *Mesh::pushNormals(initializer_list<vec3> vs)
 	return this;
 }
 
-Mesh *Mesh::pushIndex(const unsigned short &s)
+Mesh *Mesh::pushIndex(const unsigned int &s)
 {
 	if (built())
 		return this;
@@ -101,7 +101,7 @@ Mesh *Mesh::pushIndex(const unsigned short &s)
 	return this;
 }
 
-Mesh *Mesh::pushIndices(const unsigned short *ss, const unsigned int &len)
+Mesh *Mesh::pushIndices(const unsigned int *ss, const unsigned int &len)
 {
 	if (built())
 		return this;
@@ -110,11 +110,11 @@ Mesh *Mesh::pushIndices(const unsigned short *ss, const unsigned int &len)
 	return this;
 }
 
-Mesh *Mesh::pushIndices(initializer_list<unsigned short> ss)
+Mesh *Mesh::pushIndices(initializer_list<unsigned int> ss)
 {
 	if (built())
 		return this;
-	for (unsigned short s : ss)
+	for (unsigned int s : ss)
 		o_vec_i.push_back(s);
 	return this;
 }
@@ -153,11 +153,11 @@ void Mesh::build()
 	}
 
 	if (o_draw_t == mesh_draw_t::ELEMENT) {
-		o_sz_i = o_vec_i.size() * sizeof(GLushort);
+		o_sz_i = o_vec_i.size() * sizeof(GLuint);
 		J3D_DEBUG_INFO("size = " << o_vec_i.size());
-		op_indices = new GLushort[o_vec_i.size()];
+		op_indices = new GLuint[o_vec_i.size()];
 		for (i = 0; i < o_vec_i.size(); ++i)
-			op_indices[i] = (GLushort)o_vec_i[i];
+			op_indices[i] = (GLuint)o_vec_i[i];
 		op_buffers = new GLuint[2];
 		glGenBuffers(2, op_buffers);
 	} else {
@@ -217,8 +217,8 @@ void Mesh::render()
 
 	switch (o_draw_t) {
 	case mesh_draw_t::ELEMENT:
-		glDrawElements(GL_SHAPE_MAP[(int)o_shape_t], o_vec_v.size(),
-				GL_UNSIGNED_SHORT, NULL);
+		glDrawElements(GL_SHAPE_MAP[(int)o_shape_t], o_vec_i.size(),
+				GL_UNSIGNED_INT, NULL);
 		break;
 	case mesh_draw_t::ARRAY:
 		glDrawArrays(GL_SHAPE_MAP[(int)o_shape_t], 0, o_vec_v.size());

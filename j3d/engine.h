@@ -14,7 +14,6 @@ namespace j3d {
 
 class engine {
 public:
-
 	static void init(const Config &);
 	static void quit(int exit_code = 0);
 	static void run();

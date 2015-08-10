@@ -57,9 +57,9 @@ public:
 	Mesh *pushNormals(const vec3 *, const unsigned int &len);
 	Mesh *pushNormals(initializer_list<vec3>);
 
-	Mesh *pushIndex(const unsigned short &);
-	Mesh *pushIndices(const unsigned short *, const unsigned int &len);
-	Mesh *pushIndices(initializer_list<unsigned short>);
+	Mesh *pushIndex(const unsigned int &);
+	Mesh *pushIndices(const unsigned int *, const unsigned int &len);
+	Mesh *pushIndices(initializer_list<unsigned int>);
 
 	void build();
 	void render();
@@ -75,11 +75,11 @@ protected:
 	bool o_built;
 	vector<vec4> o_vec_v;
 	vector<vec3> o_vec_n;
-	vector<unsigned short> o_vec_i;
+	vector<unsigned int> o_vec_i;
 	GLuint o_vertex_array_id;
 	GLuint *op_buffers;
 	GLfloat *op_vertices;
-	GLushort *op_indices;
+	GLuint *op_indices;
 	GLfloat *op_normals;
 	unsigned int o_sz_v;
 	unsigned int o_sz_n;

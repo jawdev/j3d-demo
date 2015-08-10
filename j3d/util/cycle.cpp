@@ -22,6 +22,11 @@ float cycle::delta()
 	return (float)m_delta;
 }
 
+double cycle::deltad()
+{
+	return m_delta;
+}
+
 template<class T> T cycle::delta()
 {
 	return (T)m_delta;

@@ -57,8 +57,11 @@ void cache::group_destroy(string id, bool destroy)
 		m_caches[id].clear();
 		return;
 	}
-	for (auto iter = m_caches[id].begin(); iter != m_caches[id].end(); ++iter)
-		delete (core::Cacheable *)iter->second;
+	core::Cacheable *ptr;
+	for (auto iter = m_caches[id].begin(); iter != m_caches[id].end(); ++iter) {
+		ptr = iter->second;
+		J3D_SAFE_DELETE(ptr);
+	}
 	m_caches[id].clear();
 	m_active.erase(id);
 	m_caches.erase(id);
@@ -67,6 +70,7 @@ void cache::group_destroy(string id, bool destroy)
 void cache::group_destroy_all(bool destroy)
 {
 	m_destroy_all = true;
+	core::Cacheable *ptr;
 	for (auto iter = m_caches.begin(); iter != m_caches.end(); ++iter) {
 		J3D_DEBUG_TODO("clearing cache group: [" << iter->first << "]");
 		if (!destroy) {
@@ -75,7 +79,8 @@ void cache::group_destroy_all(bool destroy)
 		}
 		for (auto jter = iter->second.begin(); jter != iter->second.end();
 				++jter) {
-			delete (core::Cacheable *)jter->second;
+			ptr = jter->second;
+			J3D_SAFE_DELETE(ptr);
 		}
 		iter->second.clear();
 	}
@@ -167,8 +172,9 @@ bool cache::remove(string id1, string id2, bool destroy)
 		else
 			m_active[id1] = m_caches[id1].begin()->second;
 	}
-	if (destroy)
-		delete (core::Cacheable *)c;
+	if (destroy) {
+		J3D_SAFE_DELETE(c);
+	}
 	return true;
 }
 

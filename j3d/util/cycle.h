@@ -17,6 +17,7 @@ class cycle {
 public:
 
 	static float delta();
+	static double deltad();
 	template<class T> static T delta();
 
 	static bool advise_reshape();

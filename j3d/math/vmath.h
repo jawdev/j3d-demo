@@ -119,7 +119,7 @@ inline ostream &operator<<(ostream &os, const vec4 &v)
 struct vec3 {
 	float x, y, z;
 
-	vec3(float _x = 0, float _y = 0, float _z = 0)
+	vec3(float _x = 0.0f, float _y = 0.0f, float _z = 0.0f)
 	{
 		x = _x;
 		y = _y;

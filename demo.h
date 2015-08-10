@@ -26,9 +26,11 @@ private:
 	unsigned int m_counter;
 
 	Object *mp_box;
-	Object *mp_floor;
 	ShaderProgram *mp_shader;
 	Camera *mp_cam;
+	vec3 m_vec3;
+	vec2 m_vec2;
+	vec4 m_vec4;
 	
 };
 

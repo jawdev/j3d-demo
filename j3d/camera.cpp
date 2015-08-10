@@ -12,7 +12,7 @@ namespace j3d {
 *******************************************************************************/
 
 Camera::Camera(camera_mode_t m, camera_proj_t p, float n, float f)
-		: Entity()
+		: core::Entity(), core::Reshapeable()
 {
 	o_mode = m;
 	o_proj = p;
@@ -41,14 +41,6 @@ void Camera::reshape()
 		J3D_DEBUG_FATAL("invalid projection type: " << (int)o_proj);
 		break;
 	}
-}
-
-
-void Camera::update()
-{
-	if (util::cycle::advise_reshape())
-		reshape();
-	spatialize();
 }
 
 const mat4 &Camera::transform()

@@ -20,33 +20,30 @@ Demo::~Demo() {}
 
 void Demo::load()
 {
-	glClearColor(1, 0, 0, 1);
+	glClearColor(0.1f, 0.12f, 0.1f, 1);
 
 	mp_shader = new ShaderProgram();
-	mp_shader->addVertexShader("assets/shaders/basic.vs");
 	mp_shader->addFragmentShader("assets/shaders/basic.fs");
+	mp_shader->addVertexShader("assets/shaders/basic.vs");
 	mp_shader->link({"m4_camera", "m4_model", "v4_color"});
 	
 	new BoxMesh("box1");
 	new FloorMesh("floor1", 10, 10);
 
 	mp_box = new Object("box1");
-	mp_box->pos(vec3(0, 1, 0));
-	mp_box->rvel(vec3(0, 0.1f, 0));
-
-	mp_floor = new Object("floor1");
-	mp_floor->lock();
+	mp_box->pos(vec3(0, 0, 0));
+	mp_box->rvel(vec3(0, 0.5f, 0));
 
 	mp_cam = new Camera();
-	mp_cam->pos(vec3(2, 2, 3));
+	mp_cam->pos(vec3(2, 1, 3));
 	mp_cam->lookAt(vec3());
 	mp_cam->lock();
+
 }
 
 void Demo::unload()
 {
 	delete mp_box;
-	delete mp_floor;
 	delete mp_cam;
 	delete mp_shader;
 }
@@ -57,15 +54,7 @@ void Demo::unload()
 
 void Demo::update()
 {
-	if (util::cycle::advise_reshape())
-		mp_cam->reshape();
-
-/*
-	mp_shader->bind("m4_model", mp_floor->transform());
-	mp_shader->bind("v4_color", vec4(1, 1, 1, 1));
-	mp_floor->render();
-*/
-
+	mp_box->update();
 	mp_shader->bind("m4_model", mp_box->transform());
 	mp_shader->bind("v4_color", vec4(1, 1, 1, 1));
 	mp_box->render();

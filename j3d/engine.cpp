@@ -46,6 +46,9 @@ void engine::init(const Config &s)
 	J3D_DEBUG_TODO("creating Display");
 	mp_display = new core::Display();
 
+	J3D_DEBUG_TODO("initializing control");
+	util::control::init();
+
 	J3D_DEBUG_OK("engine initialized");
 }
 
@@ -63,11 +66,11 @@ void engine::quit(int exit_code)
 		J3D_CACHE_ACTIVE(Scene)->unload();
 	}
 
-	J3D_DEBUG_TODO("clearing Cache");
-	util::cache::group_destroy_all();
-
 	J3D_DEBUG_TODO("deleting Display");
 	delete mp_display;
+
+	J3D_DEBUG_TODO("clearing Cache");
+	util::cache::group_destroy_all();
 
 	if (m_config.register_sigint) {
 		J3D_DEBUG_TODO("releasing sigint handler");
@@ -86,6 +89,8 @@ void engine::run()
 	if (!J3D_CACHE_HAS_ACTIVE(Scene))
 		J3D_DEBUG_FATAL("please create a Scene");
 	J3D_CACHE_ACTIVE(Scene)->activate();
+	util::cycle::tick();
+	util::cycle::flush();
 	mp_display->loop();
 }
 
@@ -109,7 +114,11 @@ void engine::sigint_handler(int code)
 void engine::update()
 {
 	util::cycle::tick();
-	J3D_CACHE_ACTIVE(Scene)->update();
+	Scene *pS = J3D_CACHE_ACTIVE(Scene);
+	if (pS == nullptr)
+		J3D_DEBUG_ERROR("please load a Scene");
+	else
+		J3D_CACHE_ACTIVE(Scene)->update();
 	util::cycle::flush();
 }
 

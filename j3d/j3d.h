@@ -29,6 +29,18 @@ using namespace std;
 #include <GL/freeglut.h>
 #include <GL/glu.h>
 
+#define J3D_SAFE_DELETE(obj) do {\
+	if (obj != nullptr)\
+		delete obj;\
+	obj = nullptr;\
+} while (0)
+
+#define J3D_SAFE_DELETE_ARR(obj) do {\
+	if (obj != nullptr)\
+		delete [] obj;\
+	obj = nullptr;\
+} while (0)
+
 namespace j3d {
 	class engine;
 	namespace util {
