@@ -31,6 +31,7 @@ Renderbuffer::Renderbuffer(const char *id) : util::Cacheable(J3D_CACHE_ID, id)
 			GL_RENDERBUFFER, op_renderbuffers[COLOR_BUFFER]);
 	glFramebufferRenderbuffer(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT,
 			GL_RENDERBUFFER, op_renderbuffers[DEPTH_BUFFER]);
+	glEnable(GL_DEPTH_TEST);
 }
 
 Renderbuffer::~Renderbuffer()

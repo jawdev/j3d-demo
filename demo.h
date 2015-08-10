@@ -25,7 +25,8 @@ private:
 	float m_time_agg;
 	unsigned int m_counter;
 
-	Object *mp_obj;
+	Object *mp_box;
+	Object *mp_floor;
 	ShaderProgram *mp_shader;
 	Camera *mp_cam;
 	
