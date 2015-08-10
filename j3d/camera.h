@@ -21,7 +21,7 @@ enum class camera_proj_t {
 	NONE
 };
 
-class Camera : public core::Entity {
+class Camera : public core::Entity, public core::Reshapeable {
 public:
 	Camera(camera_mode_t = camera_mode_t::DEFAULT,
 			camera_proj_t = camera_proj_t::PERSPECTIVE,

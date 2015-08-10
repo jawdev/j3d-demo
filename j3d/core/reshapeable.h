@@ -2,30 +2,26 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/display.h
+* j3d/core/reshapeable.h
 *******************************************************************************/
-#ifndef __J3D_CORE_DISPLAY_H__
-#define __J3D_CORE_DISPLAY_H__
+#ifndef __J3D_CORE_RESHAPEABLE__
+#define __J3D_CORE_RESHAPEABLE__
 namespace j3d { namespace core {
 
 /*******************************************************************************
-* DISPLAY
+* RESHAPEABLE
 *******************************************************************************/
 
-class Display {
+class Reshapeable : public Cacheable {
 public:
-	Display();
-	virtual ~Display();
+	static const char constexpr *J3D_CACHE_ID = "reshapers";
 
-	virtual void loop();
-	virtual void reshape(int w, int h);
-	virtual void display();
+public:
+	Reshapeable();
+	virtual ~Reshapeable();
 
-	static void on_reshape(int w, int h);
-	static void on_display();
-
-private:
-	Renderbuffer *mp_renderbuffer;
+	virtual void reshape(int x, int y);
+	static void reshape_all(int x, int y);
 
 };
 

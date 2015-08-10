@@ -12,15 +12,14 @@ namespace j3d { namespace core {
 * RENDERBUFFER
 *******************************************************************************/
 
-class Renderbuffer : public util::Cacheable {
+class Renderbuffer : public core::Reshapeable {
 public:
-	static const char constexpr	*J3D_CACHE_ID	= "renderbuffer";
 	static const int			NUM_BUFFERS		= 2;
 	static const int			COLOR_BUFFER	= 0;
 	static const int			DEPTH_BUFFER 	= 1;
 
 public:
-	Renderbuffer(const char *id);
+	Renderbuffer();
 	virtual ~Renderbuffer();
 	
 	virtual void reshape(int w, int h);

@@ -11,13 +11,28 @@ namespace j3d { namespace util {
 * CACHE
 *******************************************************************************/
 
-unordered_map<string, unordered_map<string, void *>> cache::m_caches;
-unordered_map<string, void *> cache::m_active;
+unordered_map<string, unordered_map<string, core::Cacheable *>> cache::m_caches;
+unordered_map<string, core::Cacheable *> cache::m_active;
 bool cache::m_destroy_all = false;
 
+unordered_map<string, core::Cacheable *> &cache::group(string id)
+{
+	return m_caches.at(id);
+}
 
-////////////////////////////////////////
-// STATICS
+size_t cache::group_size(string id)
+{
+	if (!group_exists(id))
+		return 0;
+	return m_caches.at(id).size();
+}
+
+string cache::group_next_id(string id)
+{
+	stringstream ss;
+	ss << group_size(id);
+	return ss.str();
+}
 
 bool cache::group_exists(string id)
 {
@@ -31,7 +46,7 @@ bool cache::group_exists(string id)
 
 void cache::group_create(string id)
 {
-	m_caches[id] = unordered_map<string , void *>();
+	m_caches[id] = unordered_map<string , core::Cacheable *>();
 	m_active[id] = nullptr;
 }
 
@@ -43,7 +58,7 @@ void cache::group_destroy(string id, bool destroy)
 		return;
 	}
 	for (auto iter = m_caches[id].begin(); iter != m_caches[id].end(); ++iter)
-		delete (Cacheable *)iter->second;
+		delete (core::Cacheable *)iter->second;
 	m_caches[id].clear();
 	m_active.erase(id);
 	m_caches.erase(id);
@@ -60,7 +75,7 @@ void cache::group_destroy_all(bool destroy)
 		}
 		for (auto jter = iter->second.begin(); jter != iter->second.end();
 				++jter) {
-			delete (Cacheable *)jter->second;
+			delete (core::Cacheable *)jter->second;
 		}
 		iter->second.clear();
 	}
@@ -91,7 +106,7 @@ bool cache::has(string id1, string id2)
 	return true;
 }
 
-bool cache::add(string id1, string id2, void *el)
+bool cache::add(string id1, string id2, core::Cacheable *el)
 {
 	try {
 		m_caches[id1][id2] = el;
@@ -102,7 +117,7 @@ bool cache::add(string id1, string id2, void *el)
 	return true;
 }
 
-void *cache::get(string id1, string id2)
+core::Cacheable *cache::get(string id1, string id2)
 {
 	try {
 		return m_caches[id1][id2];
@@ -113,7 +128,7 @@ void *cache::get(string id1, string id2)
 	}
 }
 
-void *cache::active(string id1)
+core::Cacheable *cache::active(string id1)
 {
 	try {
 		return m_active[id1];
@@ -137,7 +152,7 @@ bool cache::remove(string id1, string id2, bool destroy)
 {
 	if (m_destroy_all)
 		return true;
-	void *c;
+	core::Cacheable *c;
 	try {
 		c = m_caches[id1][id2];
 	} catch (...) {
@@ -153,7 +168,7 @@ bool cache::remove(string id1, string id2, bool destroy)
 			m_active[id1] = m_caches[id1].begin()->second;
 	}
 	if (destroy)
-		delete (Cacheable *)c;
+		delete (core::Cacheable *)c;
 	return true;
 }
 
@@ -179,44 +194,6 @@ void cache::print(string id1)
 	for (auto iter = m_caches[id1].begin(); iter != m_caches[id1].end(); ++iter)
 		cout << "\t" << iter->first << " -> " << iter->second << "\n";
 	cout << "}" << endl;
-}
-
-/*******************************************************************************
-* CACHEABLE
-*******************************************************************************/
-
-Cacheable::Cacheable(string id1, string id2, bool activate)
-{
-	m_id1 = id1;
-	m_id2 = id2;
-	if (!cache::group_exists(m_id1))
-		cache::group_create(m_id1);
-	cache::dne_fatal(m_id1, m_id2);
-	cache::add(m_id1, m_id2, this);
-	if (activate)
-		cacheActivate();
-}
-
-Cacheable::~Cacheable()
-{
-	cache::remove(m_id1, m_id2, false);
-}
-
-void Cacheable::cacheActivate()
-{
-	cache::activate(m_id1, m_id2);
-}
-
-const char *Cacheable::cacheId()
-{
-	return m_id2.c_str();
-}
-
-const char *Cacheable::cacheIdFull()
-{
-	stringstream ss;
-	ss << m_id1 << "." << m_id2 << " -> " << (void *)this;
-	return ss.str().c_str();
 }
 
 } }

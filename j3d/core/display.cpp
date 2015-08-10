@@ -25,17 +25,18 @@ Display::Display()
 	glutReshapeFunc(on_reshape);
 	glutDisplayFunc(on_display);
 
-	if (J3D_CACHE_EXISTS(Renderbuffer)) 
-		J3D_CACHE_ACTIVE(Renderbuffer)->bind();
-	else
-		(new Renderbuffer("j3d_default"))->bind();
+	mp_renderbuffer = new Renderbuffer();
+	mp_renderbuffer->bind();
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 }
 
-Display::~Display() {}
+Display::~Display()
+{
+	delete mp_renderbuffer;
+}
 
 ////////////////////////////////////////
 // CORE
@@ -52,14 +53,14 @@ void Display::reshape(int w, int h)
 	glViewport(0, 0, w, h);
 	engine::config()->window_width = w;
 	engine::config()->window_height = h;
-	J3D_CACHE_ACTIVE(Renderbuffer)->reshape(w, h);
+	Reshapeable::reshape_all(w, h);
 }
 
 void Display::display()
 {
-	J3D_CACHE_ACTIVE(Renderbuffer)->bind();
+	mp_renderbuffer->bind();
 	engine::update();
-	J3D_CACHE_ACTIVE(Renderbuffer)->blit();
+	mp_renderbuffer->blit();
 	glFlush();
 	glutSwapBuffers();
 	glutPostRedisplay();

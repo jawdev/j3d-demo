@@ -12,7 +12,7 @@ namespace j3d {
 *******************************************************************************/
 
 Mesh::Mesh(const char *id, mesh_draw_t d, mesh_shape_t s,
-		unsigned int restart_index) : util::Cacheable(J3D_CACHE_ID, id)
+		unsigned int restart_index) : core::Cacheable(J3D_CACHE_ID, id)
 {
 	o_draw_t = d;
 	o_shape_t = s;

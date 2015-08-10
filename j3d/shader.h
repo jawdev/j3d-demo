@@ -17,7 +17,7 @@ public:
 	static const int SHADER_COUNT = 2;
 
 public:
-	class Shader : public util::Cacheable {
+	class Shader : public core::Cacheable {
 	public:
 		static const char constexpr *J3D_CACHE_ID = "shader";
 

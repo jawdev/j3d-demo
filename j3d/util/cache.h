@@ -14,6 +14,9 @@ namespace j3d { namespace util {
 
 class cache {
 public:
+	static unordered_map<string, core::Cacheable *> &group(string);
+	static size_t group_size(string id);
+	static string group_next_id(string id);
 	static bool group_exists(string);
 	static void group_create(string);
 	static void group_destroy(string, bool destroy = true);
@@ -21,10 +24,10 @@ public:
 
 	static bool exists(string id1);
 	static bool has(string, string);
-	static bool add(string, string, void *);
-	static void *get(string, string);
+	static bool add(string, string, core::Cacheable *);
+	static core::Cacheable *get(string, string);
 	static bool has_active(string);
-	static void *active(string);
+	static core::Cacheable *active(string);
 	static void activate(string id1, string id2);
 	static bool remove(string, string, bool destroy = false);
 	static bool dne_fatal(string, string);
@@ -33,32 +36,20 @@ public:
 	static void print(string);
 
 private:
-	static unordered_map<string, unordered_map<string, void *>> m_caches;
-	static unordered_map<string, void *> m_active;
+	static unordered_map<string, unordered_map<string, core::Cacheable *>>
+			m_caches;
+	static unordered_map<string, core::Cacheable *> m_active;
 	static bool m_destroy_all;
 
 };
 
-/*******************************************************************************
-* CACHEABLE
-*******************************************************************************/
-
-class Cacheable {
-public:
-	Cacheable(string id1, string id2, bool activate = true);
-	virtual ~Cacheable();
-	virtual void cacheActivate();
-
-	const char *cacheId();
-	const char *cacheIdFull();
-
-private:
-	string m_id1;
-	string m_id2;
-
-};
-
 } }
+
+#define J3D_CACHE_GROUP(obj)\
+	j3d::util::cache::group(obj::J3D_CACHE_ID)
+
+#define J3D_CACHE_GROUP_SIZE(obj)\
+	j3d::util::cache::group_size(obj::J3D_CACHE_ID)
 
 #define J3D_CACHE_EXISTS(obj)\
 	j3d::util::cache::exists(obj::J3D_CACHE_ID)

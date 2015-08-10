@@ -34,6 +34,9 @@ namespace j3d {
 	namespace util {
 		class control;
 	}
+	namespace core {
+		class Cacheable;
+	}
 }
 
 #include "debug.h"
@@ -43,6 +46,8 @@ namespace j3d {
 #include "util/cache.h"
 #include "math/vmath.h"
 #include "core/flaggable.h"
+#include "core/cacheable.h"
+#include "core/reshapeable.h"
 #include "core/renderbuffer.h"
 #include "core/display.h"
 #include "shader.h"

@@ -12,7 +12,7 @@ namespace j3d {
 *******************************************************************************/
 
 ShaderProgram::Shader::Shader(const char *path, GLenum type)
-		: util::Cacheable(J3D_CACHE_ID, path)
+		: core::Cacheable(J3D_CACHE_ID, path)
 {
 	o_type = type;
 	o_id = glCreateShader(type);

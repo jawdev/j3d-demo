@@ -39,7 +39,7 @@ const GLuint GL_SHAPE_MAP[(int)mesh_shape_t::_len] = {
 * MESH
 *******************************************************************************/
 
-class Mesh : public util::Cacheable {
+class Mesh : public core::Cacheable {
 public:
 	static const char constexpr *J3D_CACHE_ID = "mesh";
 

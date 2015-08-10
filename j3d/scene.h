@@ -10,7 +10,7 @@ namespace j3d {
 
 class engine;
 
-class Scene : public util::Cacheable {
+class Scene : public core::Cacheable {
 	friend class engine;
 	friend class util::control;
 public:
@@ -18,7 +18,7 @@ public:
 
 public:
 	Scene(const char *id, bool activate = true)
-			: util::Cacheable(J3D_CACHE_ID, id, activate) {}
+			: core::Cacheable(J3D_CACHE_ID, id, activate) {}
 	virtual ~Scene() {}
 
 	void cacheActivate()

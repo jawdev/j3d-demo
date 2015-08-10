@@ -11,7 +11,7 @@ namespace j3d { namespace core {
 * RENDERBUFFER
 *******************************************************************************/
 
-Renderbuffer::Renderbuffer(const char *id) : util::Cacheable(J3D_CACHE_ID, id)
+Renderbuffer::Renderbuffer()
 {
 	o_width = engine::config()->window_width;
 	o_height = engine::config()->window_height;
