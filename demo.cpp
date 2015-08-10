@@ -21,7 +21,6 @@ void Demo::load()
 	mp_shader->link({"m4_camera", "m4_model", "v4_color"});
 
 	new BoxMesh("box1");
-	
 }
 
 void Demo::unload()

@@ -44,6 +44,7 @@ using namespace std;
 #include "collider.h"
 #include "core/entity.h"
 #include "object.h"
+#include "camera.h"
 #include "scene.h"
 #include "config.h"
 #include "engine.h"

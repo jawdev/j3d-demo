@@ -21,17 +21,17 @@ public:
 
 public:
 	Renderbuffer(const char *id);
-	~Renderbuffer();
+	virtual ~Renderbuffer();
 	
-	void reshape(int w, int h);
-	void bind(unsigned int fid = 0);
-	void blit();
+	virtual void reshape(int w, int h);
+	virtual void bind(unsigned int fid = 0);
+	virtual void blit();
 
-private:
-	int m_width;
-	int m_height;
-	GLuint m_framebuffer;
-	GLuint *mp_renderbuffers;
+protected:
+	int o_width;
+	int o_height;
+	GLuint o_framebuffer;
+	GLuint *op_renderbuffers;
 };
 
 } }

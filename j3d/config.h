@@ -22,6 +22,8 @@ struct Config {
 	string window_title;
 
 	float mouse_buffer_time;
+	float render_distance_near;
+	float render_distance_far;
 
 	bool register_atexit;
 	bool register_sigint;
@@ -34,6 +36,8 @@ struct Config {
 		window_width = 800;
 		window_height = 600;
 		mouse_buffer_time = 0.01f;
+		render_distance_near = 1;
+		render_distance_far = 1000;
 		register_atexit = true;
 		register_sigint = true;
 	}

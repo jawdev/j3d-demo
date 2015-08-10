@@ -44,20 +44,20 @@ public:
 	virtual Collision collide(Collider *, vec3 *, vec3 *);
 
 private:
-	Collision boxBox(Collider *, vec3 *, vec3 *);
-	Collision boxSphere(Collider *, vec3 *, vec3 *);
-	Collision boxEllipsoid(Collider *, vec3 *, vec3 *);
+	virtual Collision boxBox(Collider *, vec3 *, vec3 *);
+	virtual Collision boxSphere(Collider *, vec3 *, vec3 *);
+	virtual Collision boxEllipsoid(Collider *, vec3 *, vec3 *);
 
-	Collision sphereSphere(Collider *, vec3 *, vec3 *);
-	Collision sphereEllipsoid(Collider *, vec3 *, vec3 *);
+	virtual Collision sphereSphere(Collider *, vec3 *, vec3 *);
+	virtual Collision sphereEllipsoid(Collider *, vec3 *, vec3 *);
 
-	Collision ellipsoidEllipsoid(Collider *, vec3 *, vec3 *);
+	virtual Collision ellipsoidEllipsoid(Collider *, vec3 *, vec3 *);
 
 public:
-	collider_shape_t shape();
-	const vec3 &min();
-	const vec3 &max();
-	bool collidable();
+	virtual collider_shape_t shape();
+	virtual const vec3 &min();
+	virtual const vec3 &max();
+	virtual bool collidable();
 
 private:
 	collider_shape_t m_shape;
