@@ -123,6 +123,11 @@ void *cache::active(string id1)
 	}
 }
 
+bool cache::has_active(string id1)
+{
+	return (group_exists(id1) && m_active[id1] != nullptr);
+}
+
 void cache::activate(string id1, string id2)
 {
 	m_active[id1] = m_caches[id1][id2];

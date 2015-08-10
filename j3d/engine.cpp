@@ -25,6 +25,7 @@ void engine::init(const Config &s)
 		return;
 	}
 	m_init_complete = true;
+	J3D_DEBUG_INFO("initializing");
 
 	J3D_DEBUG_TODO("loading Config");
 	m_config = s;
@@ -55,6 +56,12 @@ void engine::quit(int exit_code)
 		return;
 	}
 	m_init_complete = false;
+	J3D_DEBUG_INFO("quitting");
+
+	if (J3D_CACHE_HAS_ACTIVE(Scene)) {
+		J3D_DEBUG_TODO("unloading active Scene");
+		J3D_CACHE_ACTIVE(Scene)->unload();
+	}
 
 	J3D_DEBUG_TODO("clearing Cache");
 	util::cache::group_destroy_all();
@@ -76,8 +83,9 @@ void engine::quit(int exit_code)
 
 void engine::run()
 {
-	if (!J3D_CACHE_EXISTS(Scene))
+	if (!J3D_CACHE_HAS_ACTIVE(Scene))
 		J3D_DEBUG_FATAL("please create a Scene");
+	J3D_CACHE_ACTIVE(Scene)->activate();
 	mp_display->loop();
 }
 

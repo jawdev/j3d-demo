@@ -1,0 +1,28 @@
+/*******************************************************************************
+* JAW DEVELOPMENT LLC
+* J3D
+* github.com/jawdev/j3d
+* demo.h
+*******************************************************************************/
+#ifndef __DEMO_DEMO_H__
+#define __DEMO_DEMO_H__
+
+/*******************************************************************************
+* DEMO
+*******************************************************************************/
+
+class Demo : public Scene {
+public:
+	Demo();
+	~Demo();
+
+protected:
+	void load();
+	void unload();
+	void update();
+
+private:
+	ShaderProgram *mp_shader;
+};
+
+#endif

@@ -179,10 +179,11 @@ void Mesh::build()
 			glBufferData(GL_ARRAY_BUFFER, o_sz_v, op_vertices, GL_STATIC_DRAW);
 		break;
 	default:
-		J3D_DEBUG_FATAL("(" << cacheIdFull() << ") invalid draw type: " <<
-				(int)o_draw_t);
+		J3D_DEBUG_FATAL("invalid draw type " << (int)o_draw_t << ": " <<
+				cacheIdFull());
 		break;
 	}
+	J3D_DEBUG_OK("Mesh built: " << cacheIdFull());
 }
 
 void Mesh::render()
@@ -211,8 +212,8 @@ void Mesh::render()
 		glDrawArrays(GL_SHAPE_MAP[(int)o_shape_t], 0, o_vec_v.size());
 		break;
 	default:
-		J3D_DEBUG_FATAL("(" << cacheIdFull() << ") invalid draw type: " <<
-				(int)o_draw_t);
+		J3D_DEBUG_FATAL("invalid draw type " << (int)o_draw_t << ": " <<
+				cacheIdFull());
 		break;
 	}
 }
@@ -223,7 +224,7 @@ void Mesh::render()
 bool Mesh::built()
 {
 	if (o_built) {
-		J3D_DEBUG_ERROR("(" << cacheIdFull() << ") already built");
+		J3D_DEBUG_ERROR("Mesh already built: " << cacheIdFull());
 		return true;
 	}
 	return false;

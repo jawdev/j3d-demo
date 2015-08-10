@@ -1,5 +1,10 @@
-#include "j3d/j3d.h"
-using namespace j3d;
+/*******************************************************************************
+* JAW DEVELOPMENT LLC
+* J3D
+* github.com/jawdev/j3d
+* main.cpp
+*******************************************************************************/
+#include "inc.h"
 
 int main(int argc, char *argv[])
 {
@@ -13,12 +18,7 @@ int main(int argc, char *argv[])
 		config.window_title = "TEST";
 	engine::init(config);
 
-	Scene *s = new Scene("a");
-
-	ShaderProgram *sp = new ShaderProgram();
-	sp->addVertexShader("assets/shaders/basic.vs");
-	sp->addFragmentShader("assets/shaders/basic.fs");
-	sp->link({"m4_camera", "m4_model", "v4_color"});
+	new Demo();
 	
 	engine::run();
 	return 0;

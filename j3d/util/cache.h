@@ -23,6 +23,7 @@ public:
 	static bool has(string, string);
 	static bool add(string, string, void *);
 	static void *get(string, string);
+	static bool has_active(string);
 	static void *active(string);
 	static void activate(string id1, string id2);
 	static bool remove(string, string, bool destroy = false);
@@ -46,7 +47,7 @@ class Cacheable {
 public:
 	Cacheable(string id1, string id2, bool activate = true);
 	virtual ~Cacheable();
-	void cacheActivate();
+	virtual void cacheActivate();
 
 	const char *cacheId();
 	const char *cacheIdFull();
@@ -62,6 +63,9 @@ private:
 #define J3D_CACHE_EXISTS(obj)\
 	j3d::util::cache::exists(obj::J3D_CACHE_ID)
 
+#define J3D_CACHE_HAS_ACTIVE(obj)\
+	j3d::util::cache::has_active(obj::J3D_CACHE_ID)
+
 #define J3D_CACHE_HAS(obj, id)\
 	j3d::util::cache::has(obj::J3D_CACHE_ID, id)
 
@@ -70,5 +74,8 @@ private:
 
 #define J3D_CACHE_GET(obj, id2)\
 	((obj *)j3d::util::cache::get(obj::J3D_CACHE_ID, id2))
+
+#define J3D_CACHE_DESTROY_GROUP(obj)\
+	j3d::util::cache::group_destroy(obj::J3D_CACHE_ID)
 
 #endif

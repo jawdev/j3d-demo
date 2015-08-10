@@ -8,15 +8,37 @@
 #define __J3D_SCENE_H__
 namespace j3d {
 
+class engine;
+
 class Scene : public util::Cacheable {
+	friend class engine;
+	friend class control;
 public:
 	static const char constexpr *J3D_CACHE_ID = "scene";
 
 public:
 	Scene(const char *id, bool activate = true)
 			: util::Cacheable(J3D_CACHE_ID, id, activate) {}
-	virtual ~Scene() { unload(); }
+	virtual ~Scene() {}
 
+	void cacheActivate()
+	{
+		J3D_CACHE_DESTROY_GROUP(Mesh);
+		J3D_CACHE_DESTROY_GROUP(ShaderProgram::Shader);
+		if (J3D_CACHE_HAS_ACTIVE(Scene) &&
+					J3D_CACHE_ACTIVE(Scene) != this) {
+			J3D_DEBUG_TODO("unloading Scene: " <<
+					J3D_CACHE_ACTIVE(Scene)->cacheIdFull());
+			J3D_CACHE_ACTIVE(Scene)->unload();
+		}
+		Cacheable::cacheActivate();
+		J3D_DEBUG_TODO("loading Scene: " << cacheIdFull());
+		load();
+		J3D_DEBUG_OK("Scene loaded: " << cacheIdFull());
+	}
+	void activate() { cacheActivate(); }
+
+protected:
 	virtual void load() {}
 	virtual void unload() {}
 	virtual void update() {}

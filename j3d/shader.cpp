@@ -26,11 +26,11 @@ ShaderProgram::Shader::Shader(const char *path, GLenum type)
 		glGetShaderiv(o_id, GL_INFO_LOG_LENGTH, &len);
 		GLchar *log = new GLchar[len + 1];
 		glGetShaderInfoLog(o_id, len, &len, log);
-		J3D_DEBUG_FATAL("(" << cacheIdFull() << ") compilation failed:\n"
-				<< log);
+		J3D_DEBUG_FATAL("Shader compilation failed: " << cacheIdFull() <<
+				"\n" << log);
 		delete [] log;
 	}
-	J3D_DEBUG_OK("(" << cacheIdFull() << ") compiled");
+	J3D_DEBUG_OK("Shader compiled: " << cacheIdFull());
 }
 
 ShaderProgram::Shader::~Shader() {}
@@ -52,9 +52,11 @@ ShaderProgram::ShaderProgram()
 
 ShaderProgram::~ShaderProgram()
 {
+/*
 	for (int i = 0; i < SHADER_COUNT; ++i)
 		if (mp_shaders[i] != nullptr)
 			delete mp_shaders[i];
+*/
 }
 
 ////////////////////////////////////////
@@ -86,8 +88,8 @@ ShaderProgram *ShaderProgram::addFragmentShader(const char *path)
 void ShaderProgram::link(initializer_list<const char *> unames, bool use)
 {
 	if (m_linked)
-		J3D_DEBUG_WARN("shader program already linked [" << m_id <<
-			"], linking again");
+		J3D_DEBUG_WARN("ShaderProgram already linked: " << m_id <<
+			", linking again");
 	glLinkProgram(m_id);
 	GLint linked;
 	glGetProgramiv(m_id, GL_LINK_STATUS, &linked);
@@ -96,13 +98,13 @@ void ShaderProgram::link(initializer_list<const char *> unames, bool use)
 		glGetProgramiv(m_id, GL_INFO_LOG_LENGTH, &len);
 		GLchar *log = new GLchar[len + 1];
 		glGetProgramInfoLog(m_id, len, &len, log);
-		J3D_DEBUG_FATAL("shader program could not be linked:\n" << log);
+		J3D_DEBUG_FATAL("ShaderProgram could not be linked:\n" << log);
 		delete [] log;
 	}
 	for (const char *u : unames)
 		m_ulocs[string(u)] = glGetUniformLocation(m_id, u);
 	m_linked = true;
-	J3D_DEBUG_OK("shader program linked [" << m_id << "]");
+	J3D_DEBUG_OK("ShaderProgram linked: " << m_id);
 	if (use)
 		glUseProgram(m_id);
 }
@@ -110,11 +112,11 @@ void ShaderProgram::link(initializer_list<const char *> unames, bool use)
 void ShaderProgram::use()
 {
 	if (!m_linked) {
-		J3D_DEBUG_ERROR("shader program must first be linked [" << m_id << "]");
+		J3D_DEBUG_ERROR("ShaderProgram must first be linked: " << m_id);
 		return;
 	}
 	glUseProgram(m_id);
-	J3D_DEBUG_OK("using shader program [" << m_id << "]");
+	J3D_DEBUG_OK("using ShaderProgram: " << m_id);
 }
 
 
