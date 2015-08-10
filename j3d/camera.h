@@ -30,6 +30,7 @@ public:
 	virtual ~Camera();
 
 	virtual void reshape();
+	virtual void reshape(int x, int y) { reshape(); }
 	virtual const mat4 &transform();
 
 	virtual Camera *mode(camera_mode_t);

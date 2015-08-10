@@ -47,7 +47,6 @@ void Display::loop()
 
 void Display::reshape(int w, int h)
 {
-	J3D_DEBUG_INFO("reshape");
 	util::cycle::advise_reshape(true);
 	glViewport(0, 0, w, h);
 	engine::config()->window_width = w;

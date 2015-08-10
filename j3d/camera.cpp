@@ -28,6 +28,7 @@ Camera::~Camera() {}
 
 void Camera::reshape()
 {
+	o_calcd_transform = false;
 	switch (o_proj) {
 	case camera_proj_t::PERSPECTIVE: {
 		float a = (float)engine::config()->window_width;
