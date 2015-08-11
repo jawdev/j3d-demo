@@ -46,7 +46,7 @@ void control::update()
 	if (m_record_time < engine::config()->mouse_buffer_time)
 		return;
 	m_record_time = 0;
-	if (J3D_CACHE_HAS_ACTIVE(Scene))
+	if (J3D_CACHE(active_exists, Scene))
 		J3D_CACHE_ACTIVE(Scene)->onMouseMove(m_new_x, m_new_y,
 				m_last_x, m_last_y);
 	m_last_x = m_new_x;
@@ -60,28 +60,28 @@ void control::update()
 void control::on_key_down(unsigned char k, int x, int y)
 {
 	m_key_down[(int)k] = true;
-	if (J3D_CACHE_HAS_ACTIVE(Scene))
+	if (J3D_CACHE(active_exists, Scene))
 		J3D_CACHE_ACTIVE(Scene)->onKeyDown(k, x, y);
 }
 
 void control::on_key_up(unsigned char k, int x, int y)
 {
 	m_key_down[(int)k] = false;
-	if (J3D_CACHE_HAS_ACTIVE(Scene))
+	if (J3D_CACHE(active_exists, Scene))
 		J3D_CACHE_ACTIVE(Scene)->onKeyUp(k, x, y);
 }
 
 void control::on_special_down(int k, int x, int y)
 {
 	m_key_down[k + S] = true;
-	if (J3D_CACHE_HAS_ACTIVE(Scene))
+	if (J3D_CACHE(active_exists, Scene))
 		J3D_CACHE_ACTIVE(Scene)->onSpecialDown(k, x, y);
 }
 
 void control::on_special_up(int k, int x, int y)
 {
 	m_key_down[k + S] = false;
-	if (J3D_CACHE_HAS_ACTIVE(Scene))
+	if (J3D_CACHE(active_exists, Scene))
 		J3D_CACHE_ACTIVE(Scene)->onSpecialUp(k, x, y);
 }
 
@@ -90,12 +90,12 @@ void control::on_mouse_click(int b, int s, int x, int y)
 	switch (s) {
 	case GLUT_DOWN:
 		m_mouse_down[b] = true;
-		if (J3D_CACHE_HAS_ACTIVE(Scene))
+		if (J3D_CACHE(active_exists, Scene))
 			J3D_CACHE_ACTIVE(Scene)->onMouseDown(b, x, y);
 		break;
 	case GLUT_UP:
 		m_mouse_down[b] = false;
-		if (J3D_CACHE_HAS_ACTIVE(Scene))
+		if (J3D_CACHE(active_exists, Scene))
 			J3D_CACHE_ACTIVE(Scene)->onMouseUp(b, x, y);
 		break;
 	default:

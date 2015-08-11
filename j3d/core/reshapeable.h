@@ -12,16 +12,14 @@ namespace j3d { namespace core {
 * RESHAPEABLE
 *******************************************************************************/
 
-class Reshapeable : public Cacheable {
+class Reshapeable : public Batch {
 public:
-	static const char constexpr *J3D_CACHE_ID = "reshapers";
+	static const char constexpr *J3D_BATCH_ID = "reshapeable";
 
 public:
 	Reshapeable();
 	virtual ~Reshapeable();
-
 	virtual void reshape(int x, int y);
-	static void reshape_all(int x, int y);
 
 };
 

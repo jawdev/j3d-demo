@@ -13,7 +13,7 @@ namespace j3d {
 
 Object::Object(const char *mesh_id) : core::Entity()
 {
-	if (!J3D_CACHE_HAS(Mesh, mesh_id))
+	if (!J3D_CACHE2(exists, Mesh, mesh_id))
 		J3D_DEBUG_FATAL("mesh could not be found: " << mesh_id);
 	op_mesh = J3D_CACHE_GET(Mesh, mesh_id);
 }

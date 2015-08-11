@@ -61,7 +61,7 @@ void engine::quit(int exit_code)
 	m_init_complete = false;
 	J3D_DEBUG_INFO("quitting");
 
-	if (J3D_CACHE_HAS_ACTIVE(Scene)) {
+	if (J3D_CACHE(active_exists, Scene)) {
 		J3D_DEBUG_TODO("unloading active Scene");
 		J3D_CACHE_ACTIVE(Scene)->unload();
 	}
@@ -69,8 +69,9 @@ void engine::quit(int exit_code)
 	J3D_DEBUG_TODO("deleting Display");
 	delete mp_display;
 
-	J3D_DEBUG_TODO("clearing Cache");
-	util::cache::group_destroy_all();
+	J3D_DEBUG_TODO("clearing cache");
+	util::cache::clear();
+	util::batches::clear();
 
 	if (m_config.register_sigint) {
 		J3D_DEBUG_TODO("releasing sigint handler");
@@ -86,7 +87,7 @@ void engine::quit(int exit_code)
 
 void engine::run()
 {
-	if (!J3D_CACHE_HAS_ACTIVE(Scene))
+	if (!J3D_CACHE(active_exists, Scene))
 		J3D_DEBUG_FATAL("please create a Scene");
 	J3D_CACHE_ACTIVE(Scene)->activate();
 	util::cycle::tick();

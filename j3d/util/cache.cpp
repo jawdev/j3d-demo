@@ -11,195 +11,171 @@ namespace j3d { namespace util {
 * CACHE
 *******************************************************************************/
 
-unordered_map<string, unordered_map<string, core::Cacheable *>> cache::m_caches;
-unordered_map<string, core::Cacheable *> cache::m_active;
-bool cache::m_destroy_all = false;
+cachemap cache::m_caches;
+cachegroup cache::m_actives;
+bool cache::m_clearing = false;
 
-unordered_map<string, core::Cacheable *> &cache::group(string id)
-{
-	return m_caches.at(id);
-}
+////////////////////////////////////////
+// MAIN
 
-size_t cache::group_size(string id)
+void cache::clear(bool del)
 {
-	if (!group_exists(id))
-		return 0;
-	return m_caches.at(id).size();
-}
-
-string cache::group_next_id(string id)
-{
-	stringstream ss;
-	ss << group_size(id);
-	return ss.str();
-}
-
-bool cache::group_exists(string id)
-{
-	try {
-		m_caches.at(id);
-	} catch (...) {
-		return false;
-	}
-	return true;
-}
-
-void cache::group_create(string id)
-{
-	m_caches[id] = unordered_map<string , core::Cacheable *>();
-	m_active[id] = nullptr;
-}
-
-void cache::group_destroy(string id, bool destroy)
-{
-	if (!destroy) {
-		m_active.erase(id);
-		m_caches[id].clear();
-		return;
-	}
-	core::Cacheable *ptr;
-	for (auto iter = m_caches[id].begin(); iter != m_caches[id].end(); ++iter) {
-		ptr = iter->second;
-		J3D_SAFE_DELETE(ptr);
-	}
-	m_caches[id].clear();
-	m_active.erase(id);
-	m_caches.erase(id);
-}
-
-void cache::group_destroy_all(bool destroy)
-{
-	m_destroy_all = true;
-	core::Cacheable *ptr;
-	for (auto iter = m_caches.begin(); iter != m_caches.end(); ++iter) {
-		J3D_DEBUG_TODO("clearing cache group: [" << iter->first << "]");
-		if (!destroy) {
-			iter->second.clear();
-			continue;
-		}
-		for (auto jter = iter->second.begin(); jter != iter->second.end();
-				++jter) {
-			ptr = jter->second;
-			J3D_SAFE_DELETE(ptr);
-		}
-		iter->second.clear();
-	}
+	m_clearing = true;
+	for (auto it = m_caches.begin(); it != m_caches.end(); ++it)
+		group_destroy(it->first, del);
 	m_caches.clear();
-	m_active.clear();
-	m_destroy_all = false;
-}
-
-bool cache::exists(string id1)
-{
-	if (!group_exists(id1))
-		return false;
-	try {
-		return !m_caches[id1].empty();
-	} catch (...) {
-		J3D_DEBUG_ERROR("cache group could not be found: [" << id1 << "]");
-		return false;
-	}
-}
-
-bool cache::has(string id1, string id2)
-{
-	try {
-		m_caches.at(id1).at(id2);
-	} catch (...) {
-		return false;
-	}
-	return true;
-}
-
-bool cache::add(string id1, string id2, core::Cacheable *el)
-{
-	try {
-		m_caches[id1][id2] = el;
-	} catch (...) {
-		J3D_DEBUG_ERROR("cache group could not be found: [" << id1 << "]");
-		return false;
-	}
-	return true;
-}
-
-core::Cacheable *cache::get(string id1, string id2)
-{
-	try {
-		return m_caches[id1][id2];
-	} catch (...) {
-		J3D_DEBUG_ERROR("cache item could not be found: [" << id1 << "]["
-				<< id2 << "]");
-		return nullptr;
-	}
-}
-
-core::Cacheable *cache::active(string id1)
-{
-	try {
-		return m_active[id1];
-	} catch (...) {
-		J3D_DEBUG_ERROR("cache active item could not be found: [" << id1 << "]");
-		return nullptr;
-	}
-}
-
-bool cache::has_active(string id1)
-{
-	return (group_exists(id1) && m_active[id1] != nullptr);
-}
-
-void cache::activate(string id1, string id2)
-{
-	m_active[id1] = m_caches[id1][id2];
-}
-
-bool cache::remove(string id1, string id2, bool destroy)
-{
-	if (m_destroy_all)
-		return true;
-	core::Cacheable *c;
-	try {
-		c = m_caches[id1][id2];
-	} catch (...) {
-		J3D_DEBUG_ERROR("cache item could not be found: [" << id1 << "]["
-				<< id2 << "]");
-		return false;
-	}
-	m_caches[id1].erase(id2);
-	if (m_active[id1] == c) {
-		if (m_caches[id1].empty())
-			m_active[id1] = nullptr;
-		else
-			m_active[id1] = m_caches[id1].begin()->second;
-	}
-	if (destroy) {
-		J3D_SAFE_DELETE(c);
-	}
-	return true;
-}
-
-bool cache::dne_fatal(string id1, string id2)
-{
-	if (has(id1, id2)) {
-		J3D_DEBUG_FATAL("cached item already exists: [" << id1 << "][" << id2
-				<< "]");
-		return false;
-	}
-	return true;
+	m_clearing = false;
 }
 
 void cache::print()
 {
-	for (auto iter = m_caches.begin(); iter != m_caches.end(); ++iter)
-		print(iter->first);
+	for (auto it = m_caches.begin(); it != m_caches.end(); ++it)
+		print(it->first);
 }
 
 void cache::print(string id1)
 {
 	cout << id1 << " {\n";
-	for (auto iter = m_caches[id1].begin(); iter != m_caches[id1].end(); ++iter)
-		cout << "\t" << iter->first << " -> " << iter->second << "\n";
+	for (auto it = m_caches[id1].begin(); it != m_caches[id1].end(); ++it)
+		cout << "\t" << it->first << " -> " << it->second << "\n";
 	cout << "}" << endl;
+}
+
+////////////////////////////////////////
+// GROUP
+
+bool cache::group_create(string id1)
+{
+	if (group_exists(id1)) {
+		J3D_DEBUG_FATAL("group already exists: " << id1);
+		return false;
+	}
+	m_caches[id1] = cachegroup();
+	m_actives[id1] = nullptr;
+	return true;
+}
+
+bool cache::group_destroy(string id1, bool del)
+{
+	if (!group_exists(id1, true))
+		return false;
+	J3D_DEBUG_TODO("clearing cache group: " << id1);
+	if (del) {
+		cacheitem *ptr;
+		for (auto it = m_caches[id1].begin(); it != m_caches[id1].end(); ++it) {
+			ptr = it->second;
+			J3D_SAFE_DELETE(ptr);
+		}
+	}
+	J3D_DEBUG_OK("cache group cleared: " << id1);
+	m_actives.erase(id1);
+	if (!m_clearing)
+		m_caches.erase(id1);
+	return true;
+}
+
+const cachegroup *cache::group_get(string id1) { return &m_caches.at(id1); }
+
+bool cache::group_exists(string id1, bool dbg)
+{
+	try {
+		m_caches.at(id1);
+	} catch (...) {
+		if (dbg)
+			J3D_DEBUG_WARN("group does not exist: " << id1);
+		return false;
+	}
+	return true;
+}
+
+bool cache::group_empty(string id1)
+{
+	if (!group_exists(id1, true))
+		return true;
+	return m_caches.at(id1).empty();
+}
+
+size_t cache::group_size(string id1)
+{
+	if (!group_exists(id1, true))
+		return 0;
+	return m_caches.at(id1).size();
+}
+
+////////////////////////////////////////
+// ITEM
+
+bool cache::add(string id1, string id2, cacheitem *ptr, bool mkgrp)
+{
+	if (!group_exists(id1, !mkgrp)) {
+		if (!mkgrp)
+			return false;
+		group_create(id1);
+	}
+	if (exists(id1, id2)) {
+		J3D_DEBUG_FATAL("item already exists: " << id1 << "." << id2);
+		return false;
+	}
+	m_caches[id1][id2] = ptr;
+	return true;
+}
+
+bool cache::remove(string id1, string id2, bool del)
+{
+	if (m_clearing)
+		return true;
+	if (!exists(id1, id2, true))
+		return false;
+	cacheitem *ptr = m_caches.at(id1).at(id2);
+	if (m_actives[id1] == ptr)
+		m_actives[id1] = m_caches[id1].begin()->second;
+	if (del)
+		J3D_SAFE_DELETE(ptr);
+	m_caches[id1].erase(id2);
+	if (m_caches[id1].empty())
+		m_actives[id1] = nullptr;
+	return true;
+}
+
+cacheitem *cache::get(string id1, string id2)
+{
+	return m_caches.at(id1).at(id2);
+}
+
+bool cache::exists(string id1, string id2, bool dbg)
+{
+	if (!group_exists(id1, dbg))
+		return false;
+	try {
+		m_caches.at(id1).at(id2);
+	} catch (...) {
+		if (dbg)
+			J3D_DEBUG_ERROR("item could not be found: " << id1 << "." << id2);
+		return false;
+	}
+	return true;
+}
+
+bool cache::activate(string id1, string id2)
+{
+	if (!exists(id1, id2, true))
+		return false;
+	m_actives[id1] = m_caches[id1][id2];
+	return true;
+}
+
+cacheitem *cache::active_get(string id1)
+{
+	return m_actives[id1];
+}
+
+bool cache::active_exists(string id1)
+{
+	if (!group_exists(id1, true))
+		return false;
+	if (m_caches[id1].empty() || m_actives[id1] == nullptr)
+		return false;
+	return true;
 }
 
 } }

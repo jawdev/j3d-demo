@@ -2,20 +2,25 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/reshapeable.cpp
+* j3d/core/batch.h
 *******************************************************************************/
-#include "../j3d.h"
+#ifndef __J3D_CORE_BATCH__
+#define __J3D_CORE_BATCH__
 namespace j3d { namespace core {
 
 /*******************************************************************************
-* RESHAPEABLE
+* BATCH
 *******************************************************************************/
 
-Reshapeable::Reshapeable()
-		: Batch(J3D_BATCH_ID) {}
+class Batch {
+public:
+	Batch(string id);
+	virtual ~Batch();
 
-Reshapeable::~Reshapeable() {}
+private:
+	string m_batch_id;
 
-void Reshapeable::reshape(int x, int y) {}
+};
 
 } }
+#endif

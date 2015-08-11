@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 	/*
 	 * 1. set debug level
 	 */
-	debug(J3D_DEBUG_LEVEL_ALL, true);
+	util::debug(J3D_DEBUG_LEVEL_ALL, true);
 	
 	/*
 	 * 2. set config
@@ -27,8 +27,9 @@ int main(int argc, char *argv[])
 		config.argv = argv;
 		config.window_width = 800;
 		config.window_height = 600;
-		config.window_title = "TEST";
+		config.window_title = "J3D Demo";
 	engine::init(config);
+
 
 	/*
 	 * 4. create scenes

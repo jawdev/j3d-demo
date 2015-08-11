@@ -23,9 +23,9 @@ public:
 
 	void cacheActivate()
 	{
-		J3D_CACHE_DESTROY_GROUP(Mesh);
-		J3D_CACHE_DESTROY_GROUP(ShaderProgram::Shader);
-		if (J3D_CACHE_HAS_ACTIVE(Scene) &&
+		J3D_CACHE(group_destroy, Mesh);
+		J3D_CACHE(group_destroy, ShaderProgram::Shader);
+		if (J3D_CACHE(active_exists, Scene) &&
 					J3D_CACHE_ACTIVE(Scene) != this) {
 			J3D_DEBUG_TODO("unloading Scene: " <<
 					J3D_CACHE_ACTIVE(Scene)->cacheIdFull());

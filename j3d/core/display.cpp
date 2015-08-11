@@ -51,7 +51,7 @@ void Display::reshape(int w, int h)
 	glViewport(0, 0, w, h);
 	engine::config()->window_width = w;
 	engine::config()->window_height = h;
-	Reshapeable::reshape_all(w, h);
+	J3D_BATCH(Reshapeable, reshape, w, h);
 }
 
 void Display::display()

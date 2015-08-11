@@ -64,7 +64,7 @@ ShaderProgram::~ShaderProgram()
 
 ShaderProgram *ShaderProgram::addVertexShader(const char *path)
 {
-	if (J3D_CACHE_HAS(Shader, path))
+	if (J3D_CACHE2(exists, Shader, path))
 		mp_shaders[0] = J3D_CACHE_GET(Shader, path);
 	else
 		mp_shaders[0] = new VertexShader(path);
@@ -74,7 +74,7 @@ ShaderProgram *ShaderProgram::addVertexShader(const char *path)
 
 ShaderProgram *ShaderProgram::addFragmentShader(const char *path)
 {
-	if (J3D_CACHE_HAS(Shader, path))
+	if (J3D_CACHE2(exists, Shader, path))
 		mp_shaders[1] = J3D_CACHE_GET(Shader, path);
 	else
 		mp_shaders[1] = new FragmentShader(path);

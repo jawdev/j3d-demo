@@ -15,10 +15,7 @@ Cacheable::Cacheable(string id1, string id2, bool activate)
 {
 	m_id1 = id1;
 	m_id2 = id2;
-	if (!util::cache::group_exists(m_id1))
-		util::cache::group_create(m_id1);
-	util::cache::dne_fatal(m_id1, m_id2);
-	util::cache::add(m_id1, m_id2, this);
+	util::cache::add(m_id1, m_id2, this, true);
 	if (activate)
 		cacheActivate();
 }

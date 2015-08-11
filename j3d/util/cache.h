@@ -12,61 +12,59 @@ namespace j3d { namespace util {
 * CACHE
 *******************************************************************************/
 
+typedef core::Cacheable cacheitem;
+typedef unordered_map<string, cacheitem *> cachegroup;
+typedef unordered_map<string, cachegroup> cachemap;
+
 class cache {
 public:
-	static unordered_map<string, core::Cacheable *> &group(string);
-	static size_t group_size(string id);
-	static string group_next_id(string id);
-	static bool group_exists(string);
-	static void group_create(string);
-	static void group_destroy(string, bool destroy = true);
-	static void group_destroy_all(bool destroy = true);
-
-	static bool exists(string id1);
-	static bool has(string, string);
-	static bool add(string, string, core::Cacheable *);
-	static core::Cacheable *get(string, string);
-	static bool has_active(string);
-	static core::Cacheable *active(string);
-	static void activate(string id1, string id2);
-	static bool remove(string, string, bool destroy = false);
-	static bool dne_fatal(string, string);
-
+	static void clear(bool call_delete = true);
 	static void print();
-	static void print(string);
+	static void print(string id1);
+
+	static bool	group_create(string id1);
+	static bool group_destroy(string id1, bool call_delete = true);
+	static const cachegroup *group_get(string);
+	static bool group_exists(string id1, bool debug_error = false);
+	static bool group_empty(string id1);
+	static size_t group_size(string id1);
+
+	static bool add(string id1, string id2, cacheitem *, bool mkgrp = false);
+	static bool remove(string id1, string id2, bool call_delete = false);
+	static cacheitem *get(string id1, string id2);
+	static bool exists(string id1, string id2, bool debug_error = false);
+	static bool activate(string id1, string id2);
+	static cacheitem *active_get(string id1);
+	static bool active_exists(string id1);
 
 private:
-	static unordered_map<string, unordered_map<string, core::Cacheable *>>
-			m_caches;
-	static unordered_map<string, core::Cacheable *> m_active;
-	static bool m_destroy_all;
+	static cachemap m_caches;
+	static cachegroup m_actives;
+	static bool m_clearing;
 
 };
 
 } }
 
-#define J3D_CACHE_GROUP(obj)\
-	j3d::util::cache::group(obj::J3D_CACHE_ID)
+////////////////////////////////////////
+// TOKEN DEFINES
 
-#define J3D_CACHE_GROUP_SIZE(obj)\
-	j3d::util::cache::group_size(obj::J3D_CACHE_ID)
+#define J3D_CACHE(_func, _obj)\
+	j3d::util::cache::_func(_obj::J3D_CACHE_ID)
 
-#define J3D_CACHE_EXISTS(obj)\
-	j3d::util::cache::exists(obj::J3D_CACHE_ID)
+#define J3D_CACHE2(_func, _obj, _p2)\
+	j3d::util::cache::_func(_obj::J3D_CACHE_ID, _p2)
 
-#define J3D_CACHE_HAS_ACTIVE(obj)\
-	j3d::util::cache::has_active(obj::J3D_CACHE_ID)
+#define J3D_CACHE3(_func, _obj, _p2, _p3)\
+	j3d::util::cache::_func(_obj::J3D_CACHE_ID, _p2, _p3)
 
-#define J3D_CACHE_HAS(obj, id)\
-	j3d::util::cache::has(obj::J3D_CACHE_ID, id)
+#define J3D_CACHE4(_func, _obj, _p2, _p3, _p4)\
+	j3d::util::cache::_func(_obj::J3D_CACHE_ID, _p2, _p3, _p4)
 
-#define J3D_CACHE_ACTIVE(obj)\
-	((obj *)j3d::util::cache::active(obj::J3D_CACHE_ID))
+////////////////////////////////////////
+// SHORTCUTS
 
-#define J3D_CACHE_GET(obj, id2)\
-	((obj *)j3d::util::cache::get(obj::J3D_CACHE_ID, id2))
-
-#define J3D_CACHE_DESTROY_GROUP(obj)\
-	j3d::util::cache::group_destroy(obj::J3D_CACHE_ID)
+#define J3D_CACHE_ACTIVE(obj) ((obj *)J3D_CACHE(active_get, obj))
+#define J3D_CACHE_GET(obj, id2) ((obj *)J3D_CACHE2(get, obj, id2))
 
 #endif
