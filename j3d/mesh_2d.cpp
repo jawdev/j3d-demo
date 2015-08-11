@@ -2,32 +2,21 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/object.cpp
+* j3d/mesh_2d.cpp
 *******************************************************************************/
 #include "j3d.h"
 namespace j3d {
 
 /*******************************************************************************
-* OBJECT
+* MESH2D
 *******************************************************************************/
 
-Object::Object(const char *mesh_id) : core::Entity()
+Mesh2D::Mesh2D(const char *id, mesh_draw_t d, mesh_shape_t s,
+		unsigned int restart_index) : Mesh(id, d, s, restart_index)
 {
-	if (!J3D_CACHE2(exists, Mesh, mesh_id))
-		J3D_DEBUG_FATAL("Mesh could not be found: " << mesh_id);
-	mp_mesh = J3D_CACHE_GET(Mesh, mesh_id);
+	optimize2D();
 }
 
-Object::~Object() {}
-
-void Object::update()
-{
-	core::Entity::update();
-}
-
-void Object::render()
-{
-	mp_mesh->render();
-}
+Mesh2D::~Mesh2D() {}
 
 }

@@ -2,36 +2,28 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* demo.h
+* j3d/sprite.h
 *******************************************************************************/
-#ifndef __DEMO_DEMO_H__
-#define __DEMO_DEMO_H__
+#ifndef __J3D_SPRITE_H__
+#define __J3D_SPRITE_H__
+namespace j3d {
 
 /*******************************************************************************
-* DEMO
+* SPRITE
 *******************************************************************************/
 
-class Demo : public Scene {
+class Sprite : public core::Entity2D {
 public:
-	Demo();
-	~Demo();
+	Sprite(const char *mesh_id);
+	virtual ~Sprite();
 
-protected:
-	void load();
-	void unload();
-	void update();
+	virtual void update();
+	virtual void render();
 
 private:
-	float m_time_agg;
-	unsigned int m_counter;
+	Mesh2D *mp_mesh;
 
-	Object *mp_box;
-	ShaderProgram *mp_shader;
-	Camera *mp_cam;
-	vec3 m_vec3;
-	vec2 m_vec2;
-	vec4 m_vec4;
-	
 };
 
+}
 #endif

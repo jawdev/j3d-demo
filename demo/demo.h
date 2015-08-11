@@ -2,28 +2,38 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/object.h
+* demo/demo.h
 *******************************************************************************/
-#ifndef __J3D_OBJECT_H__
-#define __J3D_OBJECT_H__
-namespace j3d {
+#ifndef __DEMO_DEMO_H__
+#define __DEMO_DEMO_H__
 
 /*******************************************************************************
-* OBJECT
+* DEMO
 *******************************************************************************/
 
-class Object : public core::Entity {
+class Demo : public Scene {
 public:
-	Object(const char *mesh_id);
-	virtual ~Object();
+	Demo();
+	~Demo();
 
-	virtual void update();
-	virtual void render();
+protected:
+	void load();
+	void unload();
+	void update();
 
 private:
-	Mesh *mp_mesh;
+	float m_time_agg;
+	unsigned int m_counter;
+
+	Layer *mp_l1;
+	Layer2D *mp_l2;
+
+	ShaderProgram *mp_shader;
+	Cube *mp_cube;
+	Camera *mp_cam;
 	
+	Layer *mp_layer;
+	Sprite *mp_sprite;
 };
 
-}
 #endif

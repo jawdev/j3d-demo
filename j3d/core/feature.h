@@ -2,31 +2,29 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/entity.h
+* j3d/core/feature.h
 *******************************************************************************/
-#ifndef __J3D_CORE_ENTITY_H__
-#define __J3D_CORE_ENTITY_H__
+#ifndef __J3D_CORE_FEATURE_H__
+#define __J3D_CORE_FEATURE_H__
 namespace j3d { namespace core {
 
 /*******************************************************************************
-* ENTITY
+* FEATURE
 *******************************************************************************/
 
-class Entity : public EntityBase<vec3> {
+class Feature {
+	friend class Group;
 public:
-	Entity(bool locked = false);
-	virtual ~Entity();
+	Feature() {}
+	virtual ~Feature() {}
 
-	virtual const mat4 &transform();
-	virtual Entity *lookAt(const vec3 &);
-	
-	virtual Entity *lock(bool = true);
+	virtual void update() {}
+	virtual void render() {}
 
-protected:
-	bool o_calcd_transform;
-	mat4 o_mat_pos;
-	mat4 o_mat_rot;
-	mat4 o_mat_transform;
+	Group *group() const { return mp_group; }
+
+private:
+	Group *mp_group;
 
 };
 

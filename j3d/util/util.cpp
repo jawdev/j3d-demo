@@ -13,6 +13,13 @@ double now()
 			(chrono::high_resolution_clock::now().time_since_epoch()).count();
 }
 
+string ptr2str(void *ptr)
+{
+	stringstream ss;
+	ss << ptr;
+	return ss.str();
+}
+
 char *file_get_contents(const char *filename, bool zero_term)
 {
 	ifstream in(filename, ios::in|ios::binary);

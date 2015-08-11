@@ -2,20 +2,24 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/reshapeable.cpp
+* j3d/layer.h
 *******************************************************************************/
-#include "../j3d.h"
-namespace j3d { namespace core {
+#ifndef __J3D_LAYER__
+#define __J3D_LAYER__
+namespace j3d {
 
 /*******************************************************************************
-* RESHAPEABLE
+* LAYER
 *******************************************************************************/
 
-Reshapeable::Reshapeable()
-		: Batch(J3D_BATCH_ID) {}
+class Layer : public core::LayerBase {
+public:
+	Layer(bool control_delete = true);
+	~Layer();
 
-Reshapeable::~Reshapeable() {}
+	Layer *add(Object *);
+	Layer *add(initializer_list<Object *>);
+};
 
-void Reshapeable::reshape(int x, int y) {}
-
-} }
+}
+#endif

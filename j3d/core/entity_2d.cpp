@@ -2,26 +2,17 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/reshapeable.h
+* j3d/core/entity_2d.cpp
 *******************************************************************************/
-#ifndef __J3D_CORE_RESHAPEABLE__
-#define __J3D_CORE_RESHAPEABLE__
+#include "../j3d.h"
 namespace j3d { namespace core {
 
 /*******************************************************************************
-* RESHAPEABLE
+* ENTITY2D
 *******************************************************************************/
 
-class Reshapeable : public Batch {
-public:
-	static const char constexpr *J3D_BATCH_ID = "reshapeable";
+Entity2D::Entity2D(bool locked) : EntityBase<vec2>(locked) {}
 
-public:
-	Reshapeable();
-	virtual ~Reshapeable();
-	virtual void reshape(int x, int y);
-
-};
+Entity2D::~Entity2D() {}
 
 } }
-#endif

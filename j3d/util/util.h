@@ -15,6 +15,8 @@ struct is_pointer<T *> { static const bool value = true; };
 
 double now();
 
+string ptr2str(void *);
+
 char *file_get_contents(const char *filename, bool zero_term = false);
 
 }}

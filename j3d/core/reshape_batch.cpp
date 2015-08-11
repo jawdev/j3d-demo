@@ -2,33 +2,20 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/entity.h
+* j3d/core/reshape_batch.cpp
 *******************************************************************************/
-#ifndef __J3D_CORE_ENTITY_H__
-#define __J3D_CORE_ENTITY_H__
+#include "../j3d.h"
 namespace j3d { namespace core {
 
 /*******************************************************************************
-* ENTITY
+* RESHAPEABLE
 *******************************************************************************/
 
-class Entity : public EntityBase<vec3> {
-public:
-	Entity(bool locked = false);
-	virtual ~Entity();
+ReshapeBatch::ReshapeBatch()
+		: Batch(J3D_BATCH_ID) {}
 
-	virtual const mat4 &transform();
-	virtual Entity *lookAt(const vec3 &);
-	
-	virtual Entity *lock(bool = true);
+ReshapeBatch::~ReshapeBatch() {}
 
-protected:
-	bool o_calcd_transform;
-	mat4 o_mat_pos;
-	mat4 o_mat_rot;
-	mat4 o_mat_transform;
-
-};
+void ReshapeBatch::reshape(int x, int y) {}
 
 } }
-#endif

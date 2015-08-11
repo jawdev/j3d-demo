@@ -2,32 +2,33 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/object.cpp
+* j3d/layer.cpp
 *******************************************************************************/
 #include "j3d.h"
 namespace j3d {
 
 /*******************************************************************************
-* OBJECT
+* LAYER
 *******************************************************************************/
 
-Object::Object(const char *mesh_id) : core::Entity()
+Layer::Layer(bool del) : LayerBase(del)
 {
-	if (!J3D_CACHE2(exists, Mesh, mesh_id))
-		J3D_DEBUG_FATAL("Mesh could not be found: " << mesh_id);
-	mp_mesh = J3D_CACHE_GET(Mesh, mesh_id);
+	LayerBase::renderBuffer(new core::Renderbuffer());
 }
 
-Object::~Object() {}
+Layer::~Layer() {}
 
-void Object::update()
+Layer *Layer::add(Object *o)
 {
-	core::Entity::update();
+	Group::add(o);
+	return this;
 }
 
-void Object::render()
+Layer *Layer::add(initializer_list<Object *> os)
 {
-	mp_mesh->render();
+	for (Object *o : os)
+		add(o);
+	return this;
 }
 
 }

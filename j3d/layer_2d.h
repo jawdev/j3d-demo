@@ -2,32 +2,25 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/object.cpp
+* j3d/layer_2d.h
 *******************************************************************************/
-#include "j3d.h"
+#ifndef __J3D_LAYER_2D__
+#define __J3D_LAYER_2D__
 namespace j3d {
 
 /*******************************************************************************
-* OBJECT
+* LAYER
 *******************************************************************************/
 
-Object::Object(const char *mesh_id) : core::Entity()
-{
-	if (!J3D_CACHE2(exists, Mesh, mesh_id))
-		J3D_DEBUG_FATAL("Mesh could not be found: " << mesh_id);
-	mp_mesh = J3D_CACHE_GET(Mesh, mesh_id);
-}
+class Layer2D : public core::LayerBase {
+public:
+	Layer2D(bool control_delete = true);
+	~Layer2D();
 
-Object::~Object() {}
-
-void Object::update()
-{
-	core::Entity::update();
-}
-
-void Object::render()
-{
-	mp_mesh->render();
-}
+	Layer2D *add(Sprite *);
+	Layer2D *add(initializer_list<Sprite *>);
+};
 
 }
+#endif
+

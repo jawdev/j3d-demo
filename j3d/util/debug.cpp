@@ -2,9 +2,9 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/debug.cpp
+* j3d/util/debug.cpp
 *******************************************************************************/
-#include "j3d.h"
+#include "../j3d.h"
 namespace j3d { namespace util {
 
 int debug_settings::level = J3D_DEBUG_LEVEL_WARN;

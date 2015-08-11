@@ -21,23 +21,6 @@ Entity::~Entity() {}
 ////////////////////////////////////////
 // MAIN
 
-void Entity::spatialize(bool force_delta)
-{
-	if (o_locked)
-		return;
-	if (o_attached && !force_delta) {
-		syncAttachment();
-		return;
-	}
-	o_pos += o_vel * util::cycle::delta();
-	o_rot += o_rvel * util::cycle::delta();
-}
-
-void Entity::update()
-{
-	spatialize();
-}
-
 const mat4 &Entity::transform()
 {
 	if (o_locked && o_calcd_transform)
@@ -48,9 +31,6 @@ const mat4 &Entity::transform()
 	o_calcd_transform = true;
 	return o_mat_transform;
 }
-
-////////////////////////////////////////
-// SUPPLEMENTS
 
 Entity *Entity::lookAt(const vec3 &v)
 {
@@ -71,11 +51,5 @@ Entity *Entity::lock(bool b)
 	o_calcd_transform = false;
 	return this;
 }
-
-Entity *Entity::vel(const vec3 &v) { o_vel = v; return this; }
-Entity *Entity::rvel(const vec3 &v) { o_rvel = v; return this; }
-
-const vec3 &Entity::vel() const { return o_vel; }
-const vec3 &Entity::rvel() const { return o_rvel; }
 
 } }

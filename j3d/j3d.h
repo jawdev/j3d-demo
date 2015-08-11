@@ -64,7 +64,9 @@ namespace j3d {
 	namespace core {
 		class Cacheable;
 		class Batch;
+		class Group;
 	}
+	class ShaderProgram;
 }
 
 ////////////////////////////////////////
@@ -82,18 +84,28 @@ namespace j3d {
 #include "core/flaggable.h"
 #include "core/cacheable.h"
 #include "core/batch.h"
-#include "core/reshapeable.h"
+#include "core/feature.h"
+#include "core/group.h"
+#include "core/reshape_batch.h"
+#include "core/renderbuffer_base.h"
 #include "core/renderbuffer.h"
+#include "core/renderbuffer_2d.h"
+#include "core/layer_base.h"
 #include "core/display.h"
 #include "core/entity_base.h"
 #include "core/entity.h"
+#include "core/entity_2d.h"
 
 #include "shader.h"
 #include "mesh.h"
+#include "mesh_2d.h"
 #include "mesh_shapes.h"
 #include "collider.h"
 #include "object.h"
+#include "sprite.h"
 #include "camera.h"
+#include "layer.h"
+#include "layer_2d.h"
 #include "scene.h"
 #include "config.h"
 #include "engine.h"

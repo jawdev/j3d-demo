@@ -2,32 +2,23 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/object.cpp
+* demo/cube.cpp
 *******************************************************************************/
-#include "j3d.h"
-namespace j3d {
+#include "inc.h"
 
 /*******************************************************************************
-* OBJECT
+* CUBE
 *******************************************************************************/
 
-Object::Object(const char *mesh_id) : core::Entity()
+Cube::Cube(const char *mesh_id) : Object(mesh_id)
 {
-	if (!J3D_CACHE2(exists, Mesh, mesh_id))
-		J3D_DEBUG_FATAL("Mesh could not be found: " << mesh_id);
-	mp_mesh = J3D_CACHE_GET(Mesh, mesh_id);
 }
 
-Object::~Object() {}
+Cube::~Cube() {}
 
-void Object::update()
+void Cube::render()
 {
-	core::Entity::update();
-}
-
-void Object::render()
-{
-	mp_mesh->render();
-}
-
+	transform();
+	group()->shaderProgram()->bind("m4_model", transform());
+	Object::render();
 }

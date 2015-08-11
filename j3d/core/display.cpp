@@ -25,17 +25,13 @@ Display::Display()
 	glutReshapeFunc(on_reshape);
 	glutDisplayFunc(on_display);
 
-	mp_renderbuffer = new Renderbuffer();
-	mp_renderbuffer->bind();
-	
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
+	glClearColor(0, 0, 0, 0);
+	glEnable(GL_BLEND);
+	glEnable(GL_MULTISAMPLE);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-Display::~Display()
-{
-	J3D_SAFE_DELETE(mp_renderbuffer);
-}
+Display::~Display() {}
 
 ////////////////////////////////////////
 // CORE
@@ -51,14 +47,12 @@ void Display::reshape(int w, int h)
 	glViewport(0, 0, w, h);
 	engine::config()->window_width = w;
 	engine::config()->window_height = h;
-	J3D_BATCH(Reshapeable, reshape, w, h);
+	J3D_BATCH(ReshapeBatch, reshape, w, h);
 }
 
 void Display::display()
 {
-	mp_renderbuffer->bind();
 	engine::update();
-	mp_renderbuffer->blit();
 	glFlush();
 	glutSwapBuffers();
 	glutPostRedisplay();

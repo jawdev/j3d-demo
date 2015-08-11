@@ -2,28 +2,22 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/object.h
+* demo/cube.h
 *******************************************************************************/
-#ifndef __J3D_OBJECT_H__
-#define __J3D_OBJECT_H__
-namespace j3d {
+#ifndef __DEMO_CUBE_H__
+#define __DEMO_CUBE_H__
 
 /*******************************************************************************
-* OBJECT
+* CUBE
 *******************************************************************************/
 
-class Object : public core::Entity {
+class Cube : public Object {
 public:
-	Object(const char *mesh_id);
-	virtual ~Object();
+	Cube(const char *mesh_id);
+	~Cube();
 
-	virtual void update();
-	virtual void render();
+	void render();
 
-private:
-	Mesh *mp_mesh;
-	
 };
 
-}
 #endif

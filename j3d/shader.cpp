@@ -42,7 +42,8 @@ GLuint ShaderProgram::Shader::id() const { return o_id; }
 * SHADERPROGRAM
 *******************************************************************************/
 
-ShaderProgram::ShaderProgram()
+ShaderProgram::ShaderProgram(const char *id)
+	: core::Cacheable(J3D_CACHE_ID, id)
 {
 	for (int i = 0; i < SHADER_COUNT; ++i)
 		mp_shaders[i] = nullptr;
@@ -116,7 +117,6 @@ void ShaderProgram::use()
 		return;
 	}
 	glUseProgram(m_id);
-	J3D_DEBUG_OK("using ShaderProgram: " << m_id);
 }
 
 

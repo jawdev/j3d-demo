@@ -12,7 +12,7 @@ namespace j3d {
 *******************************************************************************/
 
 Camera::Camera(camera_mode_t m, camera_proj_t p, float n, float f)
-		: core::Entity(), core::Reshapeable()
+		: core::Entity(), core::ReshapeBatch()
 {
 	o_mode = m;
 	o_proj = p;

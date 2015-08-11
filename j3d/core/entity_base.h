@@ -13,7 +13,7 @@ namespace j3d { namespace core {
 *******************************************************************************/
 
 template<class T>
-class EntityBase {
+class EntityBase : public Feature {
 public:
 	EntityBase(bool locked = false)
 	{
@@ -27,6 +27,23 @@ public:
 	///////////////////////////////////////
 	// UPDATE
 
+	virtual void update()
+	{
+		if (o_locked)
+			return;
+		if (o_attached)
+			return syncAttachment();
+		spatialize();
+	}
+
+	virtual void spatialize()
+	{
+		if (o_locked)
+			return;
+		o_pos += o_vel * util::cycle::delta();
+		o_rot += o_rvel * util::cycle::delta();
+	}
+
 	virtual void syncAttachment()
 	{
 		if (o_locked || !o_attached)
@@ -34,8 +51,6 @@ public:
 		o_pos = op_attachment->pos() + o_pos_offset;
 		o_rot = op_attachment->rot() + o_rot_offset;
 	}
-
-	virtual void update() {}
 	
 	virtual EntityBase<T> *move(const T &t)
 	{
@@ -74,6 +89,20 @@ public:
 		return this;
 	}
 
+	virtual EntityBase<T> *vel(const T &t)
+	{
+		if (!o_locked)
+			o_vel = t;
+		return this;
+	}
+
+	virtual EntityBase<T> *rvel(const T &t)
+	{
+		if (!o_locked)
+			o_rvel = t;
+		return this;
+	}
+
 	virtual EntityBase<T> *attach(EntityBase<T> *ent, const T &p, const T &r)
 	{
 		op_attachment = ent;
@@ -89,6 +118,8 @@ public:
 	virtual bool locked() const { return o_locked; }
 	virtual const T &pos() const { return o_pos; }
 	virtual const T &rot() const { return o_rot; }
+	virtual const T &vel() const { return o_vel; }
+	virtual const T &rvel() const { return o_rvel; }
 	virtual bool attached() const { return o_attached; }
 	virtual EntityBase<T> *attachment() const { return op_attachment; }
 
@@ -98,6 +129,8 @@ protected:
 	T o_rot;
 	T o_pos_offset;
 	T o_rot_offset;
+	T o_vel;
+	T o_rvel;
 	bool o_attached;
 	EntityBase<T> *op_attachment;
 

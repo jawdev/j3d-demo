@@ -12,8 +12,9 @@ namespace j3d {
 * SHADERPROGRAM
 *******************************************************************************/
 
-class ShaderProgram {
+class ShaderProgram : public core::Cacheable {
 public:
+	static const char constexpr *J3D_CACHE_ID = "shaderprogram";
 	static const int SHADER_COUNT = 2;
 
 public:
@@ -46,7 +47,7 @@ public:
 
 
 public:
-	ShaderProgram();
+	ShaderProgram(const char *id);
 	~ShaderProgram();
 
 	ShaderProgram *addVertexShader(const char *path);

@@ -87,5 +87,32 @@ FloorMesh::~FloorMesh() {}
 float FloorMesh::width() const { return m_width; }
 float FloorMesh::length() const { return m_length; }
 
+/*******************************************************************************
+* RECTMESH
+*******************************************************************************/
+
+RectMesh::RectMesh(const char *id, float t, float r, float b, float l)
+		: Mesh2D(id, mesh_draw_t::ELEMENT, mesh_shape_t::TRIANGLE_STRIP)
+{
+	m_rect[T] = t;
+	m_rect[R] = r;
+	m_rect[B] = b;
+	m_rect[L] = l;
+
+	pushVertices({
+		vec2(l, t),
+		vec2(r, t),
+		vec2(r, b),
+		vec2(l, b)
+	});
+	pushIndices({0, 3, 1, 2});
+}
+
+RectMesh::~RectMesh() {}
+
+float RectMesh::top() const { return m_rect[T]; }
+float RectMesh::right() const { return m_rect[R]; }
+float RectMesh::bottom() const { return m_rect[B]; }
+float RectMesh::left() const { return m_rect[L]; }
 
 }

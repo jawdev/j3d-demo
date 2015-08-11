@@ -53,6 +53,14 @@ public:
 	Mesh *pushVertices(const vec4 *, const unsigned int &len);
 	Mesh *pushVertices(initializer_list<vec4>);
 
+	Mesh *pushVertex(const vec3 &);
+	Mesh *pushVertices(const vec3 *, const unsigned int &len);
+	Mesh *pushVertices(initializer_list<vec3>);
+
+	Mesh *pushVertex(const vec2 &);
+	Mesh *pushVertices(const vec2 *, const unsigned int &len);
+	Mesh *pushVertices(initializer_list<vec2>);
+
 	Mesh *pushNormal(const vec3 &);
 	Mesh *pushNormals(const vec3 *, const unsigned int &len);
 	Mesh *pushNormals(initializer_list<vec3>);
@@ -64,26 +72,32 @@ public:
 	void build();
 	void render();
 
-private:
-	bool built();
+	Mesh *optimize2D(bool = true);
 	
-protected:
-	mesh_draw_t o_draw_t;
-	mesh_shape_t o_shape_t;
-	unsigned int o_restart_index;
-	bool o_has_restart;
-	bool o_built;
-	vector<vec4> o_vec_v;
-	vector<vec3> o_vec_n;
-	vector<unsigned int> o_vec_i;
-	GLuint o_vertex_array_id;
-	GLuint *op_buffers;
-	GLfloat *op_vertices;
-	GLuint *op_indices;
-	GLfloat *op_normals;
-	unsigned int o_sz_v;
-	unsigned int o_sz_n;
-	unsigned int o_sz_i;
+	bool optimize2D() const;
+
+private:
+	bool isBuilt();
+	bool is2D();
+	
+private:
+	mesh_draw_t m_draw_t;
+	mesh_shape_t m_shape_t;
+	bool m_optimize_2d;
+	unsigned int m_restart_index;
+	bool m_has_restart;
+	bool m_built;
+	vector<vec4> m_vec_v;
+	vector<vec3> m_vec_n;
+	vector<unsigned int> m_vec_i;
+	GLuint m_vertex_array_id;
+	GLuint *mp_buffers;
+	GLfloat *mp_vertices;
+	GLuint *mp_indices;
+	GLfloat *mp_normals;
+	unsigned int m_sz_v;
+	unsigned int m_sz_n;
+	unsigned int m_sz_i;
 
 };
 

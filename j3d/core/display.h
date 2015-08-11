@@ -24,9 +24,6 @@ public:
 	static void on_reshape(int w, int h);
 	static void on_display();
 
-private:
-	Renderbuffer *mp_renderbuffer;
-
 };
 
 } }

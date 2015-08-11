@@ -8,7 +8,7 @@
 /*
  * 0. include j3d.h
  */
-#include "inc.h"
+#include "demo/inc.h"
 
 
 int main(int argc, char *argv[])

@@ -2,40 +2,31 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/renderbuffer.h
+* j3d/core/renderbuffer_2d.h
 *******************************************************************************/
-#ifndef __J3D_CORE_RENDERBUFFER_H__
-#define __J3D_CORE_RENDERBUFFER_H__
+#ifndef __J3D_CORE_RENDERBUFFER_2D_H__
+#define __J3D_CORE_RENDERBUFFER_2D_H__
 namespace j3d { namespace core {
 
 /*******************************************************************************
-* RENDERBUFFER
+* RENDERBUFFER2D
 *******************************************************************************/
 
-class Renderbuffer : public RenderbufferBase {
+class Renderbuffer2D : public RenderbufferBase {
 public:
-	static const int	NUM_BUFFERS		= 2;
-	static const int	COLOR_BUFFER	= 0;
-	static const int	DEPTH_BUFFER 	= 1;
+	Renderbuffer2D();
+	~Renderbuffer2D();
 
-public:
-	Renderbuffer();
-	~Renderbuffer();
-
-private:
-	void init();
-
-public:
 	void reshape(int w, int h);
 	void bind();
 	void blit();
-
 
 private:
 	int m_width;
 	int m_height;
 	GLuint m_framebuffer;
-	GLuint *mp_renderbuffers;
+	GLuint m_renderbuffer;
+
 };
 
 } }

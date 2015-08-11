@@ -2,32 +2,20 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/entity.h
+* j3d/core/entity_2d.h
 *******************************************************************************/
-#ifndef __J3D_CORE_ENTITY_H__
-#define __J3D_CORE_ENTITY_H__
+#ifndef __J3D_CORE_ENTITY_2D_H__
+#define __J3D_CORE_ENTITY_2D_H__
 namespace j3d { namespace core {
 
 /*******************************************************************************
-* ENTITY
+* ENTITY2D
 *******************************************************************************/
 
-class Entity : public EntityBase<vec3> {
+class Entity2D : public EntityBase<vec2> {
 public:
-	Entity(bool locked = false);
-	virtual ~Entity();
-
-	virtual const mat4 &transform();
-	virtual Entity *lookAt(const vec3 &);
-	
-	virtual Entity *lock(bool = true);
-
-protected:
-	bool o_calcd_transform;
-	mat4 o_mat_pos;
-	mat4 o_mat_rot;
-	mat4 o_mat_transform;
-
+	Entity2D(bool locked = false);
+	virtual ~Entity2D();
 };
 
 } }

@@ -9,7 +9,7 @@
 namespace j3d {
 
 /*******************************************************************************
-* BoxMesh
+* BOXMESH
 *******************************************************************************/
 
 class BoxMesh : public Mesh {
@@ -35,7 +35,7 @@ private:
 };
 
 /*******************************************************************************
-* FloorMesh
+* FLOORMESH
 *******************************************************************************/
 
 class FloorMesh : public Mesh {
@@ -49,6 +49,30 @@ public:
 private:
 	float m_width;
 	float m_length;
+
+};
+
+/*******************************************************************************
+* RECTMESH
+*******************************************************************************/
+
+class RectMesh : public Mesh2D {
+public:
+	RectMesh(const char *id, float t, float r, float b, float l);
+	~RectMesh();
+
+	float top() const;
+	float right() const;
+	float left() const;
+	float bottom() const;
+
+private:
+	static const int T = 0;
+	static const int R = 1;
+	static const int B = 2;
+	static const int L = 3;
+
+	float m_rect[4];
 
 };
 

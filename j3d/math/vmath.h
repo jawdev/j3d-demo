@@ -7,6 +7,11 @@
 #ifndef __J3D_MATH_VMATH_H__
 #define __J3D_MATH_VMATH_H__
 
+struct vec2;
+struct vec3;
+struct vec4;
+struct mat4;
+
 /*******************************************************************************
 * VEC2
 *******************************************************************************/
@@ -48,67 +53,6 @@ struct vec2 {
 inline ostream &operator<<(ostream &os, const vec2 &v)
 {
 	os << "<" << v.x << ", " << v.y << ">";
-	return os;
-}
-
-/*******************************************************************************
-* VEC4
-*******************************************************************************/
-
-struct vec4 {
-	float x, y, z, w;
-	bool lock_w;
-
-	vec4(float _x = 0, float _y = 0, float _z = 0, float _w = 1,
-			bool _lock_w = true)
-	{
-		x = _x;
-		y = _y;
-		z = _z;
-		w = _w;
-		lock_w = _lock_w;
-	}
-	
-	vec4 &operator=(const vec4 &v)
-	{
-		if (this != &v) {
-			x = v.x;
-			y = v.y;
-			z = v.z;
-			w = v.w;
-			lock_w = v.lock_w;
-		}
-		return *this;
-	}
-
-	vec4 operator-() const { return vec4(-x, -y, -z, (lock_w ? w : -w)); }
-
-	vec4 operator+(const vec4 &v) const { return vec4(x + v.x, y + v.y,
-			z + v.z, (lock_w ? w : w + v.w)); }
-	vec4 operator-(const vec4 &v) const { return vec4(x - v.x, y - v.y,
-			z - v.z, (lock_w ? w : w - v.w)); }
-	vec4 operator*(const float &f) const { return vec4(x * f, y * f, z * f,
-			(lock_w ? w : w * f)); }
-	vec4 operator/(const float &f) const { return vec4(x / f, y / f, z / f,
-			(lock_w ? w : w / f)); }
-
-	vec4 &operator+=(const vec4 &v) { x += v.x; y += v.y; z += v.z;
-			if (!lock_w) w += v.w; return *this; }
-	vec4 &operator-=(const vec4 &v) { x -= v.x; y -= v.y; z -= v.z;
-			if (!lock_w) w -= v.w; return *this; }
-	vec4 &operator*=(const float &f) { x *= f; y *= f; z *= f;
-			if (!lock_w) w *= f; return *this; }
-	vec4 &operator/=(const float &f) { x /= f; y /= f; z /= f;
-			if (!lock_w) w /= f; return *this; }
-
-	GLfloat *glFloat() { return (GLfloat *)this; }
-	friend ostream &operator<<(ostream &, const vec4 &);
-};
-
-inline ostream &operator<<(ostream &os, const vec4 &v)
-{
-	os << "<" << v.x << ", " << v.y << ", ";
-	os << v.z << ", " << v.w << ">";
 	return os;
 }
 
@@ -162,6 +106,84 @@ inline ostream &operator<<(ostream &os, const vec3 &v)
 	return os;
 }
 
+/*******************************************************************************
+* VEC4
+*******************************************************************************/
+
+struct vec4 {
+	float x, y, z, w;
+	bool lock_w;
+
+	vec4(float _x = 0, float _y = 0, float _z = 0, float _w = 1,
+			bool _lock_w = true)
+	{
+		x = _x;
+		y = _y;
+		z = _z;
+		w = _w;
+		lock_w = _lock_w;
+	}
+
+	vec4(const vec2 &v)
+	{
+		x = v.x;
+		y = v.y;
+		z = 0;
+		w = 1;
+		lock_w = true;
+	}
+
+	vec4(const vec3 &v)
+	{
+		x = v.x;
+		y = v.y;
+		z = v.z;
+		w = 1;
+		lock_w = true;
+	}
+	
+	vec4 &operator=(const vec4 &v)
+	{
+		if (this != &v) {
+			x = v.x;
+			y = v.y;
+			z = v.z;
+			w = v.w;
+			lock_w = v.lock_w;
+		}
+		return *this;
+	}
+
+	vec4 operator-() const { return vec4(-x, -y, -z, (lock_w ? w : -w)); }
+
+	vec4 operator+(const vec4 &v) const { return vec4(x + v.x, y + v.y,
+			z + v.z, (lock_w ? w : w + v.w)); }
+	vec4 operator-(const vec4 &v) const { return vec4(x - v.x, y - v.y,
+			z - v.z, (lock_w ? w : w - v.w)); }
+	vec4 operator*(const float &f) const { return vec4(x * f, y * f, z * f,
+			(lock_w ? w : w * f)); }
+	vec4 operator/(const float &f) const { return vec4(x / f, y / f, z / f,
+			(lock_w ? w : w / f)); }
+
+	vec4 &operator+=(const vec4 &v) { x += v.x; y += v.y; z += v.z;
+			if (!lock_w) w += v.w; return *this; }
+	vec4 &operator-=(const vec4 &v) { x -= v.x; y -= v.y; z -= v.z;
+			if (!lock_w) w -= v.w; return *this; }
+	vec4 &operator*=(const float &f) { x *= f; y *= f; z *= f;
+			if (!lock_w) w *= f; return *this; }
+	vec4 &operator/=(const float &f) { x /= f; y /= f; z /= f;
+			if (!lock_w) w /= f; return *this; }
+
+	GLfloat *glFloat() { return (GLfloat *)this; }
+	friend ostream &operator<<(ostream &, const vec4 &);
+};
+
+inline ostream &operator<<(ostream &os, const vec4 &v)
+{
+	os << "<" << v.x << ", " << v.y << ", ";
+	os << v.z << ", " << v.w << ">";
+	return os;
+}
 
 /*******************************************************************************
 * MAT4
