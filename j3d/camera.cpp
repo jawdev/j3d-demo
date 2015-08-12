@@ -44,7 +44,7 @@ void Camera::reshape()
 	}
 }
 
-const mat4 &Camera::transform()
+mat4 &Camera::transform()
 {
 	if (o_locked && o_calcd_transform)
 		return o_mat_transform;

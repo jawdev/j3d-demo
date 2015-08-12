@@ -31,7 +31,7 @@ public:
 
 	virtual void reshape();
 	virtual void reshape(int x, int y) { reshape(); }
-	virtual const mat4 &transform();
+	virtual mat4 &transform();
 
 	virtual Camera *mode(camera_mode_t);
 	virtual Camera *proj(camera_proj_t);

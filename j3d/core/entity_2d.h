@@ -14,7 +14,8 @@ namespace j3d { namespace core {
 
 class Entity2D : public EntityBase<vec2> {
 public:
-	Entity2D(bool locked = false);
+	Entity2D();
+	Entity2D(string shader_id);
 	virtual ~Entity2D();
 };
 

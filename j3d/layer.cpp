@@ -31,4 +31,31 @@ Layer *Layer::add(initializer_list<Object *> os)
 	return this;
 }
 
+void Layer::render()
+{
+	if (!o_pre_render)
+		preRender();
+	Object *obj;
+	for (auto it = o_features.begin(); it != o_features.end(); ++it) {
+		obj = (Object *)it->second;
+		obj->runBindings();
+		obj->render();
+	}
+	postRender();
+}
+
+void Layer::updateRender()
+{
+	if (!o_pre_render)
+		preRender();
+	Object *obj;
+	for (auto it = o_features.begin(); it != o_features.end(); ++it) {
+		obj = (Object *)it->second;
+		obj->update();
+		obj->runBindings();
+		obj->render();
+	}
+	postRender();
+}
+
 }

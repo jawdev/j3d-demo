@@ -15,4 +15,5 @@ void main()
 	vec3 scat = v3_ambient + v3_light_col * diff;
 	vec3 rgb = min(vs_fs_color.rgb * scat, vec3(1));
 	fColor = vec4(rgb, vs_fs_color.a);
+	//fColor = vec4(1 - gl_FragCoord.z);
 }

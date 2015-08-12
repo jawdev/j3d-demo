@@ -19,6 +19,9 @@ public:
 
 	Layer *add(Object *);
 	Layer *add(initializer_list<Object *>);
+
+	void render();
+	void updateRender();
 };
 
 }

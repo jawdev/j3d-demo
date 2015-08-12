@@ -15,7 +15,7 @@ Group::Group(bool control_delete)
 {
 	m_control_delete = control_delete;
 	mp_shader_program = nullptr;
-	m_pre_render = false;
+	o_pre_render = false;
 }
 
 Group::~Group()
@@ -23,7 +23,7 @@ Group::~Group()
 	if (m_control_delete)
 		destroy();
 	else
-		m_features.clear();
+		o_features.clear();
 }
 
 //////////////////////////////////////////////////
@@ -31,7 +31,7 @@ Group::~Group()
 
 Group *Group::add(Feature *f)
 {
-	m_features[util::ptr2str(f)] = f;
+	o_features[util::ptr2str(f)] = f;
 	f->mp_group = this;
 	return this;
 }
@@ -49,7 +49,7 @@ Group *Group::remove(Feature *f)
 		J3D_SAFE_DELETE(f);
 	else
 		f->mp_group = nullptr;
-	m_features.erase(util::ptr2str(f));
+	o_features.erase(util::ptr2str(f));
 	return this;
 }
 
@@ -65,7 +65,7 @@ Group *Group::remove(initializer_list<Feature *> fs)
 
 void Group::update()
 {
-	for (auto it = m_features.begin(); it != m_features.end(); ++it)
+	for (auto it = o_features.begin(); it != o_features.end(); ++it)
 		((Feature *)it->second)->update();
 }
 
@@ -73,41 +73,43 @@ void Group::preRender()
 {
 	if (mp_shader_program != nullptr)
 		mp_shader_program->use();
-	m_pre_render = true;
+	o_pre_render = true;
 }
 
 void Group::render()
 {
-	if (!m_pre_render)
+	if (!o_pre_render)
 		preRender();
-	for (auto it = m_features.begin(); it != m_features.end(); ++it)
+	for (auto it = o_features.begin(); it != o_features.end(); ++it)
 		((Feature *)it->second)->render();
 	postRender();
-	m_pre_render = false;
+	o_pre_render = false;
 }
 
-void Group::postRender() {}
+void Group::postRender()
+{
+	o_pre_render = false;
+}
 
 void Group::updateRender()
 {
-	if (!m_pre_render)
+	if (!o_pre_render)
 		preRender();
-	for (auto it = m_features.begin(); it != m_features.end(); ++it) {
+	for (auto it = o_features.begin(); it != o_features.end(); ++it) {
 		((Feature *)it->second)->update();
 		((Feature *)it->second)->render();
 	}
 	postRender();
-	m_pre_render = false;
 }
 
 void Group::destroy()
 {
 	Feature *f;
-	for (auto it = m_features.begin(); it != m_features.end(); ++it) {
+	for (auto it = o_features.begin(); it != o_features.end(); ++it) {
 		f = (Feature *)it->second;
 		J3D_SAFE_DELETE(f);
 	}
-	m_features.clear();
+	o_features.clear();
 }
 
 //////////////////////////////////////////////////

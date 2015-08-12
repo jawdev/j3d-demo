@@ -41,6 +41,7 @@ void LayerBase::postRender()
 {
 	if (mp_render_buffer != nullptr)
 		mp_render_buffer->blit();
+	Group::postRender();
 }
 
 ////////////////////////////////////////

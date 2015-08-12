@@ -38,9 +38,11 @@ public:
 
 private:
 	bool m_control_delete;
-	unordered_map<string, Feature *> m_features;
 	ShaderProgram *mp_shader_program;
-	bool m_pre_render;
+
+protected:
+	unordered_map<string, Feature *> o_features;
+	bool o_pre_render;
 
 };
 

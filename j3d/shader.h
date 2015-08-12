@@ -12,7 +12,7 @@ namespace j3d {
 * SHADERPROGRAM
 *******************************************************************************/
 
-class ShaderProgram : public core::Cacheable {
+class ShaderProgram : public core::Cacheable, public core::UniformBindings {
 public:
 	static const char constexpr *J3D_CACHE_ID = "shaderprogram";
 	static const int SHADER_COUNT = 2;
@@ -57,6 +57,8 @@ public:
 	void use();
 
 	bool hasUniform(const char *key, bool debug_fatal = true);
+	ShaderProgram *bind(const char *key, vec2 v);
+	ShaderProgram *bind(const char *key, vec3 v);
 	ShaderProgram *bind(const char *key, vec4 v);
 	ShaderProgram *bind(const char *key, mat4 m);
 

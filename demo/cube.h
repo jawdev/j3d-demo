@@ -13,10 +13,8 @@
 
 class Cube : public Object {
 public:
-	Cube(const char *mesh_id);
+	Cube(string mesh_id);
 	~Cube();
-
-	void render();
 
 };
 

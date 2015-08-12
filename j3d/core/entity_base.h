@@ -13,32 +13,45 @@ namespace j3d { namespace core {
 *******************************************************************************/
 
 template<class T>
-class EntityBase : public Feature {
+class EntityBase : public Feature, public UniformBindings {
 public:
-	EntityBase(bool locked = false)
+	EntityBase()
 	{
-		o_locked = locked;
-		o_attached = false;
-		op_attachment = nullptr;
+		constructor_core();
+	}
+
+	EntityBase(string shader_id) :
+		UniformBindings(shader_id)
+	{
+		constructor_core();
 	}
 
 	virtual ~EntityBase() {}
+
+private:
+	void constructor_core()
+	{
+		o_locked = false;
+		op_attachment = nullptr;
+	}
+
+public:
 
 	///////////////////////////////////////
 	// UPDATE
 
 	virtual void update()
 	{
-		if (o_locked)
+		if (locked())
 			return;
-		if (o_attached)
+		if (attached())
 			return syncAttachment();
 		spatialize();
 	}
 
 	virtual void spatialize()
 	{
-		if (o_locked)
+		if (locked())
 			return;
 		o_pos += o_vel * util::cycle::delta();
 		o_rot += o_rvel * util::cycle::delta();
@@ -46,7 +59,7 @@ public:
 
 	virtual void syncAttachment()
 	{
-		if (o_locked || !o_attached)
+		if (locked() || !attached())
 			return;
 		o_pos = op_attachment->pos() + o_pos_offset;
 		o_rot = op_attachment->rot() + o_rot_offset;
@@ -54,14 +67,14 @@ public:
 	
 	virtual EntityBase<T> *move(const T &t)
 	{
-		if (!o_locked)
+		if (!locked())
 			o_pos += t;
 		return this;
 	}
 
 	virtual EntityBase<T> *rotate(const T &t)
 	{
-		if (!o_locked)
+		if (!locked())
 			o_rot += t;
 		return this;
 	}
@@ -77,28 +90,28 @@ public:
 
 	virtual EntityBase<T> *pos(const T &t)
 	{
-		if (!o_locked)
+		if (!locked())
 			o_pos = t;
 		return this;
 	}
 
 	virtual EntityBase<T> *rot(const T &t)
 	{
-		if (!o_locked)
+		if (!locked())
 			o_pos = t;
 		return this;
 	}
 
 	virtual EntityBase<T> *vel(const T &t)
 	{
-		if (!o_locked)
+		if (!locked())
 			o_vel = t;
 		return this;
 	}
 
 	virtual EntityBase<T> *rvel(const T &t)
 	{
-		if (!o_locked)
+		if (!locked())
 			o_rvel = t;
 		return this;
 	}
@@ -106,7 +119,6 @@ public:
 	virtual EntityBase<T> *attach(EntityBase<T> *ent, const T &p, const T &r)
 	{
 		op_attachment = ent;
-		o_attached = (ent != nullptr);
 		o_pos_offset = p;
 		o_rot_offset = r;
 		return this;
@@ -120,7 +132,7 @@ public:
 	virtual const T &rot() const { return o_rot; }
 	virtual const T &vel() const { return o_vel; }
 	virtual const T &rvel() const { return o_rvel; }
-	virtual bool attached() const { return o_attached; }
+	virtual bool attached() const { return (op_attachment != nullptr); }
 	virtual EntityBase<T> *attachment() const { return op_attachment; }
 
 protected:
@@ -131,7 +143,6 @@ protected:
 	T o_rot_offset;
 	T o_vel;
 	T o_rvel;
-	bool o_attached;
 	EntityBase<T> *op_attachment;
 
 };

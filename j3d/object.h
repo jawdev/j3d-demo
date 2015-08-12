@@ -14,7 +14,8 @@ namespace j3d {
 
 class Object : public core::Entity {
 public:
-	Object(const char *mesh_id);
+	Object(string mesh_id);
+	Object(string mesh_id, string shader_id);
 	virtual ~Object();
 
 	virtual void update();

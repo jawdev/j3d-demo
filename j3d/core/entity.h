@@ -14,13 +14,18 @@ namespace j3d { namespace core {
 
 class Entity : public EntityBase<vec3> {
 public:
-	Entity(bool locked = false);
+	Entity();
+	Entity(string shader_id);
 	virtual ~Entity();
 
-	virtual const mat4 &transform();
+	virtual void update();
+	virtual mat4 &transform();
 	virtual Entity *lookAt(const vec3 &);
 	
 	virtual Entity *lock(bool = true);
+
+	const mat4 &matPos() const;
+	const mat4 &matRot() const;
 
 protected:
 	bool o_calcd_transform;

@@ -11,8 +11,8 @@ namespace j3d {
 * SHADER
 *******************************************************************************/
 
-ShaderProgram::Shader::Shader(const char *path, GLenum type)
-		: core::Cacheable(J3D_CACHE_ID, path)
+ShaderProgram::Shader::Shader(const char *path, GLenum type) :
+		core::Cacheable(J3D_CACHE_ID, path)
 {
 	o_type = type;
 	o_id = glCreateShader(type);
@@ -42,8 +42,9 @@ GLuint ShaderProgram::Shader::id() const { return o_id; }
 * SHADERPROGRAM
 *******************************************************************************/
 
-ShaderProgram::ShaderProgram(const char *id)
-	: core::Cacheable(J3D_CACHE_ID, id)
+ShaderProgram::ShaderProgram(const char *id) :
+	core::Cacheable(J3D_CACHE_ID, id),
+	core::UniformBindings(this)
 {
 	for (int i = 0; i < SHADER_COUNT; ++i)
 		mp_shaders[i] = nullptr;
@@ -117,6 +118,7 @@ void ShaderProgram::use()
 		return;
 	}
 	glUseProgram(m_id);
+	runBindings();
 }
 
 
@@ -133,6 +135,18 @@ bool ShaderProgram::hasUniform(const char *key, bool debug_fatal)
 		return false;
 	}
 	return true;
+}
+
+ShaderProgram *ShaderProgram::bind(const char *key, vec2 v)
+{
+	glUniform2fv(m_ulocs.at(key), 1, v.glFloat());
+	return this;
+}
+
+ShaderProgram *ShaderProgram::bind(const char *key, vec3 v)
+{
+	glUniform3fv(m_ulocs.at(key), 1, v.glFloat());
+	return this;
 }
 
 ShaderProgram *ShaderProgram::bind(const char *key, vec4 v)

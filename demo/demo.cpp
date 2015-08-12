@@ -27,41 +27,47 @@ void Demo::load()
 
 	mp_l1 = new Layer();
 
+	mp_cam = new Camera();
+	mp_cam->pos(vec3(0, 0, 4));
+	mp_cam->vel(vec3(0, 0.2f, 0));
+	mp_cam->lookAt(vec3());
+
 	mp_shader = new ShaderProgram("basic");
 	mp_shader->addFragmentShader("assets/shaders/basic.fs");
 	mp_shader->addVertexShader("assets/shaders/basic.vs");
 	mp_shader->link({"m4_camera", "m4_model", "v4_color"});
+	mp_shader->assignBinding("m4_camera", &mp_cam->transform());
 	mp_l1->shaderProgram(mp_shader);
 	
 	new BoxMesh("cube");
 
 	mp_cube = new Cube("cube");
-	mp_cube->rvel(vec3(0, 0.5f, 0));
+	mp_cube->pos(vec3(-1, -1, 0));
+	mp_cube->rvel(vec3(0, 0.2f, 0));
 	mp_l1->add(mp_cube);
 
-	mp_cam = new Camera();
-	mp_cam->pos(vec3(2, 1, 3));
-	mp_cam->lookAt(vec3());
-	mp_cam->lock();
+	mp_cube2 = new Cube("cube");
+	mp_cube2->pos(vec3(1, 1, 0));
+	mp_cube2->rvel(vec3(0, -0.2f, 0));
+	mp_l1->add(mp_cube2);
 
-	/*
-	 * 2D
-	 */
-
-	mp_l2 = new Layer2D();
-
-	new RectMesh("rect1", 1, 1, 0.1f, 0.1f);
-
-	mp_layer = new Layer();
-	mp_sprite = new Sprite("rect1");
-	mp_l2->add(mp_sprite);
-
+/*
+ * SCREEN RAYS
+	mp_cam->transform();
+	cout << mp_cam->pos() << endl;
+	vec4 v(1, 1, -1, 1);
+	cout << v << endl;
+	vec4 v2 = v * vmath::invert(mp_cam->transform());
+	cout << v2 << endl;
+	cout << vmath::norm(v2 - mp_cam->pos()) << endl;
+*/
+	
 }
 
 void Demo::unload()
 {
+	delete mp_cam;
 	delete mp_l1;
-	delete mp_l2;
 }
 
 
@@ -71,8 +77,7 @@ void Demo::unload()
 void Demo::update()
 {
 
-	mp_l1->preRender();
-	mp_shader->bind("m4_camera", mp_cam->transform());
+	mp_cam->update();
 	mp_l1->updateRender();
 
 	++m_counter;

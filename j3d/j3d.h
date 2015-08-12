@@ -92,6 +92,7 @@ namespace j3d {
 #include "core/renderbuffer_2d.h"
 #include "core/layer_base.h"
 #include "core/display.h"
+#include "core/uniform_bindings.h"
 #include "core/entity_base.h"
 #include "core/entity.h"
 #include "core/entity_2d.h"

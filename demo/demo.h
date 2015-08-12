@@ -26,14 +26,10 @@ private:
 	unsigned int m_counter;
 
 	Layer *mp_l1;
-	Layer2D *mp_l2;
-
+	Camera *mp_cam;
 	ShaderProgram *mp_shader;
 	Cube *mp_cube;
-	Camera *mp_cam;
-	
-	Layer *mp_layer;
-	Sprite *mp_sprite;
+	Cube *mp_cube2;
 };
 
 #endif

@@ -11,7 +11,13 @@ namespace j3d { namespace core {
 * ENTITY
 *******************************************************************************/
 
-Entity::Entity(bool locked) : EntityBase<vec3>(locked)
+Entity::Entity() : EntityBase<vec3>()
+{
+	o_calcd_transform = false;
+}
+
+Entity::Entity(string shader_id) :
+		EntityBase<vec3>(shader_id)
 {
 	o_calcd_transform = false;
 }
@@ -21,7 +27,13 @@ Entity::~Entity() {}
 ////////////////////////////////////////
 // MAIN
 
-const mat4 &Entity::transform()
+void Entity::update()
+{
+	EntityBase<vec3>::update();
+	transform();
+}
+
+mat4 &Entity::transform()
 {
 	if (o_locked && o_calcd_transform)
 		return o_mat_transform;
@@ -51,5 +63,8 @@ Entity *Entity::lock(bool b)
 	o_calcd_transform = false;
 	return this;
 }
+
+const mat4 &Entity::matPos() const { return o_mat_pos; }
+const mat4 &Entity::matRot() const { return o_mat_rot; }
 
 } }

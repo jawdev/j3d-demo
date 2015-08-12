@@ -10,15 +10,12 @@
 * CUBE
 *******************************************************************************/
 
-Cube::Cube(const char *mesh_id) : Object(mesh_id)
+Cube::Cube(string mesh_id) :
+		Object(mesh_id, "basic")
 {
+	assignBinding("m4_model", &o_mat_transform);
 }
 
-Cube::~Cube() {}
-
-void Cube::render()
+Cube::~Cube()
 {
-	transform();
-	group()->shaderProgram()->bind("m4_model", transform());
-	Object::render();
 }

@@ -21,6 +21,7 @@ public:
 	virtual void update() {}
 	virtual void render() {}
 
+	bool grouped() const { return (mp_group != nullptr); }
 	Group *group() const { return mp_group; }
 
 private:
