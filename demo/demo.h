@@ -22,9 +22,6 @@ protected:
 	void update();
 
 private:
-	float m_time_agg;
-	unsigned int m_counter;
-
 	Layer *mp_l1;
 	Camera *mp_cam;
 	ShaderProgram *mp_shader;

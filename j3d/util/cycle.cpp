@@ -42,6 +42,7 @@ void cycle::tick()
 {
 	m_new_time = util::now();
 	m_delta = m_new_time - m_last_time;
+	fps::tick((float)m_delta);
 }
 
 void cycle::flush()

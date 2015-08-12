@@ -17,7 +17,7 @@ public:
 	Renderbuffer2D();
 	~Renderbuffer2D();
 
-	void reshape(int w, int h);
+	void reshape(int x, int y);
 	void bind();
 	void blit();
 

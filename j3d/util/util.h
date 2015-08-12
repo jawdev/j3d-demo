@@ -19,5 +19,21 @@ string ptr2str(void *);
 
 char *file_get_contents(const char *filename, bool zero_term = false);
 
-}}
+struct fps {
+public:
+	friend class cycle;
+
+public:
+	static bool enabled;
+	static unsigned int latest;
+	static float stopwatch;
+	static float lap;
+	static unsigned int counter;
+	static bool notify;
+
+private:
+	static void tick(float delta);
+};
+
+} }
 #endif

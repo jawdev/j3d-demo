@@ -12,14 +12,14 @@
 
 Demo::Demo() : Scene("demo")
 {
-	m_time_agg = 0;
-	m_counter = 0;
 }
 
 Demo::~Demo() {}
 
 void Demo::load()
 {
+
+	util::fps::enabled = true;
 
 	/*
 	 * 3D
@@ -66,6 +66,7 @@ void Demo::load()
 
 void Demo::unload()
 {
+	util::fps::enabled = false;
 	delete mp_cam;
 	delete mp_l1;
 }
@@ -76,16 +77,9 @@ void Demo::unload()
 
 void Demo::update()
 {
-
 	mp_cam->update();
 	mp_l1->updateRender();
 
-	++m_counter;
-	m_time_agg += util::cycle::delta();
-	if (m_time_agg >= 1) {
-		cout << "FPS = " << (int)(m_counter / m_time_agg) <<
-				"     " << '\r' << flush;
-		m_counter = 0;
-		m_time_agg = 0;
-	}
+	if (util::fps::notify)
+		cout << "FPS = " << util::fps::latest << "    " << '\r' << flush;
 }

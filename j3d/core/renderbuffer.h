@@ -26,7 +26,7 @@ private:
 	void init();
 
 public:
-	void reshape(int w, int h);
+	void reshape(int x, int y);
 	void bind();
 	void blit();
 

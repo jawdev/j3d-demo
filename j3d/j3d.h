@@ -59,6 +59,7 @@ using namespace std;
 namespace j3d {
 	class engine;
 	namespace util {
+		class cycle;
 		class control;
 	}
 	namespace core {
@@ -84,9 +85,10 @@ namespace j3d {
 #include "core/flaggable.h"
 #include "core/cacheable.h"
 #include "core/batch.h"
+#include "core/reshape_batch.h"
+#include "core/control_batch.h"
 #include "core/feature.h"
 #include "core/group.h"
-#include "core/reshape_batch.h"
 #include "core/renderbuffer_base.h"
 #include "core/renderbuffer.h"
 #include "core/renderbuffer_2d.h"
@@ -96,6 +98,7 @@ namespace j3d {
 #include "core/entity_base.h"
 #include "core/entity.h"
 #include "core/entity_2d.h"
+#include "core/camera_base.h"
 
 #include "shader.h"
 #include "mesh.h"

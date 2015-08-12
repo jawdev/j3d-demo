@@ -13,7 +13,7 @@ public:
 	RenderbufferBase() {}
 	virtual ~RenderbufferBase() {}
 
-	virtual void reshape(int w, int h) {}
+	virtual void reshape(int x, int y) {}
 	virtual void bind() = 0;
 	virtual void blit() = 0;
 

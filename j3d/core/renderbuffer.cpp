@@ -24,7 +24,7 @@ Renderbuffer::~Renderbuffer()
 	//J3D_SAFE_DELETE_ARR(mp_renderbuffers);
 }
 
-void Renderbuffer::reshape(int w, int h)
+void Renderbuffer::reshape(int x, int y)
 {
 	m_width = engine::config()->window_width;
 	m_height = engine::config()->window_height;

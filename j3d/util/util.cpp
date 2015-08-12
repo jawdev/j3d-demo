@@ -36,4 +36,30 @@ char *file_get_contents(const char *filename, bool zero_term)
 	return contents;
 }
 
+/*******************************************************************************
+* FPS
+*******************************************************************************/
+
+bool fps::enabled = false;
+unsigned int fps::latest = 0;
+float fps::stopwatch = 0;
+float fps::lap = 1;
+unsigned int fps::counter = 0;
+bool fps::notify = false;
+
+void fps::tick(float delta)
+{
+	if (!enabled)
+		return;
+	notify = false;
+	++counter;
+	stopwatch += delta;
+	if (stopwatch < lap)
+		return;
+	latest = counter / stopwatch;
+	stopwatch = 0;
+	counter = 0;
+	notify = true;
+}
+
 }}

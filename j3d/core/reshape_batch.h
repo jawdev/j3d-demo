@@ -9,17 +9,17 @@
 namespace j3d { namespace core {
 
 /*******************************************************************************
-* RESHAPEABLE
+* RESHAPEBATCH
 *******************************************************************************/
 
 class ReshapeBatch : public Batch {
 public:
-	static const char constexpr *J3D_BATCH_ID = "reshapeable";
+	static const char constexpr *J3D_BATCH_ID = "j3d_reshape";
 
 public:
-	ReshapeBatch();
-	virtual ~ReshapeBatch();
-	virtual void reshape(int x, int y);
+	ReshapeBatch() : Batch(J3D_BATCH_ID) {}
+	virtual ~ReshapeBatch() {}
+	virtual void reshape(int w, int h) {}
 
 };
 
