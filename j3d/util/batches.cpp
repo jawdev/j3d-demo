@@ -24,8 +24,10 @@ void batches::add(string id, batchobj *ptr)
 	try {
 		g = &m_batches.at(id);
 	} catch (...) {
+		J3D_DEBUG_TODO("creating batch group: " << id);
 		m_batches[id] = batchgroup();
 		g = &m_batches.at(id);
+		J3D_DEBUG_TODO_OK;
 	}
 	g->push_back(ptr);
 }

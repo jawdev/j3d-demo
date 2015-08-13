@@ -27,6 +27,7 @@
 #include <vector>
 #include <initializer_list>
 #include <functional>
+#include <sys/ioctl.h>
 using namespace std;
 
 ////////////////////////////////////////

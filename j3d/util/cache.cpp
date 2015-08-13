@@ -25,6 +25,7 @@ void cache::clear(bool del)
 		group_destroy(it->first, del);
 	m_caches.clear();
 	m_clearing = false;
+	J3D_DEBUG_OK("cache cleared");
 }
 
 void cache::print()
@@ -46,12 +47,14 @@ void cache::print(string id1)
 
 bool cache::group_create(string id1)
 {
+	J3D_DEBUG_TODO("creating cache group: " << id1);
 	if (group_exists(id1)) {
-		J3D_DEBUG_FATAL("group already exists: " << id1);
+		J3D_DEBUG_TODO_FATAL("group already exists");
 		return false;
 	}
 	m_caches[id1] = cachegroup();
 	m_actives[id1] = nullptr;
+	J3D_DEBUG_TODO_OK;
 	return true;
 }
 
@@ -67,7 +70,7 @@ bool cache::group_destroy(string id1, bool del)
 			J3D_SAFE_DELETE(ptr);
 		}
 	}
-	J3D_DEBUG_OK("cache group cleared: " << id1);
+	J3D_DEBUG_TODO_OK;
 	m_actives.erase(id1);
 	if (!m_clearing)
 		m_caches.erase(id1);

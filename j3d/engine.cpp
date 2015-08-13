@@ -20,19 +20,21 @@ core::Display *engine::mp_display = nullptr;
 
 void engine::init(const Config &s)
 {
+	J3D_DEBUG_PUSH("engine init");
 	if (m_init_complete) {
 		J3D_DEBUG_WARN("already initialized");
 		return;
 	}
 	m_init_complete = true;
-	J3D_DEBUG_INFO("initializing");
 
 	J3D_DEBUG_TODO("loading Config");
 	m_config = s;
+	J3D_DEBUG_TODO_OK;
 
 	if (m_config.register_atexit) {
 		J3D_DEBUG_TODO("registering atexit callback");
 		atexit(j3d::engine::atexit_callback);
+		J3D_DEBUG_TODO_OK;
 	}
 	if (m_config.register_sigint) {
 		J3D_DEBUG_TODO("registering sigint handler");
@@ -41,41 +43,52 @@ void engine::init(const Config &s)
 		sigemptyset(&a.sa_mask);
 		a.sa_flags = 0;
 		sigaction(SIGINT, &a, NULL);
+		J3D_DEBUG_TODO_OK;
 	}
 
-	J3D_DEBUG_TODO("creating Display");
+	J3D_DEBUG_PUSH("Display init");
 	mp_display = new core::Display();
+	J3D_DEBUG_POP;
 
-	J3D_DEBUG_TODO("initializing control");
+	J3D_DEBUG_PUSH("control init");
 	util::control::init();
+	J3D_DEBUG_POP;
 
 	J3D_DEBUG_OK("engine initialized");
+	J3D_DEBUG_POP;
 }
 
 void engine::quit(int exit_code)
 {
+	J3D_DEBUG_PUSH("engine quit");
 	if (!m_init_complete) {
-		J3D_DEBUG_WARN("already terminated");
+		J3D_DEBUG_WARN("already quit");
 		return;
 	}
 	m_init_complete = false;
-	J3D_DEBUG_INFO("quitting");
 
 	if (J3D_CACHE(active_exists, Scene)) {
 		J3D_DEBUG_TODO("unloading active Scene");
 		J3D_CACHE_ACTIVE(Scene)->unload();
+		J3D_DEBUG_TODO_OK;
 	}
 
 	J3D_DEBUG_TODO("deleting Display");
 	delete mp_display;
+	J3D_DEBUG_TODO_OK;
 
-	J3D_DEBUG_TODO("clearing cache");
+	J3D_DEBUG_PUSH("cache clear");
 	util::cache::clear();
+	J3D_DEBUG_POP;
+
+	J3D_DEBUG_TODO("clearing batches");
 	util::batches::clear();
+	J3D_DEBUG_TODO_OK;
 
 	if (m_config.register_sigint) {
 		J3D_DEBUG_TODO("releasing sigint handler");
 		signal(SIGINT, SIG_DFL);
+		J3D_DEBUG_TODO_OK;
 	}
 
 	J3D_DEBUG_OK("engine terminated");
@@ -83,6 +96,7 @@ void engine::quit(int exit_code)
 		J3D_DEBUG_ERROR("exiting with code " << exit_code);
 		exit(exit_code);
 	}
+	J3D_DEBUG_POP;
 }
 
 void engine::run()
@@ -115,11 +129,7 @@ void engine::sigint_handler(int code)
 void engine::update()
 {
 	util::cycle::tick();
-	Scene *pS = J3D_CACHE_ACTIVE(Scene);
-	if (pS == nullptr)
-		J3D_DEBUG_ERROR("please load a Scene");
-	else
-		J3D_CACHE_ACTIVE(Scene)->update();
+	J3D_CACHE_ACTIVE(Scene)->update();
 	util::cycle::flush();
 }
 

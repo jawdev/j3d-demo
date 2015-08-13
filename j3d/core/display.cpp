@@ -9,6 +9,7 @@ namespace j3d { namespace core {
 
 Display::Display()
 {
+	J3D_DEBUG_TODO("creating glut window");
 	glutInit(&engine::config()->argc, engine::config()->argv);
 	glutInitDisplayMode(GLUT_RGBA);
 	glutInitContextVersion(4, 3);
@@ -20,15 +21,22 @@ Display::Display()
 	glutCreateWindow(engine::config()->window_title.c_str());
 	glewExperimental = GL_TRUE;
 	if (glewInit())
-		J3D_DEBUG_FATAL("unable to initialize GLEW");
+		J3D_DEBUG_TODO_FATAL("unable to initialize GLEW");
+	J3D_DEBUG_TODO_OK;
 
+	J3D_DEBUG_TODO("loading glut display callbacks");
 	glutReshapeFunc(on_reshape);
 	glutDisplayFunc(on_display);
+	J3D_DEBUG_TODO_OK;
 
+	J3D_DEBUG_TODO("setting opengl display options");
 	glClearColor(0, 0, 0, 0);
 	glEnable(GL_BLEND);
 	glEnable(GL_MULTISAMPLE);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	J3D_DEBUG_TODO_OK;
+
+	J3D_DEBUG_OK("Display created");
 }
 
 Display::~Display() {}

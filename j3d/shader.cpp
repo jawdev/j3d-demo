@@ -14,6 +14,7 @@ namespace j3d {
 ShaderProgram::Shader::Shader(const char *path, GLenum type) :
 		core::Cacheable(J3D_CACHE_ID, path)
 {
+	J3D_DEBUG_TODO("compiling shader: " << path);
 	o_type = type;
 	o_id = glCreateShader(type);
 	const char *source = util::file_get_contents(path, true);
@@ -26,11 +27,10 @@ ShaderProgram::Shader::Shader(const char *path, GLenum type) :
 		glGetShaderiv(o_id, GL_INFO_LOG_LENGTH, &len);
 		GLchar *log = new GLchar[len + 1];
 		glGetShaderInfoLog(o_id, len, &len, log);
-		J3D_DEBUG_FATAL("Shader compilation failed: " << cacheIdFull() <<
-				"\n" << log);
+		J3D_DEBUG_TODO_FATAL(log);
 		delete [] log;
 	}
-	J3D_DEBUG_OK("Shader compiled: " << cacheIdFull());
+	J3D_DEBUG_TODO_OK;
 }
 
 ShaderProgram::Shader::~Shader() {}
@@ -89,9 +89,11 @@ ShaderProgram *ShaderProgram::addFragmentShader(const char *path)
 
 void ShaderProgram::link(initializer_list<const char *> unames, bool use)
 {
-	if (m_linked)
-		J3D_DEBUG_WARN("ShaderProgram already linked: " << m_id <<
-			", linking again");
+	J3D_DEBUG_TODO("linking ShaderProgram");
+	if (m_linked) {
+		J3D_DEBUG_TODO_WARN("already linked, linking again");
+		J3D_DEBUG_TODO("linking ShaderProgram");
+	}
 	glLinkProgram(m_id);
 	GLint linked;
 	glGetProgramiv(m_id, GL_LINK_STATUS, &linked);
@@ -100,13 +102,13 @@ void ShaderProgram::link(initializer_list<const char *> unames, bool use)
 		glGetProgramiv(m_id, GL_INFO_LOG_LENGTH, &len);
 		GLchar *log = new GLchar[len + 1];
 		glGetProgramInfoLog(m_id, len, &len, log);
-		J3D_DEBUG_FATAL("ShaderProgram could not be linked:\n" << log);
+		J3D_DEBUG_TODO_FATAL(log);
 		delete [] log;
 	}
 	for (const char *u : unames)
 		m_ulocs[string(u)] = glGetUniformLocation(m_id, u);
 	m_linked = true;
-	J3D_DEBUG_OK("ShaderProgram linked: " << m_id);
+	J3D_DEBUG_TODO_OK;
 	if (use)
 		glUseProgram(m_id);
 }

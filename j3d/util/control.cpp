@@ -29,6 +29,7 @@ void control::init()
 	}
 	m_init_complete = true;
 
+	J3D_DEBUG_TODO("loading glut user input callbacks");
 	glutIgnoreKeyRepeat(1);
 	glutKeyboardFunc(on_key_down);
 	glutKeyboardUpFunc(on_key_up);
@@ -36,6 +37,9 @@ void control::init()
 	glutSpecialUpFunc(on_special_up);
 	glutMouseFunc(on_mouse_click);
 	glutPassiveMotionFunc(on_mouse_move);
+	J3D_DEBUG_TODO_OK;
+
+	J3D_DEBUG_OK("control initialized");
 }
 
 void control::update()
@@ -60,24 +64,28 @@ void control::on_key_down(unsigned char k, int x, int y)
 {
 	m_key_down[(int)k] = true;
 	J3D_BATCH(core::ControlBatch, onKeyDown, k, x, y);
+	J3D_DEBUG_INFO("key down = " << k);
 }
 
 void control::on_key_up(unsigned char k, int x, int y)
 {
 	m_key_down[(int)k] = false;
 	J3D_BATCH(core::ControlBatch, onKeyUp, k, x, y);
+	J3D_DEBUG_INFO("key up = " << k);
 }
 
 void control::on_special_down(int k, int x, int y)
 {
 	m_key_down[k + S] = true;
 	J3D_BATCH(core::ControlBatch, onSpecialDown, k, x, y);
+	J3D_DEBUG_INFO("special down = " << k);
 }
 
 void control::on_special_up(int k, int x, int y)
 {
 	m_key_down[k + S] = false;
 	J3D_BATCH(core::ControlBatch, onSpecialUp, k, x, y);
+	J3D_DEBUG_INFO("special up = " << k);
 }
 
 void control::on_mouse_click(int b, int s, int x, int y)
@@ -86,10 +94,12 @@ void control::on_mouse_click(int b, int s, int x, int y)
 	case GLUT_DOWN:
 		m_mouse_down[b] = true;
 		J3D_BATCH(core::ControlBatch, onMouseDown, b, x, y);
+		J3D_DEBUG_INFO("mouse down = " << b);
 		break;
 	case GLUT_UP:
 		m_mouse_down[b] = false;
 		J3D_BATCH(core::ControlBatch, onMouseUp, b, x, y);
+		J3D_DEBUG_INFO("mouse up = " << b);
 		break;
 	default:
 		J3D_DEBUG_WARN("unrecognized mouse state {state = " << s <<

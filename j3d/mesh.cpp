@@ -201,6 +201,8 @@ Mesh *Mesh::pushIndices(initializer_list<unsigned int> ss)
 void Mesh::build()
 {
 	if (isBuilt()) return;
+	J3D_DEBUG_PUSH("Mesh build: " << cacheIdFull());
+	
 	m_built = true;
 	unsigned int iter, i;
 
@@ -214,6 +216,7 @@ void Mesh::build()
 		m_sz_v = m_vec_v.size() * 2 * sizeof(GLfloat);
 		mp_vertices = new GLfloat[m_vec_v.size() * 2];
 	}
+	J3D_DEBUG_TODO("loading vertices");
 	for (iter = 0, i = 0; i < m_vec_v.size(); ++i) {
 		mp_vertices[iter++] = (GLfloat)m_vec_v[i].x;
 		mp_vertices[iter++] = (GLfloat)m_vec_v[i].y;
@@ -222,10 +225,11 @@ void Mesh::build()
 		mp_vertices[iter++] = (GLfloat)m_vec_v[i].z;
 		mp_vertices[iter++] = (GLfloat)m_vec_v[i].w;
 	}
+	J3D_DEBUG_TODO_OK;
 
 	bool normals = (!m_optimize_2d && !m_vec_n.empty());
 	if (normals) {
-		J3D_DEBUG_TODO("configuring normals: " << cacheIdFull());
+		J3D_DEBUG_TODO("loading normals");
 		m_sz_n = m_vec_n.size() * 3 * sizeof(GLfloat);
 		mp_normals = new GLfloat[m_vec_n.size() * 3];
 		for (iter = 0, i = 0; i < m_vec_n.size(); ++i) {
@@ -233,13 +237,16 @@ void Mesh::build()
 			mp_normals[iter++] = (GLfloat)m_vec_n[i].y;
 			mp_normals[iter++] = (GLfloat)m_vec_n[i].z;
 		}
+		J3D_DEBUG_TODO_OK;
 	}
 
 	if (m_draw_t == mesh_draw_t::ELEMENT) {
 		m_sz_i = m_vec_i.size() * sizeof(GLuint);
 		mp_indices = new GLuint[m_vec_i.size()];
+		J3D_DEBUG_TODO("loading indices");
 		for (i = 0; i < m_vec_i.size(); ++i)
 			mp_indices[i] = (GLuint)m_vec_i[i];
+		J3D_DEBUG_TODO_OK;
 		mp_buffers = new GLuint[2];
 		glGenBuffers(2, mp_buffers);
 	} else {
@@ -247,6 +254,7 @@ void Mesh::build()
 		glGenBuffers(1, mp_buffers);
 	}
 
+	J3D_DEBUG_TODO("binding buffer data");
 	switch (m_draw_t) {
 	case mesh_draw_t::ELEMENT:
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mp_buffers[1]);
@@ -263,11 +271,12 @@ void Mesh::build()
 			glBufferData(GL_ARRAY_BUFFER, m_sz_v, mp_vertices, GL_STATIC_DRAW);
 		break;
 	default:
-		J3D_DEBUG_FATAL("invalid draw type " << (int)m_draw_t << ": " <<
-				cacheIdFull());
+		J3D_DEBUG_TODO_FATAL("invalid draw type " << (int)m_draw_t);
 		break;
 	}
+	J3D_DEBUG_TODO_OK;
 
+	J3D_DEBUG_TODO("setting attrib pointers");
 	if (!m_optimize_2d)
 		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
 	else
@@ -278,8 +287,10 @@ void Mesh::build()
 				(void *)((uintptr_t)m_sz_v));
 		glEnableVertexAttribArray(1);
 	}
+	J3D_DEBUG_TODO_OK;
 	
-	J3D_DEBUG_OK("Mesh built: " << cacheIdFull());
+	J3D_DEBUG_OK("Mesh built");
+	J3D_DEBUG_POP;
 }
 
 void Mesh::render()
