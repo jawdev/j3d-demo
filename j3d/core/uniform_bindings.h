@@ -18,12 +18,12 @@ public:
 	UniformBindings(string id);
 	~UniformBindings();
 
-	UniformBindings *assignBinding(string key, vec2 *);
-	UniformBindings *assignBinding(string key, vec3 *);
-	UniformBindings *assignBinding(string key, vec4 *);
-	UniformBindings *assignBinding(string key, mat4 *);
+	UniformBindings *assignUniform(string key, vec2 *);
+	UniformBindings *assignUniform(string key, vec3 *);
+	UniformBindings *assignUniform(string key, vec4 *);
+	UniformBindings *assignUniform(string key, mat4 *);
 
-	void runBindings();
+	void bindUniforms();
 
 	UniformBindings *shaderProgram(ShaderProgram *);
 	const ShaderProgram *shaderProgram() const;

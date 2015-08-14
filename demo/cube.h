@@ -13,8 +13,11 @@
 
 class Cube : public Object {
 public:
-	Cube(string mesh_id);
-	~Cube();
+	Cube() : Object("cube", "basic")
+	{
+		assignUniform("m4_model", &o_mat_transform);
+	}
+	~Cube() {}
 
 };
 

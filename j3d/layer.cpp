@@ -40,7 +40,7 @@ void Layer::render()
 	Object *obj;
 	for (auto it = o_features.begin(); it != o_features.end(); ++it) {
 		obj = (Object *)it->second;
-		obj->runBindings();
+		obj->bindUniforms();
 		obj->render();
 	}
 	postRender();
@@ -58,7 +58,7 @@ void Layer::updateRender()
 	for (auto it = o_features.begin(); it != o_features.end(); ++it) {
 		obj = (Object *)it->second;
 		obj->update();
-		obj->runBindings();
+		obj->bindUniforms();
 		obj->render();
 	}
 	postRender();

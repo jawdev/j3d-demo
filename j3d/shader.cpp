@@ -120,7 +120,7 @@ void ShaderProgram::use()
 		return;
 	}
 	glUseProgram(m_id);
-	runBindings();
+	bindUniforms();
 }
 
 

@@ -33,17 +33,17 @@ void Demo::load()
 	mp_shader->addFragmentShader("assets/shaders/basic.fs");
 	mp_shader->addVertexShader("assets/shaders/basic.vs");
 	mp_shader->link({"m4_camera", "m4_model", "v4_color"});
-	mp_shader->assignBinding("m4_camera", &mp_cam->transform());
+	mp_shader->assignUniform("m4_camera", &mp_cam->transform());
 	mp_l1->shaderProgram(mp_shader);
 	
 	new BoxMesh("cube");
 
-	mp_cube = new Cube("cube");
+	mp_cube = new Cube();
 	mp_cube->pos(vec3(-1, -1, 0));
 	mp_cube->rvel(vec3(0, 0.2f, 0));
 	mp_l1->add(mp_cube);
 
-	mp_cube2 = new Cube("cube");
+	mp_cube2 = new Cube();
 	mp_cube2->pos(vec3(1, 1, 0));
 	mp_cube2->rvel(vec3(0, -0.2f, 0));
 	mp_l1->add(mp_cube2);

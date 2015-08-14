@@ -26,31 +26,31 @@ UniformBindings::UniformBindings(string id)
 
 UniformBindings::~UniformBindings() {}
 
-UniformBindings *UniformBindings::assignBinding(string key, vec2 *v)
+UniformBindings *UniformBindings::assignUniform(string key, vec2 *v)
 {
 	m_vec2_list[key] = v;
 	return this;
 }
 
-UniformBindings *UniformBindings::assignBinding(string key, vec3 *v)
+UniformBindings *UniformBindings::assignUniform(string key, vec3 *v)
 {
 	m_vec3_list[key] = v;
 	return this;
 }
 
-UniformBindings *UniformBindings::assignBinding(string key, vec4 *v)
+UniformBindings *UniformBindings::assignUniform(string key, vec4 *v)
 {
 	m_vec4_list[key] = v;
 	return this;
 }
 
-UniformBindings *UniformBindings::assignBinding(string key, mat4 *m)
+UniformBindings *UniformBindings::assignUniform(string key, mat4 *m)
 {
 	m_mat4_list[key] = m;
 	return this;
 }
 
-void UniformBindings::runBindings()
+void UniformBindings::bindUniforms()
 {
 	if (mp_shader_program == nullptr)
 		return;

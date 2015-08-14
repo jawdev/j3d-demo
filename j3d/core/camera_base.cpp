@@ -52,7 +52,7 @@ mat4 &CameraBase::transform()
 
 void CameraBase::render()
 {
-	runBindings();
+	bindUniforms();
 }
 
 ////////////////////////////////////////
