@@ -42,9 +42,9 @@ int debug::caller_info(string fi, string fu, int li)
 	if (m_colorize)
 		m_ss << "\033[0;90m";
 	stringstream ss;
-	ss << " [" << fu << ":" << fi << ":" << li << "] ";
-	m_ss << left << setw(40) << setfill('.') << ss.str();
-	return 40;
+	ss << " [" << fi << ":" << li << ":" << fu << "] ";
+	m_ss << left << setw(50) << setfill('.') << ss.str();
+	return 50;
 }
 
 int debug::tier_prefix()
@@ -83,11 +83,11 @@ void debug::write(string fi, string fu, int li, string co, string ti, string me,
 	if (me.length() > fill) {
 		for (size_t s = 0; s < me.length(); s += fill) {
 			if (s > 0) {
-				m_ss << "\n" << setw(w - 4) << "";
+				m_ss << "\n" << setfill(' ') << setw(w - 4) << "";
 				m_ss << ">   ";
 			}
 			if (s + fill > me.length()) {
-				m_ss << setw(fill);
+				m_ss << setw(fill) << setfill(st ? '.' : ' ');
 				m_ss << me.substr(s, fill);
 			} else
 				m_ss << me.substr(s, fill);

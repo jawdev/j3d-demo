@@ -35,6 +35,8 @@ void Layer::render()
 {
 	if (!o_pre_render)
 		preRender();
+	if (J3D_CACHE(active_exists, core::CameraBase))
+		J3D_CACHE_ACTIVE(core::CameraBase)->render();
 	Object *obj;
 	for (auto it = o_features.begin(); it != o_features.end(); ++it) {
 		obj = (Object *)it->second;
@@ -48,6 +50,10 @@ void Layer::updateRender()
 {
 	if (!o_pre_render)
 		preRender();
+	if (J3D_CACHE(active_exists, core::CameraBase)) {
+		J3D_CACHE_ACTIVE(core::CameraBase)->update();
+		J3D_CACHE_ACTIVE(core::CameraBase)->render();
+	}
 	Object *obj;
 	for (auto it = o_features.begin(); it != o_features.end(); ++it) {
 		obj = (Object *)it->second;

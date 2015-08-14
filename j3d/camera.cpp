@@ -11,7 +11,8 @@ namespace j3d {
 * CAMERA
 *******************************************************************************/
 
-Camera::Camera() {}
+Camera::Camera(string id) :
+		core::CameraBase(id) {}
 Camera::~Camera() {}
 
 mat4 &Camera::projection()

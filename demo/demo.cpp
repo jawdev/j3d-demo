@@ -10,10 +10,7 @@
 * DEMO
 *******************************************************************************/
 
-Demo::Demo() : Scene("demo")
-{
-}
-
+Demo::Demo() : Scene("demo") {}
 Demo::~Demo() {}
 
 void Demo::load()
@@ -27,7 +24,7 @@ void Demo::load()
 
 	mp_l1 = new Layer();
 
-	mp_cam = new Camera();
+	mp_cam = new Camera("primary");
 	mp_cam->pos(vec3(0, 0, 4));
 	mp_cam->vel(vec3(0, 0.2f, 0));
 	mp_cam->lookAt(vec3());
@@ -77,7 +74,6 @@ void Demo::unload()
 
 void Demo::update()
 {
-	mp_cam->update();
 	mp_l1->updateRender();
 
 	if (util::fps::notify)

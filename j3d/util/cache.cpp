@@ -120,6 +120,8 @@ bool cache::add(string id1, string id2, cacheitem *ptr, bool mkgrp)
 		return false;
 	}
 	m_caches[id1][id2] = ptr;
+	if (m_caches[id1].size() == 1)
+		m_actives[id1] = ptr;
 	return true;
 }
 

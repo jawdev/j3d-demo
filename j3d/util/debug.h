@@ -73,19 +73,30 @@ struct debug_settings {
 		J3D_DEBUG("0;90", "TODO", m << " ", true);\
 } while (0)
 
-#define J3D_DEBUG_TODO_OK\
-	j3d::util::debug::status("0;30m\033[102", "OK");
+#define J3D_DEBUG_TODO_OK do {\
+	if (J3D_DEBUG_LEVEL_TODO >= j3d::util::debug::level())\
+		j3d::util::debug::status("0;30m\033[102", "OK");\
+} while (0)
+
 #define J3D_DEBUG_TODO_WARN(m) do {\
-	stringstream ss; ss << m;\
-	j3d::util::debug::status("0;30m\033[103", "WARN", "0;93", ss.str());\
+	if (J3D_DEBUG_LEVEL_TODO >= j3d::util::debug::level()) {\
+		stringstream ss; ss << m;\
+		j3d::util::debug::status("0;30m\033[103", "WARN", "0;93", ss.str());\
+	}\
 } while (0)
+
 #define J3D_DEBUG_TODO_ERROR(m) do {\
-	stringstream ss; ss << m;\
-	j3d::util::debug::status("1;97m\033[101", "ERROR", "0;91", ss.str());\
+	if (J3D_DEBUG_LEVEL_TODO >= j3d::util::debug::level()) {\
+		stringstream ss; ss << m;\
+		j3d::util::debug::status("1;97m\033[101", "ERROR", "0;91", ss.str());\
+	}\
 } while (0)
+
 #define J3D_DEBUG_TODO_FATAL(m) do {\
-	stringstream ss; ss << m;\
-	j3d::util::debug::status("1;97m\033[101", "FATAL", "0;91", ss.str());\
+	if (J3D_DEBUG_LEVEL_TODO >= j3d::util::debug::level()) {\
+		stringstream ss; ss << m;\
+		j3d::util::debug::status("1;97m\033[101", "FATAL", "0;91", ss.str());\
+	}\
 	exit(1);\
 } while (0)
 
@@ -110,16 +121,20 @@ struct debug_settings {
 	exit(1);\
 } while (0)
 
-#define J3D_DEBUG_EXTRA(k, m) do {\
-	J3D_DEBUG("0;94", k, m, false);\
-} while (0)
+#define J3D_DEBUG_EXTRA(k, m)\
+	J3D_DEBUG("0;94", k, m, false);
 
 #define J3D_DEBUG_PUSH(m) do {\
-	J3D_DEBUG("0;96", "TIER", "+-- " << m, false);\
-	j3d::util::debug::push_tier();\
+	if (J3D_DEBUG_LEVEL_TODO >= j3d::util::debug::level()) {\
+		J3D_DEBUG("0;96", "TIER", "+-- " << m, false);\
+		j3d::util::debug::push_tier();\
+	}\
 } while (0)
-#define J3D_DEBUG_POP\
-	j3d::util::debug::pop_tier();
+
+#define J3D_DEBUG_POP do {\
+	if (J3D_DEBUG_LEVEL_TODO >= j3d::util::debug::level())\
+		j3d::util::debug::pop_tier();\
+} while (0)
 
 namespace j3d { namespace util {
 

@@ -14,7 +14,7 @@ namespace j3d {
 
 class Camera : public core::CameraBase {
 public:
-	Camera();
+	Camera(string id);
 	virtual ~Camera();
 	virtual mat4 &projection();
 

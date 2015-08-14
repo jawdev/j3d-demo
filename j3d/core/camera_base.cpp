@@ -11,24 +11,23 @@ namespace j3d { namespace core {
 * CAMERABASE
 *******************************************************************************/
 
-CameraBase::CameraBase()
-{
-	init();
-}
-
-CameraBase::CameraBase(string uid)
-{
-	init();
-	o_uniform_id = uid;
-}
-
-CameraBase::~CameraBase() {}
-
-void CameraBase::init()
+CameraBase::CameraBase(string id, bool ac) :
+		Cacheable(J3D_CACHE_ID, id, false)
 {
 	o_mat_projection.iden();
 	o_near = engine::config()->render_distance_near;
 	o_far = engine::config()->render_distance_far;
+	if (ac)
+		activate();
+}
+
+CameraBase::~CameraBase() {}
+
+void CameraBase::activate()
+{
+	J3D_DEBUG_TODO("activating Camera: " << cacheIdFull());
+	cacheActivate();
+	J3D_DEBUG_TODO_OK;
 }
 
 ////////////////////////////////////////

@@ -22,6 +22,7 @@ public:
 
 	void render();
 	void updateRender();
+
 };
 
 }

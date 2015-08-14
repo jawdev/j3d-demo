@@ -12,16 +12,15 @@ namespace j3d { namespace core {
 * CAMERABASE
 *******************************************************************************/
 
-class CameraBase : public Entity, public ReshapeBatch {
+class CameraBase : public Entity, public ReshapeBatch, public Cacheable {
 public:
-	CameraBase();
-	CameraBase(string uniform_id);
+	static const char constexpr *J3D_CACHE_ID = "camera";
+
+public:
+	CameraBase(string id, bool activate = true);
 	virtual ~CameraBase();
+	virtual void activate();
 
-private:
-	void init();
-
-public:
 	virtual void reshape(int w = 0, int h = 0);
 	virtual mat4 &projection() = 0;
 	virtual mat4 &transform();
