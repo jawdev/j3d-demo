@@ -24,6 +24,10 @@ void Demo::load()
 
 	mp_l1 = new Layer();
 
+	vec3 v1(1, 2, 3);
+	mat4 m;
+	vmath::translation(&m, -v1);
+
 	mp_cam = new Camera("primary");
 	mp_cam->pos(vec3(0, 0, 4));
 	mp_cam->vel(vec3(0, 0.2f, 0));
@@ -78,4 +82,10 @@ void Demo::update()
 
 	if (util::fps::notify)
 		cout << "FPS = " << util::fps::latest << "    " << '\r' << flush;
+}
+
+void Demo::onKeyDown(unsigned char k)
+{
+	if (k == 27)
+		util::cycle::advise_quit(true);
 }

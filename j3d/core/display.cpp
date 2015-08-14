@@ -39,7 +39,10 @@ Display::Display()
 	J3D_DEBUG_OK("Display created");
 }
 
-Display::~Display() {}
+Display::~Display()
+{
+	glutLeaveMainLoop();
+}
 
 ////////////////////////////////////////
 // CORE

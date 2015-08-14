@@ -128,6 +128,10 @@ void engine::sigint_handler(int code)
 
 void engine::update()
 {
+	if (util::cycle::advise_quit()) {
+		quit();
+		return;
+	}
 	util::cycle::tick();
 	J3D_CACHE_ACTIVE(Scene)->update();
 	util::cycle::flush();

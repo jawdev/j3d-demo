@@ -141,19 +141,19 @@ bool ShaderProgram::hasUniform(const char *key, bool debug_fatal)
 
 ShaderProgram *ShaderProgram::bind(const char *key, vec2 v)
 {
-	glUniform2fv(m_ulocs.at(key), 1, v.glFloat());
+	glUniform2fv(m_ulocs.at(key), 1, (GLfloat *)v);
 	return this;
 }
 
 ShaderProgram *ShaderProgram::bind(const char *key, vec3 v)
 {
-	glUniform3fv(m_ulocs.at(key), 1, v.glFloat());
+	glUniform3fv(m_ulocs.at(key), 1, (GLfloat *)v);
 	return this;
 }
 
 ShaderProgram *ShaderProgram::bind(const char *key, vec4 v)
 {
-	glUniform4fv(m_ulocs.at(key), 1, v.glFloat());
+	glUniform4fv(m_ulocs.at(key), 1, (GLfloat *)v);
 	return this;
 }
 

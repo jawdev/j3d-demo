@@ -218,12 +218,12 @@ void Mesh::build()
 	}
 	J3D_DEBUG_TODO("loading vertices");
 	for (iter = 0, i = 0; i < m_vec_v.size(); ++i) {
-		mp_vertices[iter++] = (GLfloat)m_vec_v[i].x;
-		mp_vertices[iter++] = (GLfloat)m_vec_v[i].y;
+		mp_vertices[iter++] = (GLfloat)m_vec_v[i].x();
+		mp_vertices[iter++] = (GLfloat)m_vec_v[i].y();
 		if (m_optimize_2d)
 			continue;
-		mp_vertices[iter++] = (GLfloat)m_vec_v[i].z;
-		mp_vertices[iter++] = (GLfloat)m_vec_v[i].w;
+		mp_vertices[iter++] = (GLfloat)m_vec_v[i].z();
+		mp_vertices[iter++] = (GLfloat)m_vec_v[i].w();
 	}
 	J3D_DEBUG_TODO_OK;
 
@@ -233,9 +233,9 @@ void Mesh::build()
 		m_sz_n = m_vec_n.size() * 3 * sizeof(GLfloat);
 		mp_normals = new GLfloat[m_vec_n.size() * 3];
 		for (iter = 0, i = 0; i < m_vec_n.size(); ++i) {
-			mp_normals[iter++] = (GLfloat)m_vec_n[i].x;
-			mp_normals[iter++] = (GLfloat)m_vec_n[i].y;
-			mp_normals[iter++] = (GLfloat)m_vec_n[i].z;
+			mp_normals[iter++] = (GLfloat)m_vec_n[i].x();
+			mp_normals[iter++] = (GLfloat)m_vec_n[i].y();
+			mp_normals[iter++] = (GLfloat)m_vec_n[i].z();
 		}
 		J3D_DEBUG_TODO_OK;
 	}

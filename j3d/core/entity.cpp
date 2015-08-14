@@ -46,11 +46,11 @@ mat4 &Entity::transform()
 
 Entity *Entity::lookAt(const vec3 &v)
 {
-	float dx = o_pos.x - v.x;
-	float dz = v.z - o_pos.z;
-	o_rot.y = atan2(dz, dx);
+	float dx = o_pos.x() - v.x();
+	float dz = v.z() - o_pos.z();
+	o_rot[1] = atan2(dz, dx);
 	float h = sqrt(dx * dx + dz * dz);
-	o_rot.x = ( h == 0 ? 0 : atan((v.y - o_pos.y) / h));
+	o_rot[0] = ( h == 0 ? 0 : atan((v.y() - o_pos.y()) / h));
 	return this;
 }
 

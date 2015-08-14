@@ -64,14 +64,14 @@ void control::on_key_down(unsigned char k, int x, int y)
 {
 	m_key_down[(int)k] = true;
 	J3D_BATCH(core::ControlBatch, onKeyDown, k, x, y);
-	J3D_DEBUG_INFO("key down = " << k);
+	J3D_DEBUG_INFO("key down = (" << k << ") " << (int)k);
 }
 
 void control::on_key_up(unsigned char k, int x, int y)
 {
 	m_key_down[(int)k] = false;
 	J3D_BATCH(core::ControlBatch, onKeyUp, k, x, y);
-	J3D_DEBUG_INFO("key up = " << k);
+	J3D_DEBUG_INFO("key up   = (" << k << ") " << (int)k);
 }
 
 void control::on_special_down(int k, int x, int y)
@@ -85,7 +85,7 @@ void control::on_special_up(int k, int x, int y)
 {
 	m_key_down[k + S] = false;
 	J3D_BATCH(core::ControlBatch, onSpecialUp, k, x, y);
-	J3D_DEBUG_INFO("special up = " << k);
+	J3D_DEBUG_INFO("special up   = " << k);
 }
 
 void control::on_mouse_click(int b, int s, int x, int y)
@@ -99,7 +99,7 @@ void control::on_mouse_click(int b, int s, int x, int y)
 	case GLUT_UP:
 		m_mouse_down[b] = false;
 		J3D_BATCH(core::ControlBatch, onMouseUp, b, x, y);
-		J3D_DEBUG_INFO("mouse up = " << b);
+		J3D_DEBUG_INFO("mouse up   = " << b);
 		break;
 	default:
 		J3D_DEBUG_WARN("unrecognized mouse state {state = " << s <<

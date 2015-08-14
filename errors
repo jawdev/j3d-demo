@@ -1,0 +1,42 @@
+In file included from demo/../j3d/j3d.h:88:0,
+                 from demo/inc.h:10,
+                 from main.cpp:11:
+demo/../j3d/math/vec.h: In member function ‘j3d::vec2& j3d::vec2::operator=(const j3d::vec2&)’:
+demo/../j3d/math/vec.h:192:55: error: invalid initialization of reference of type ‘j3d::vec2&’ from expression of type ‘j3d::vec<2, float>’
+  vec2 &operator=(const vec2 &v) { return assign(v.data); }
+                                                       ^
+demo/../j3d/math/vec.h: In member function ‘j3d::vec3& j3d::vec3::operator=(const j3d::vec3&)’:
+demo/../j3d/math/vec.h:223:55: error: invalid initialization of reference of type ‘j3d::vec3&’ from expression of type ‘j3d::vec<3, float>’
+  vec3 &operator=(const vec3 &v) { return assign(v.data); }
+                                                       ^
+In file included from demo/../j3d/j3d.h:105:0,
+                 from demo/inc.h:10,
+                 from main.cpp:11:
+demo/../j3d/core/entity_base.h: In instantiation of ‘void j3d::core::EntityBase<T>::syncAttachment() [with T = j3d::vec3]’:
+main.cpp:44:1:   required from here
+demo/../j3d/core/entity_base.h:64:9: error: no match for ‘operator=’ (operand types are ‘j3d::vec3’ and ‘j3d::vec<3, float>’)
+   o_pos = op_attachment->pos() + o_pos_offset;
+         ^
+demo/../j3d/core/entity_base.h:64:9: note: candidate is:
+In file included from demo/../j3d/j3d.h:88:0,
+                 from demo/inc.h:10,
+                 from main.cpp:11:
+demo/../j3d/math/vec.h:223:8: note: j3d::vec3& j3d::vec3::operator=(const j3d::vec3&)
+  vec3 &operator=(const vec3 &v) { return assign(v.data); }
+        ^
+demo/../j3d/math/vec.h:223:8: note:   no known conversion for argument 1 from ‘j3d::vec<3, float>’ to ‘const j3d::vec3&’
+In file included from demo/../j3d/j3d.h:105:0,
+                 from demo/inc.h:10,
+                 from main.cpp:11:
+demo/../j3d/core/entity_base.h:65:9: error: no match for ‘operator=’ (operand types are ‘j3d::vec3’ and ‘j3d::vec<3, float>’)
+   o_rot = op_attachment->rot() + o_rot_offset;
+         ^
+demo/../j3d/core/entity_base.h:65:9: note: candidate is:
+In file included from demo/../j3d/j3d.h:88:0,
+                 from demo/inc.h:10,
+                 from main.cpp:11:
+demo/../j3d/math/vec.h:223:8: note: j3d::vec3& j3d::vec3::operator=(const j3d::vec3&)
+  vec3 &operator=(const vec3 &v) { return assign(v.data); }
+        ^
+demo/../j3d/math/vec.h:223:8: note:   no known conversion for argument 1 from ‘j3d::vec<3, float>’ to ‘const j3d::vec3&’
+make: *** [.obj/./main.cpp.o] Error 1

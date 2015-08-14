@@ -21,8 +21,10 @@ public:
 	template<class T> static T delta();
 
 	static bool advise_reshape();
+	static bool advise_quit();
 
 	static void advise_reshape(bool);
+	static void advise_quit(bool);
 
 private:
 	static void tick();
@@ -33,6 +35,7 @@ private:
 	static double m_new_time;
 	static double m_delta;
 	static bool m_advise_reshape;
+	static bool m_advise_quit;
 	
 };
 

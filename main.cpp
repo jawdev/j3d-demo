@@ -30,7 +30,6 @@ int main(int argc, char *argv[])
 		config.window_title = "J3D Demo";
 	engine::init(config);
 
-
 	/*
 	 * 4. create scenes
 	 */

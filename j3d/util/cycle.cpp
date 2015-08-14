@@ -15,6 +15,7 @@ double cycle::m_last_time = 0;
 double cycle::m_new_time = 0;
 double cycle::m_delta = 0;
 bool cycle::m_advise_reshape = true;
+bool cycle::m_advise_quit = false;
 
 
 float cycle::delta()
@@ -32,8 +33,11 @@ template<class T> T cycle::delta()
 	return (T)m_delta;
 }
 
-bool cycle::advise_reshape() { return m_advise_reshape; }
 void cycle::advise_reshape(bool b) { m_advise_reshape = b; }
+void cycle::advise_quit(bool b) { m_advise_quit = b; }
+
+bool cycle::advise_reshape() { return m_advise_reshape; }
+bool cycle::advise_quit() { return m_advise_quit; }
 
 ////////////////////////////////////////
 // ENGINE

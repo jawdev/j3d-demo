@@ -59,6 +59,10 @@ using namespace std;
 
 namespace j3d {
 	class engine;
+	struct vec2;
+	struct vec3;
+	struct vec4;
+	struct mat4;
 	namespace util {
 		class cycle;
 		class control;
@@ -81,6 +85,8 @@ namespace j3d {
 #include "util/cache.h"
 #include "util/batches.h"
 
+#include "math/vec.h"
+#include "math/mat.h"
 #include "math/vmath.h"
 
 #include "core/flaggable.h"
@@ -105,7 +111,6 @@ namespace j3d {
 #include "mesh.h"
 #include "mesh_2d.h"
 #include "mesh_shapes.h"
-#include "collider.h"
 #include "object.h"
 #include "sprite.h"
 #include "camera.h"

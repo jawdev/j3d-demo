@@ -61,8 +61,8 @@ public:
 	{
 		if (locked() || !attached())
 			return;
-		o_pos = op_attachment->pos() + o_pos_offset;
-		o_rot = op_attachment->rot() + o_rot_offset;
+		//o_pos = o_pos_offset + op_attachment->pos();
+		//o_rot = o_rot_offset + op_attachment->rot();
 	}
 	
 	virtual EntityBase<T> *move(const T &t)

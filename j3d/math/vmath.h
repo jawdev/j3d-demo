@@ -6,315 +6,7 @@
 *******************************************************************************/
 #ifndef __J3D_MATH_VMATH_H__
 #define __J3D_MATH_VMATH_H__
-
-struct vec2;
-struct vec3;
-struct vec4;
-struct mat4;
-
-/*******************************************************************************
-* VEC2
-*******************************************************************************/
-
-struct vec2 {
-	float x, y;
-
-	vec2(float _x = 0, float _y = 0)
-	{
-		x = _x;
-		y = _y;
-	}
-
-	vec2 &operator=(const vec2& v)
-	{
-		if (this != &v) {
-			x = v.x;
-			y = v.y;
-		}
-		return *this;
-	}
-
-	vec2 operator-() const { return vec2(-x, -y); }
-
-	vec2 operator+(const vec2 &v) const { return vec2(x + v.x, y + v.y); }
-	vec2 operator-(const vec2 &v) const { return vec2(x - v.x, y - v.y); }
-	vec2 operator*(const float &f) const { return vec2(x * f, y * f); }
-	vec2 operator/(const float &f) const { return vec2(x / f, y / f); }
-	
-	vec2 &operator+=(const vec2 &v) { x += v.x; y += v.y; return *this; }
-	vec2 &operator-=(const vec2 &v) { x -= v.x; y -= v.y; return *this; }
-	vec2 &operator*=(const float &f) { x *= f; y *= f; return *this; }
-	vec2 &operator/=(const float &f) { x /= f; y /= f; return *this; }
-
-	GLfloat *glFloat() { return (GLfloat *)this; }
-	friend ostream &operator<<(ostream &, const vec2 &);
-};
-
-inline ostream &operator<<(ostream &os, const vec2 &v)
-{
-	os << "<" << v.x << ", " << v.y << ">";
-	return os;
-}
-
-/*******************************************************************************
-* VEC3
-*******************************************************************************/
-
-struct vec3 {
-	float x, y, z;
-
-	vec3(float _x = 0.0f, float _y = 0.0f, float _z = 0.0f)
-	{
-		x = _x;
-		y = _y;
-		z = _z;
-	}
-	
-	vec3 &operator=(const vec3 &v)
-	{
-		if (this != &v) {
-			x = v.x;
-			y = v.y;
-			z = v.z;
-		}
-		return *this;
-	}
-
-	vec3 operator-() const { return vec3(-x, -y, -z); }
-
-	vec3 operator+(const vec3 &v) const { return vec3(x + v.x, y + v.y,
-			z + v.z); }
-	vec3 operator-(const vec3 &v) const { return vec3(x - v.x, y - v.y,
-			z - v.z); }
-	vec3 operator*(const float &f) const { return vec3(x * f, y * f, z * f); }
-	vec3 operator/(const float &f) const { return vec3(x / f, y / f, z / f); }
-
-	vec3 &operator+=(const vec3 &v) { x += v.x; y += v.y; z += v.z;
-			return *this; }
-	vec3 &operator-=(const vec3 &v) { x -= v.x; y -= v.y; z -= v.z;
-			return *this; }
-	vec3 &operator*=(const float &f) { x *= f; y *= f; z *= f; return *this; }
-	vec3 &operator/=(const float &f) { x /= f; y /= f; z /= f; return *this; }
-
-	GLfloat *glFloat() { return (GLfloat *)this; }
-	friend ostream &operator<<(ostream &, const vec3 &);
-};
-
-inline ostream &operator<<(ostream &os, const vec3 &v)
-{
-	os << "<" << v.x << ", " << v.y << ", " << v.z << ">";
-	return os;
-}
-
-/*******************************************************************************
-* VEC4
-*******************************************************************************/
-
-struct vec4 {
-	float x, y, z, w;
-	bool lock_w;
-
-	vec4(float _x = 0, float _y = 0, float _z = 0, float _w = 1,
-			bool _lock_w = true)
-	{
-		x = _x;
-		y = _y;
-		z = _z;
-		w = _w;
-		lock_w = _lock_w;
-	}
-
-	vec4(const vec2 &v)
-	{
-		x = v.x;
-		y = v.y;
-		z = 0;
-		w = 1;
-		lock_w = true;
-	}
-
-	vec4(const vec3 &v)
-	{
-		x = v.x;
-		y = v.y;
-		z = v.z;
-		w = 1;
-		lock_w = true;
-	}
-	
-	vec4 &operator=(const vec4 &v)
-	{
-		if (this != &v) {
-			x = v.x;
-			y = v.y;
-			z = v.z;
-			w = v.w;
-			lock_w = v.lock_w;
-		}
-		return *this;
-	}
-
-	vec4 operator-() const { return vec4(-x, -y, -z, (lock_w ? w : -w)); }
-
-	vec4 operator+(const vec4 &v) const { return vec4(x + v.x, y + v.y,
-			z + v.z, (lock_w ? w : w + v.w)); }
-	vec4 operator-(const vec4 &v) const { return vec4(x - v.x, y - v.y,
-			z - v.z, (lock_w ? w : w - v.w)); }
-	vec4 operator*(const float &f) const { return vec4(x * f, y * f, z * f,
-			(lock_w ? w : w * f)); }
-	vec4 operator/(const float &f) const { return vec4(x / f, y / f, z / f,
-			(lock_w ? w : w / f)); }
-
-	vec4 &operator+=(const vec4 &v) { x += v.x; y += v.y; z += v.z;
-			if (!lock_w) w += v.w; return *this; }
-	vec4 &operator-=(const vec4 &v) { x -= v.x; y -= v.y; z -= v.z;
-			if (!lock_w) w -= v.w; return *this; }
-	vec4 &operator*=(const float &f) { x *= f; y *= f; z *= f;
-			if (!lock_w) w *= f; return *this; }
-	vec4 &operator/=(const float &f) { x /= f; y /= f; z /= f;
-			if (!lock_w) w /= f; return *this; }
-
-	vec4 operator*(const mat4 &) const;
-
-	GLfloat *glFloat() { return (GLfloat *)this; }
-	friend ostream &operator<<(ostream &, const vec4 &);
-};
-
-inline ostream &operator<<(ostream &os, const vec4 &v)
-{
-	os << "<" << v.x << ", " << v.y << ", ";
-	os << v.z << ", " << v.w << ">";
-	return os;
-}
-
-/*******************************************************************************
-* MAT4
-*******************************************************************************/
-
-struct mat4 {
-	float data[4][4];
-	//         c  r
-
-	mat4() { iden(); }
-
-/*
-	float *row(const int &r)
-	{
-		float *row_data = new float[4];
-		for (c = 0; c < 4; ++c)
-			row_data[c] = data[c][r];
-		return row_data;
-	}
-
-	float *col(const int &c)
-	{
-		float *col_data = new float[4];
-		for (r = 0; r < 4; ++r)
-			col_data[r] = data[c][r];
-		return col_data;
-	}
-*/
-
-	float get(const int &r, const int &c) { return data[c][r]; }
-	void set(const int &r, const int &c, const float &val) { data[c][r] = val; }
-
-	void zero()
-	{
-		int c, r;
-		for (c = 0; c < 4; ++c)
-			for (r = 0; r < 4; ++r)
-				data[c][r] = 0;
-	}
-
-	void iden()
-	{
-		int c, r;
-		for (c = 0; c < 4; ++c)
-			for (r = 0; r < 4; ++r)
-				data[c][r] = (c == r ? 1 : 0);
-	}
-
-	mat4 &operator=(const mat4 &m)
-	{
-		int c, r;
-		for (c = 0; c < 4; ++c)
-			for (r = 0; r < 4; ++r)
-				data[c][r] = m.data[c][r];
-		return *this;
-	}
-
-	mat4 &operator*=(const mat4 &m)
-	{
-		int c, r;
-		mat4 cp = *this;
-		for (c = 0; c < 4; ++c)
-			for (r = 0; r < 4; ++r)
-				data[c][r] =
-					m.data[c][0] * cp.data[0][r] +
-					m.data[c][1] * cp.data[1][r] +
-					m.data[c][2] * cp.data[2][r] +
-					m.data[c][3] * cp.data[3][r];
-		return *this;
-	}
-
-	float &operator[](const int &i)
-	{
-		return data[i % 4][i / 4];
-	}
-
-	mat4 operator*(const mat4 m)
-	{
-		mat4 result = *this;
-		result *= m;
-		return result;
-	}
-
-	GLfloat *glFloat() { return (GLfloat *)this; }
-	friend ostream &operator<<(ostream &, const mat4 &);
-};
-
-inline ostream &operator<<(ostream &os, const mat4 &m)
-{
-	os << "========================================";
-	os << "========================================\n";
-	int i, j;
-	for (i = 0; i < 4; ++i) {
-		for (j = 0; j < 4; ++j) {
-			os << setw(20);
-			os << m.data[j][i];
-		}
-		os << "\n";
-	}
-	os << "========================================";
-	os << "========================================";
-	return os;
-}
-
-/*******************************************************************************
-* MAT4 VEC4
-*******************************************************************************/
-
-inline vec4 vec4::operator*(const mat4 &m) const
-{
-	vec4 v;
-	v.x =	m.data[0][0] * x +
-			m.data[1][0] * y +
-			m.data[2][0] * z +
-			m.data[3][0] * w;
-	v.y =	m.data[0][1] * x +
-			m.data[1][1] * y +
-			m.data[2][1] * z +
-			m.data[3][1] * w;
-	v.z =	m.data[0][2] * x +
-			m.data[1][2] * y +
-			m.data[2][2] * z +
-			m.data[3][2] * w;
-	v.w =	m.data[0][3] * x +
-			m.data[1][3] * y +
-			m.data[2][3] * z +
-			m.data[3][3] * w;
-	return v;
-}
+namespace j3d {
 
 /*******************************************************************************
 * VMATH
@@ -322,60 +14,21 @@ inline vec4 vec4::operator*(const mat4 &m) const
 
 struct vmath {
 public:
-
-	static vec2 norm(const vec2 &v)
-	{
-		float mag = sqrt(v.x * v.x + v.y * v.y);
-		return (mag == 0 ? vec2() : vec2(v.x / mag, v.y / mag));
-	}
-
-	static vec3 norm(const vec3 &v)
-	{
-		float mag = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
-		return (mag == 0 ? vec3() : vec3(v.x / mag, v.y / mag, v.z / mag));
-	}
-
-	static vec4 norm(const vec4 &v)
-	{
-		float mag = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
-		if (mag == 0)
-			return vec4();
-		return vec4(v.x / mag, v.y / mag, v.z / mag, 1);
-	}
-
-	static vec3 cross(const vec3 &a, const vec3 &b)
-	{
-		return vec3(
-			a.y * b.z - a.z * b.y,
-			a.z * b.x - a.x * b.z,
-			a.x * b.y - a.y * b.x);
-	}
-
-	static vec4 cross(vec4 a, vec4 b)
-	{
-		if (a.w != 1)
-			a = norm(a);
-		if (b.w != 1)
-			b = norm(b);
-		return vec4(
-			a.y * b.z - a.z * b.y,
-			a.z * b.x - a.x * b.z,
-			a.x * b.y - a.y * b.x,
-			1);
-	}
 	
-	static void translation(mat4 *m, const vec3 &v)
+	static void translation(mat4 *m, const vec<3, float> &v)
 	{
 		m->iden();
-		m->set(0, 3, v.x);
-		m->set(1, 3, v.y);
-		m->set(2, 3, v.z);
+		m->set(0, 3, v.data[0]);
+		m->set(1, 3, v.data[1]);
+		m->set(2, 3, v.data[2]);
 	}
 
+/*
 	static void translation(mat4 *m, const vec4 &v)
 	{
-		translation(m, vec3(v.x, v.y, v.z));
+		translation(m, vec3(v.x(), v.y(), v.z()));
 	}
+*/
 
 	static void rotationX(mat4 *m, const float &f)
 	{
@@ -407,18 +60,13 @@ public:
 		m->set(1, 1, c);
 	}
 
-	static void rotation(mat4 *m, const vec3 &v)
+	static void rotation(mat4 *m, const vec<3, float> &v)
 	{
 		mat4 mx, my, mz;
-		rotationX(&mx, v.x);
-		rotationY(&my, v.y);
-		rotationZ(&mz, v.z);
+		rotationX(&mx, v.data[0]);
+		rotationY(&my, v.data[1]);
+		rotationZ(&mz, v.data[2]);
 		*m = mz * mx * my;
-	}
-
-	static void rotation(mat4 *m, const vec4 &v)
-	{
-		rotation(m, vec3(v.x, v.y, v.z));
 	}
 
 	static void perspective(mat4 *m, float l, float r, float b, float t,
@@ -576,4 +224,6 @@ public:
 	}
 
 };
+
+}
 #endif

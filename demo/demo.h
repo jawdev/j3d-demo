@@ -21,6 +21,8 @@ protected:
 	void unload();
 	void update();
 
+	void onKeyDown(unsigned char);
+
 private:
 	Layer *mp_l1;
 	Camera *mp_cam;

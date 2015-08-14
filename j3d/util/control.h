@@ -50,4 +50,7 @@ private:
 };
 
 } }
+
+#define J3D_KEY_ESCAPE	27
+
 #endif
