@@ -40,7 +40,7 @@ struct vec {
 		return *this;
 	}
 
-	vec normalized() const
+	vec normal() const
 	{
 		vec<N, T> v(this.data);
 		return v.normalize();

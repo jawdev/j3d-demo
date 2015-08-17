@@ -159,7 +159,7 @@ ShaderProgram *ShaderProgram::bind(const char *key, vec4 v)
 
 ShaderProgram *ShaderProgram::bind(const char *key, mat4 m)
 {
-	glUniformMatrix4fv(m_ulocs.at(key), 1, GL_FALSE, m.glFloat());
+	glUniformMatrix4fv(m_ulocs.at(key), 1, GL_FALSE, (GLfloat *)m);
 	return this;
 }
 
