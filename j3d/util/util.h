@@ -8,31 +8,55 @@
 #define __J3D_UTIL_HELPERS_H__
 namespace j3d { namespace util {
 
+/*******************************************************************************
+* CHRONO
+*******************************************************************************/
+
+double now();
+
+/*******************************************************************************
+* POINTERS
+*******************************************************************************/
+
 template<class T>
 struct is_pointer { static const bool value = false; };
 template<class T>
 struct is_pointer<T *> { static const bool value = true; };
 
-double now();
-
 string ptr2str(void *);
+
+/*******************************************************************************
+* FILES
+*******************************************************************************/
 
 char *file_get_contents(const char *filename, bool zero_term = false);
 
-struct fps {
-public:
-	friend class cycle;
+/*******************************************************************************
+* FPS
+*******************************************************************************/
 
+class fps {
+	friend class cycle;
 public:
-	static bool enabled;
-	static unsigned int latest;
-	static float stopwatch;
-	static float lap;
-	static unsigned int counter;
-	static bool notify;
+	static void enable(bool b = true);
+	static void disable(bool b = true);
+	static void lap(float);
+
+	static bool enabled();
+	static unsigned int latest();
+	static float lap();
+	static bool notify();
 
 private:
 	static void tick(float delta);
+
+private:
+	static bool m_enabled;
+	static unsigned int m_latest;
+	static float m_stopwatch;
+	static float m_lap;
+	static unsigned int m_counter;
+	static bool m_notify;
 };
 
 } }

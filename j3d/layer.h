@@ -17,11 +17,13 @@ public:
 	Layer(bool control_delete = true);
 	~Layer();
 
-	Layer *add(Object *);
-	Layer *add(initializer_list<Object *>);
-
 	void render();
 	void updateRender();
+
+protected:
+	void onGroupAdd(core::Feature *);
+
+private:
 
 };
 

@@ -88,5 +88,16 @@ public:
 
 };
 
+/*
+ * SCREEN RAYS
+	mp_cam->transform();
+	cout << mp_cam->pos() << endl;
+	vec4 v(1, 1, -1, 1);
+	cout << v << endl;
+	vec4 v2 = v * vmath::invert(mp_cam->transform());
+	cout << v2 << endl;
+	cout << vmath::norm(v2 - mp_cam->pos()) << endl;
+*/
+
 }
 #endif

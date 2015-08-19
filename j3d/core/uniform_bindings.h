@@ -26,10 +26,15 @@ public:
 	void bindUniforms();
 
 	UniformBindings *shaderProgram(ShaderProgram *);
+	UniformBindings *enableUniformBindings(bool b = true);
+	UniformBindings *disableUniformBindings(bool b = true);
+
 	const ShaderProgram *shaderProgram() const;
+	bool uniformBindingsEnabled() const;
 	
 private:
 	ShaderProgram *mp_shader_program;
+	bool m_enabled;
 	unordered_map<string, vec2 *> m_vec2_list;
 	unordered_map<string, vec3 *> m_vec3_list;
 	unordered_map<string, vec4 *> m_vec4_list;

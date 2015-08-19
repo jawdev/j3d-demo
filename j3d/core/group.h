@@ -17,24 +17,46 @@ public:
 	Group(bool control_delete = true);
 	virtual ~Group();
 
-	virtual Group *add(Feature *f);
-	virtual Group *add(initializer_list<Feature *>);
-	virtual Group *remove(Feature *f);
-	virtual Group *remove(initializer_list<Feature *>);
-	virtual void destroy();
+	Group *groupAdd(Feature *);
+	Group *groupAdd(initializer_list<Feature *>);
+	Group *groupRemove(Feature *);
+	Group *groupRemove(initializer_list<Feature *>);
+	void groupDelete();
 
-	virtual void update();
-	virtual void preRender();
-	virtual void render();
-	virtual void postRender();
-	virtual void updateRender();
+	virtual Group *add(Feature *f) { return groupAdd(f); }
+	virtual Group *add(initializer_list<Feature *> fs) { return groupAdd(fs); }
+	virtual Group *remove(Feature *f) { return groupRemove(f); }
+	virtual Group *remove(initializer_list<Feature *> fs) { return groupRemove(fs); }
 
-	Group *controlDelete(bool b = true);
-	Group *shaderProgram(const char *id);
-	Group *shaderProgram(ShaderProgram *);
+	void groupUpdate();
+	void groupPreRender();
+	void groupRender();
+	void groupPostRender();
+	void groupUpdateRender();
 
-	bool controlDelete() const;
-	ShaderProgram *shaderProgram() const;
+	virtual void update() { groupUpdate(); }
+	virtual void preRender() { groupPreRender(); }
+	virtual void render() { groupRender(); }
+	virtual void postRender() { groupPostRender(); }
+	virtual void updateRender() { groupUpdateRender(); }
+
+	Group *groupControlDelete(bool b = true);
+	Group *groupShaderProgram(const char *id);
+	Group *groupShaderProgram(ShaderProgram *);
+
+	virtual Group *controlDelete(bool b = true) { return groupControlDelete(b); }
+	virtual Group *shaderProgram(const char *id) { return groupShaderProgram(id); }
+	virtual Group *shaderProgram(ShaderProgram *p) { return groupShaderProgram(p); }
+
+	bool groupControlDelete() const;
+	ShaderProgram *groupShaderProgram() const;
+
+	virtual bool controlDelete() const { return groupControlDelete(); }
+	virtual ShaderProgram *shaderProgram() const { return groupShaderProgram(); }
+
+protected:
+	virtual void onGroupAdd(Feature *) {}
+	virtual void onGroupRemove(Feature *) {}
 
 private:
 	bool m_control_delete;

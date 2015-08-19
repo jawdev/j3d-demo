@@ -27,6 +27,7 @@ private:
 	Layer *mp_l1;
 	Camera *mp_cam;
 	ShaderProgram *mp_shader;
+	Light *mp_light;
 	Cube *mp_cube;
 	Cube *mp_cube2;
 };

@@ -13,7 +13,7 @@
 
 class Cube : public Object {
 public:
-	Cube() : Object("cube", "basic")
+	Cube() : Object("cube")
 	{
 		assignUniform("m4_model", &o_mat_transform);
 	}

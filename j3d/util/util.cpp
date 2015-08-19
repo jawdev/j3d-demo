@@ -7,11 +7,19 @@
 #include "../j3d.h"
 namespace j3d { namespace util {
 
+/*******************************************************************************
+* CHRONO
+*******************************************************************************/
+
 double now()
 {
 	return chrono::duration_cast<chrono::duration<double>>
 			(chrono::high_resolution_clock::now().time_since_epoch()).count();
 }
+
+/*******************************************************************************
+* POINTERS
+*******************************************************************************/
 
 string ptr2str(void *ptr)
 {
@@ -19,6 +27,10 @@ string ptr2str(void *ptr)
 	ss << ptr;
 	return ss.str();
 }
+
+/*******************************************************************************
+* FILES
+*******************************************************************************/
 
 char *file_get_contents(const char *filename, bool zero_term)
 {
@@ -40,26 +52,41 @@ char *file_get_contents(const char *filename, bool zero_term)
 * FPS
 *******************************************************************************/
 
-bool fps::enabled = false;
-unsigned int fps::latest = 0;
-float fps::stopwatch = 0;
-float fps::lap = 1;
-unsigned int fps::counter = 0;
-bool fps::notify = false;
+bool fps::m_enabled = false;
+unsigned int fps::m_latest = 0;
+float fps::m_stopwatch = 0;
+float fps::m_lap = 1;
+unsigned int fps::m_counter = 0;
+bool fps::m_notify = false;
+
+////////////////////////////////////////
+// SET GET
+
+void fps::enable(bool b) { m_enabled = b; }
+void fps::disable(bool b) { enable(!b); }
+void fps::lap(float f) { m_lap = f; }
+
+bool fps::enabled() { return m_enabled; }
+unsigned int fps::latest() { return m_latest; }
+float fps::lap() { return m_lap; }
+bool fps::notify() { return m_notify; }
+
+////////////////////////////////////////
+// TICK
 
 void fps::tick(float delta)
 {
-	if (!enabled)
+	if (!m_enabled)
 		return;
-	notify = false;
-	++counter;
-	stopwatch += delta;
-	if (stopwatch < lap)
+	m_notify = false;
+	++m_counter;
+	m_stopwatch += delta;
+	if (m_stopwatch < m_lap)
 		return;
-	latest = counter / stopwatch;
-	stopwatch = 0;
-	counter = 0;
-	notify = true;
+	m_latest = m_counter / m_stopwatch;
+	m_stopwatch = 0;
+	m_counter = 0;
+	m_notify = true;
 }
 
 }}

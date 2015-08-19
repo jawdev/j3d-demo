@@ -14,6 +14,7 @@ namespace j3d { namespace core {
 CameraBase::CameraBase(string id, bool ac) :
 		Cacheable(J3D_CACHE_ID, id, false)
 {
+	disableUniformBindings();
 	o_mat_projection.iden();
 	o_near = engine::config()->render_distance_near;
 	o_far = engine::config()->render_distance_far;

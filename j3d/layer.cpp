@@ -18,18 +18,8 @@ Layer::Layer(bool del) : LayerBase(del)
 
 Layer::~Layer() {}
 
-Layer *Layer::add(Object *o)
-{
-	Group::add(o);
-	return this;
-}
-
-Layer *Layer::add(initializer_list<Object *> os)
-{
-	for (Object *o : os)
-		add(o);
-	return this;
-}
+////////////////////////////////////////
+// UPDATE
 
 void Layer::render()
 {
@@ -62,6 +52,13 @@ void Layer::updateRender()
 		obj->render();
 	}
 	postRender();
+}
+
+void Layer::onGroupAdd(core::Feature *f)
+{
+	core::Entity *e = (core::Entity *)f;
+	if (e->shaderProgram() == nullptr)
+		e->shaderProgram(groupShaderProgram());
 }
 
 }

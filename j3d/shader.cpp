@@ -105,10 +105,21 @@ void ShaderProgram::link(initializer_list<const char *> unames, bool use)
 		J3D_DEBUG_TODO_FATAL(log);
 		delete [] log;
 	}
-	for (const char *u : unames)
-		m_ulocs[string(u)] = glGetUniformLocation(m_id, u);
+	bool has_error = false;
+	for (const char *u : unames) {
+		GLint loc = glGetUniformLocation(m_id, u);
+		if (loc == -1) {
+			if (!has_error)
+				J3D_DEBUG_TODO_ERROR("uniform does not exist: " << u);
+			else
+				J3D_DEBUG_ERROR("uniform does not exist: " << u);
+			has_error = true;
+		}
+		m_ulocs[string(u)] = loc;
+	}
 	m_linked = true;
-	J3D_DEBUG_TODO_OK;
+	if (!has_error)
+		J3D_DEBUG_TODO_OK;
 	if (use)
 		glUseProgram(m_id);
 }
@@ -133,7 +144,7 @@ bool ShaderProgram::hasUniform(const char *key, bool debug_fatal)
 		m_ulocs.at(string(key));
 	} catch (...) {
 		if (debug_fatal)
-			J3D_DEBUG_FATAL("uniform does not exist: " << key);
+			J3D_DEBUG_FATAL("uniform not linked: " << key);
 		return false;
 	}
 	return true;

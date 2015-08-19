@@ -41,7 +41,6 @@ Display::Display()
 
 Display::~Display()
 {
-	glutLeaveMainLoop();
 }
 
 ////////////////////////////////////////
@@ -50,6 +49,11 @@ Display::~Display()
 void Display::loop()
 {
 	glutMainLoop();
+}
+
+void Display::leaveLoop()
+{
+	glutLeaveMainLoop();
 }
 
 void Display::reshape(int w, int h)

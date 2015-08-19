@@ -18,6 +18,7 @@ public:
 	virtual ~Display();
 
 	virtual void loop();
+	virtual void leaveLoop();
 	virtual void reshape(int w, int h);
 	virtual void display();
 

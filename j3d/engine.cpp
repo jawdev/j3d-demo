@@ -129,6 +129,7 @@ void engine::sigint_handler(int code)
 void engine::update()
 {
 	if (util::cycle::advise_quit()) {
+		mp_display->leaveLoop();
 		quit();
 		return;
 	}

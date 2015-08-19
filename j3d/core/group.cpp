@@ -21,7 +21,7 @@ Group::Group(bool control_delete)
 Group::~Group()
 {
 	if (m_control_delete)
-		destroy();
+		groupDelete();
 	else
 		o_features.clear();
 }
@@ -29,22 +29,24 @@ Group::~Group()
 //////////////////////////////////////////////////
 // MAIN
 
-Group *Group::add(Feature *f)
+Group *Group::groupAdd(Feature *f)
 {
 	o_features[util::ptr2str(f)] = f;
 	f->mp_group = this;
+	onGroupAdd(f);
 	return this;
 }
 
-Group *Group::add(initializer_list<Feature *> fs)
+Group *Group::groupAdd(initializer_list<Feature *> fs)
 {
 	for (Feature *f : fs)
 		add(f);
 	return this;
 }
 
-Group *Group::remove(Feature *f)
+Group *Group::groupRemove(Feature *f)
 {
+	onGroupRemove(f);
 	if (m_control_delete)
 		J3D_SAFE_DELETE(f);
 	else
@@ -53,7 +55,7 @@ Group *Group::remove(Feature *f)
 	return this;
 }
 
-Group *Group::remove(initializer_list<Feature *> fs)
+Group *Group::groupRemove(initializer_list<Feature *> fs)
 {
 	for (Feature *f : fs)
 		remove(f);
@@ -63,20 +65,20 @@ Group *Group::remove(initializer_list<Feature *> fs)
 //////////////////////////////////////////////////
 // UPDATE
 
-void Group::update()
+void Group::groupUpdate()
 {
 	for (auto it = o_features.begin(); it != o_features.end(); ++it)
 		((Feature *)it->second)->update();
 }
 
-void Group::preRender()
+void Group::groupPreRender()
 {
 	if (mp_shader_program != nullptr)
 		mp_shader_program->use();
 	o_pre_render = true;
 }
 
-void Group::render()
+void Group::groupRender()
 {
 	if (!o_pre_render)
 		preRender();
@@ -86,12 +88,12 @@ void Group::render()
 	o_pre_render = false;
 }
 
-void Group::postRender()
+void Group::groupPostRender()
 {
 	o_pre_render = false;
 }
 
-void Group::updateRender()
+void Group::groupUpdateRender()
 {
 	if (!o_pre_render)
 		preRender();
@@ -102,7 +104,7 @@ void Group::updateRender()
 	postRender();
 }
 
-void Group::destroy()
+void Group::groupDelete()
 {
 	Feature *f;
 	for (auto it = o_features.begin(); it != o_features.end(); ++it) {
@@ -115,22 +117,22 @@ void Group::destroy()
 //////////////////////////////////////////////////
 // GET SET
 
-Group *Group::controlDelete(bool b) { m_control_delete = b; return this; }
+Group *Group::groupControlDelete(bool b) { m_control_delete = b; return this; }
 
-Group *Group::shaderProgram(const char *id)
+Group *Group::groupShaderProgram(const char *id)
 {
 	if (J3D_CACHE3(exists, ShaderProgram, id, true))
 		mp_shader_program = J3D_CACHE_GET(ShaderProgram, id);
 	return this;
 }
 
-Group *Group::shaderProgram(ShaderProgram *p)
+Group *Group::groupShaderProgram(ShaderProgram *p)
 {
 	mp_shader_program = p;
 	return this;
 }
 
-bool Group::controlDelete() const { return m_control_delete; }
-ShaderProgram *Group::shaderProgram() const { return mp_shader_program; }
+bool Group::groupControlDelete() const { return m_control_delete; }
+ShaderProgram *Group::groupShaderProgram() const { return mp_shader_program; }
 
 } }
