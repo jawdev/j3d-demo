@@ -2,30 +2,23 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/display.h
+* j3d/base/entity_2d.cpp
 *******************************************************************************/
-#ifndef __J3D_CORE_DISPLAY_H__
-#define __J3D_CORE_DISPLAY_H__
-namespace j3d { namespace core {
+#include "../j3d.h"
+namespace j3d { namespace base {
 
 /*******************************************************************************
-* DISPLAY
+* ENTITY2D
 *******************************************************************************/
 
-class Display {
-public:
-	Display();
-	virtual ~Display();
+Entity2D::Entity2D() :
+		EntityBase<vec2>()
+{}
 
-	virtual void loop();
-	virtual void leaveLoop();
-	virtual void reshape(int w, int h);
-	virtual void display();
+Entity2D::Entity2D(string shader_id) :
+		EntityBase<vec2>(shader_id)
+{}
 
-	static void on_reshape(int w, int h);
-	static void on_display();
-
-};
+Entity2D::~Entity2D() {}
 
 } }
-#endif

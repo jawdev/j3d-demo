@@ -2,10 +2,10 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/display.cpp
+* j3d/base/display.cpp
 *******************************************************************************/
 #include "../j3d.h"
-namespace j3d { namespace core {
+namespace j3d { namespace base {
 
 Display::Display()
 {
@@ -62,7 +62,7 @@ void Display::reshape(int w, int h)
 	glViewport(0, 0, w, h);
 	engine::config()->window_width = w;
 	engine::config()->window_height = h;
-	J3D_BATCH(ReshapeBatch, reshape, w, h);
+	J3D_BATCH(core::ReshapeBatch, reshape, w, h);
 }
 
 void Display::display()

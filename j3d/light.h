@@ -25,7 +25,7 @@ struct LightProps {
 * LIGHT
 *******************************************************************************/
 
-class Light : public core::Entity {
+class Light : public base::Entity {
 public:
 	Light(light_t);
 	Light(const vec3 &dif, const vec3 &amb, const vec3 &dir,

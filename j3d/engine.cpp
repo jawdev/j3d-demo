@@ -13,7 +13,7 @@ namespace j3d {
 
 bool engine::m_init_complete = false;
 Config engine::m_config;
-core::Display *engine::mp_display = nullptr;
+base::Display *engine::mp_display = nullptr;
 
 ////////////////////////////////////////
 // INIT
@@ -47,7 +47,7 @@ void engine::init(const Config &s)
 	}
 
 	J3D_DEBUG_PUSH("Display init");
-	mp_display = new core::Display();
+	mp_display = new base::Display();
 	J3D_DEBUG_POP;
 
 	J3D_DEBUG_PUSH("control init");
@@ -143,6 +143,6 @@ void engine::update()
 
 bool engine::initialized() { return m_init_complete; }
 Config *engine::config() { return &m_config; }
-core::Display *engine::display() { return mp_display; }
+base::Display *engine::display() { return mp_display; }
 
 }

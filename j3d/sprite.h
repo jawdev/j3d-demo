@@ -12,7 +12,7 @@ namespace j3d {
 * SPRITE
 *******************************************************************************/
 
-class Sprite : public core::Entity2D {
+class Sprite : public base::Entity2D {
 public:
 	Sprite(const char *mesh_id);
 	virtual ~Sprite();

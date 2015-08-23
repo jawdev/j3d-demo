@@ -2,10 +2,10 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/entity.cpp
+* j3d/base/entity.cpp
 *******************************************************************************/
 #include "../j3d.h"
-namespace j3d { namespace core {
+namespace j3d { namespace base {
 
 /*******************************************************************************
 * ENTITY
@@ -37,8 +37,8 @@ mat4 &Entity::transform()
 {
 	if (o_locked && o_calcd_transform)
 		return o_mat_transform;
-	vmath::translation(&o_mat_pos, o_pos);
-	vmath::rotation(&o_mat_rot, o_rot);
+	matrix::translation(&o_mat_pos, o_pos);
+	matrix::rotation(&o_mat_rot, o_rot);
 	o_mat_transform = o_mat_pos * o_mat_rot;
 	o_calcd_transform = true;
 	return o_mat_transform;

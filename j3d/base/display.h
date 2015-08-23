@@ -2,30 +2,28 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/renderbuffer_2d.h
+* j3d/base/display.h
 *******************************************************************************/
-#ifndef __J3D_CORE_RENDERBUFFER_2D_H__
-#define __J3D_CORE_RENDERBUFFER_2D_H__
-namespace j3d { namespace core {
+#ifndef __J3D_BASE_DISPLAY_H__
+#define __J3D_BASE_DISPLAY_H__
+namespace j3d { namespace base {
 
 /*******************************************************************************
-* RENDERBUFFER2D
+* DISPLAY
 *******************************************************************************/
 
-class Renderbuffer2D : public RenderbufferBase {
+class Display {
 public:
-	Renderbuffer2D();
-	~Renderbuffer2D();
+	Display();
+	virtual ~Display();
 
-	void reshape(int x, int y);
-	void bind();
-	void blit();
+	virtual void loop();
+	virtual void leaveLoop();
+	virtual void reshape(int w, int h);
+	virtual void display();
 
-private:
-	int m_width;
-	int m_height;
-	GLuint m_framebuffer;
-	GLuint m_renderbuffer;
+	static void on_reshape(int w, int h);
+	static void on_display();
 
 };
 

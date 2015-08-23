@@ -13,7 +13,7 @@ namespace j3d {
 
 Layer::Layer(bool del) : LayerBase(del)
 {
-	LayerBase::renderBuffer(new core::Renderbuffer());
+	LayerBase::renderBuffer(new base::Renderbuffer());
 }
 
 Layer::~Layer() {}
@@ -25,8 +25,8 @@ void Layer::render()
 {
 	if (!o_pre_render)
 		preRender();
-	if (J3D_CACHE(active_exists, core::CameraBase))
-		J3D_CACHE_ACTIVE(core::CameraBase)->render();
+	if (J3D_CACHE(active_exists, base::CameraBase))
+		J3D_CACHE_ACTIVE(base::CameraBase)->render();
 	Object *obj;
 	for (auto it = o_features.begin(); it != o_features.end(); ++it) {
 		obj = (Object *)it->second;
@@ -40,9 +40,9 @@ void Layer::updateRender()
 {
 	if (!o_pre_render)
 		preRender();
-	if (J3D_CACHE(active_exists, core::CameraBase)) {
-		J3D_CACHE_ACTIVE(core::CameraBase)->update();
-		J3D_CACHE_ACTIVE(core::CameraBase)->render();
+	if (J3D_CACHE(active_exists, base::CameraBase)) {
+		J3D_CACHE_ACTIVE(base::CameraBase)->update();
+		J3D_CACHE_ACTIVE(base::CameraBase)->render();
 	}
 	Object *obj;
 	for (auto it = o_features.begin(); it != o_features.end(); ++it) {
@@ -56,7 +56,7 @@ void Layer::updateRender()
 
 void Layer::onGroupAdd(core::Feature *f)
 {
-	core::Entity *e = (core::Entity *)f;
+	base::Entity *e = (base::Entity *)f;
 	if (e->shaderProgram() == nullptr)
 		e->shaderProgram(groupShaderProgram());
 }

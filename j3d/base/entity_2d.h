@@ -2,33 +2,22 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/object.h
+* j3d/base/entity_2d.h
 *******************************************************************************/
-#ifndef __J3D_OBJECT_H__
-#define __J3D_OBJECT_H__
-namespace j3d {
+#ifndef __J3D_BASE_ENTITY_2D_H__
+#define __J3D_BASE_ENTITY_2D_H__
+namespace j3d { namespace base {
 
 /*******************************************************************************
-* OBJECT
+* ENTITY2D
 *******************************************************************************/
 
-class Object : public base::Entity {
+class Entity2D : public EntityBase<vec2> {
 public:
-	Object(const string &mesh_id);
-	Object(const string &mesh_id, const string &shader_id);
-	virtual ~Object();
-
-private:
-	void init(const string &mesh_id);
-
-public:
-	virtual void update();
-	virtual void render();
-
-private:
-	Mesh *mp_mesh;
-	
+	Entity2D();
+	Entity2D(string shader_id);
+	virtual ~Entity2D();
 };
 
-}
+} }
 #endif

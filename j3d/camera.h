@@ -12,7 +12,7 @@ namespace j3d {
 * CAMERA
 *******************************************************************************/
 
-class Camera : public core::CameraBase {
+class Camera : public base::CameraBase {
 public:
 	Camera(string id);
 	virtual ~Camera();

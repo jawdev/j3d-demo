@@ -12,7 +12,7 @@ namespace j3d {
 * LAYER
 *******************************************************************************/
 
-class Layer : public core::LayerBase {
+class Layer : public base::LayerBase {
 public:
 	Layer(bool control_delete = true);
 	~Layer();

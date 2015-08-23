@@ -22,6 +22,9 @@ struct ray {
 	ray(const ray &r) { assign(r); }
 	ray(const T &_o, const T &_d) { assign(_o, _d); }
 
+	///////////////////////////////////////
+	// ASSIGN
+
 	ray &assign(const ray<T> &r)
 	{
 		o = r.o;
@@ -36,6 +39,9 @@ struct ray {
 		return *this;
 	}
 
+	///////////////////////////////////////
+	// EXTRAS
+
 	template<class>
 	friend ostream &operator<<(ostream &, const ray<T> &);
 
@@ -49,7 +55,16 @@ ostream &operator<<(ostream &os, const ray<T> &r)
 }
 
 typedef ray<vec2> ray2;
-typedef ray<vec3> ray3;
+
+/*******************************************************************************
+* RAY3
+*******************************************************************************/
+
+struct ray3 : public ray<vec3> {
+
+	ray3 &from_window(int win_x, int win_y);
+
+};
 
 }
 #endif

@@ -2,23 +2,21 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/entity_2d.cpp
+* j3d/math/collision.h
 *******************************************************************************/
-#include "../j3d.h"
-namespace j3d { namespace core {
+#ifndef __J3D_MATH_COLLISION_H__
+#define __J3D_MATH_COLLISION_H__
+namespace j3d {
 
 /*******************************************************************************
-* ENTITY2D
+* COLLISION
 *******************************************************************************/
 
-Entity2D::Entity2D() :
-		EntityBase<vec2>()
-{}
+struct collision {
 
-Entity2D::Entity2D(string shader_id) :
-		EntityBase<vec2>(shader_id)
-{}
+	static bool ray_aabb(ray3, vec3 min, vec3 max);
 
-Entity2D::~Entity2D() {}
+};
 
-} }
+}
+#endif

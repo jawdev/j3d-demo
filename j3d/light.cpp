@@ -12,14 +12,14 @@ namespace j3d {
 *******************************************************************************/
 
 Light::Light(light_t type) :
-		core::Entity()
+		base::Entity()
 {
 	m_type = type;
 }
 
 Light::Light(const vec3 &dif, const vec3 &amb, const vec3 &dir,
 		light_t type) :
-		core::Entity()
+		base::Entity()
 {
 	m_type = type;
 	m_diffuse = dif;
@@ -28,7 +28,7 @@ Light::Light(const vec3 &dif, const vec3 &amb, const vec3 &dir,
 }
 
 Light::Light(const vec3 &dif, light_t type) :
-		core::Entity()
+		base::Entity()
 {
 	m_type = type;
 	m_diffuse = dif;
@@ -36,7 +36,7 @@ Light::Light(const vec3 &dif, light_t type) :
 
 Light::Light(const vec3 &dif, const vec3 &amb, const vec3 &dir,
 		const float &cos, light_t type) :
-		core::Entity()
+		base::Entity()
 {
 	m_type = type;
 	m_diffuse = dif;

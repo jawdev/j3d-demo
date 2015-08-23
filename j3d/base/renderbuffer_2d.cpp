@@ -2,10 +2,10 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/renderbuffer_2d.cpp
+* j3d/base/renderbuffer_2d.cpp
 *******************************************************************************/
 #include "../j3d.h"
-namespace j3d { namespace core {
+namespace j3d { namespace base {
 
 /*******************************************************************************
 * RENDERBUFFER2D

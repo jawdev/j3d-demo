@@ -24,12 +24,12 @@ public:
 
 	static bool initialized();
 	static Config *config();
-	static core::Display *display();
+	static base::Display *display();
 
 private:
 	static bool m_init_complete;
 	static Config m_config;
-	static core::Display *mp_display;
+	static base::Display *mp_display;
 	
 };
 

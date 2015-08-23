@@ -23,7 +23,7 @@ Layer2D::Layer2D(bool del) : LayerBase(del)
 		p->link({"v4_color"}, false);
 		groupShaderProgram(p);
 	}
-	LayerBase::renderBuffer(new core::Renderbuffer2D());
+	LayerBase::renderBuffer(new base::Renderbuffer2D());
 }
 
 Layer2D::~Layer2D() {}

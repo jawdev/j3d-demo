@@ -12,13 +12,13 @@ namespace j3d {
 *******************************************************************************/
 
 Object::Object(const string &mesh_id) :
-		core::Entity()
+		base::Entity()
 {
 	init(mesh_id);
 }
 
 Object::Object(const string &mesh_id, const string &shader_id) :
-		core::Entity(shader_id)
+		base::Entity(shader_id)
 {
 	init(mesh_id);
 }
@@ -35,7 +35,7 @@ void Object::init(const string &mesh_id)
 
 void Object::update()
 {
-	core::Entity::update();
+	base::Entity::update();
 }
 
 void Object::render()

@@ -12,14 +12,14 @@ namespace j3d {
 *******************************************************************************/
 
 Camera::Camera(string id) :
-		core::CameraBase(id) {}
+		base::CameraBase(id) {}
 Camera::~Camera() {}
 
 mat4 &Camera::projection()
 {
 	float a = (float)engine::config()->window_width;
 	a /= (float)engine::config()->window_height;
-	vmath::perspective(&o_mat_projection, -a, a, -1, 1, o_near, o_far);
+	matrix::perspective(&o_mat_projection, -a, a, -1, 1, o_near, o_far);
 	return o_mat_projection;
 }
 

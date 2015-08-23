@@ -32,8 +32,6 @@ void Demo::load()
 	 * camera
 	 */
 	mp_cam = new Camera("primary");
-	mp_cam->pos(vec3(-10, 0, 0));
-	mp_cam->lookAt(vec3());
 	mp_l1->add(mp_cam);
 
 	/*
@@ -64,35 +62,11 @@ void Demo::load()
 	 */
 	new BoxMesh("cube");
 
-	vec3 vmin(1, 1, 1);
-	vec3 vmax(3, 3, 3);
-	ray3 r(vec3(-1, 2, 2), vec3(1, 0, 0));
-	if (rmath::intersection(r, vmin, vmax))
-		cout << "HIT" << endl;
-	else
-		cout << "FAIL" << endl;
-
 	/*
 	 * objects
 	 */
 	mp_cube = new Cube();
 	mp_l1->add(mp_cube);
-
-/*
-	int scale = 100;
-	int range = scale * scale;
-	float scale_f = (float)scale;
-	int x, z;
-	Cube *p_cube = new Cube();
-	for (int i = 0; i < range; ++i) {
-		x = i % scale;
-		z = i / scale;
-		p_cube = new Cube();
-		p_cube->pos(vec3(x - scale_f / 2, 0, z - scale_f / 2));
-		p_cube->lock();
-		mp_l1->add(p_cube);
-	}
-*/
 }
 
 void Demo::unload()
@@ -152,11 +126,10 @@ void Demo::onMouseUp(int b, int x, int y)
 	if (b != 0)
 		return;
 	ray3 r;
-	rmath::screen_ray(&r, x, y);
-	cout << r << endl;
+	r.from_window(x, y);
 	vec3 vmin, vmax;
 	mp_cube->aabb(&vmin, &vmax);
-	if (rmath::intersection(r, vmin, vmax))
+	if (collision::ray_aabb(r, vmin, vmax))
 		cout << "HIT!" << endl;
 }
 
@@ -165,15 +138,20 @@ void Demo::onMouseUp(int b, int x, int y)
 
 void Demo::update()
 {
-/*
+	/*
+	 * camera control
+	 */
 	static float r = 4.0f;
 	m_rot[0] -= (float)m_dir[0] * util::cycle::delta();
 	m_rot[1] += (float)m_dir[1] * util::cycle::delta();
 	mp_cam->pos(vec3(r * cos(m_rot[0]), r * sin(m_rot[1]), r * sin(m_rot[0])));
 	mp_cam->lookAt(vec3());
-*/
 	
+	/*
+	 * update/render layer
+	 */
 	mp_l1->updateRender();
+
 	if (util::fps::notify())
 		cout << "FPS = " << util::fps::latest() << "    " << '\r' << flush;
 }

@@ -2,11 +2,11 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/aabb.h
+* j3d/base/aabb.h
 *******************************************************************************/
 #ifndef __J3D_CORE_AABB_H__
 #define __J3D_CORE_AABB_H__
-namespace j3d { namespace core {
+namespace j3d { namespace base {
 
 /*******************************************************************************
 * AABB

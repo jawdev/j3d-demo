@@ -2,16 +2,16 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/math/vmath.cpp
+* j3d/math/matrix.cpp
 *******************************************************************************/
 #include "../j3d.h"
 namespace j3d {
 
 /*******************************************************************************
-* VMATH
+* MATRIX
 *******************************************************************************/
 
-void vmath::translation(mat4 *m, const vec<3, float> &v)
+void matrix::translation(mat4 *m, const vec<3, float> &v)
 {
 	m->iden();
 	m->set(0, 3, v.data[0]);
@@ -19,7 +19,7 @@ void vmath::translation(mat4 *m, const vec<3, float> &v)
 	m->set(2, 3, v.data[2]);
 }
 
-void vmath::rotation_x(mat4 *m, const float &f)
+void matrix::rotation_x(mat4 *m, const float &f)
 {
 	float c = cos(f);
 	float s = sin(f);
@@ -29,7 +29,7 @@ void vmath::rotation_x(mat4 *m, const float &f)
 	m->set(2, 2, -c);
 }
 
-void vmath::rotation_y(mat4 *m, const float &f)
+void matrix::rotation_y(mat4 *m, const float &f)
 {
 /*
 	float c = cos(f);
@@ -47,7 +47,7 @@ void vmath::rotation_y(mat4 *m, const float &f)
 	m->set(2, 2, s);
 }
 
-void vmath::rotation_z(mat4 *m, const float &f)
+void matrix::rotation_z(mat4 *m, const float &f)
 {
 	float c = cos(f);
 	float s = sin(f);
@@ -57,7 +57,7 @@ void vmath::rotation_z(mat4 *m, const float &f)
 	m->set(1, 1, c);
 }
 
-void vmath::rotation(mat4 *m, const vec<3, float> &v)
+void matrix::rotation(mat4 *m, const vec<3, float> &v)
 {
 	mat4 mx, my, mz;
 	rotation_x(&mx, v.data[0]);
@@ -66,7 +66,7 @@ void vmath::rotation(mat4 *m, const vec<3, float> &v)
 	*m = mz * mx * my;
 }
 
-void vmath::perspective(mat4 *m, float l, float r, float b, float t,
+void matrix::perspective(mat4 *m, float l, float r, float b, float t,
 		float n, float f)
 {
 	m->iden();
@@ -89,6 +89,5 @@ void vmath::perspective(mat4 *m, float l, float r, float b, float t,
 	m->set(3, 2, -1);
 	m->set(3, 3, 0);
 }
-
 
 }

@@ -11,7 +11,7 @@ namespace j3d {
 * SPRITE
 *******************************************************************************/
 
-Sprite::Sprite(const char *mesh_id) : core::Entity2D()
+Sprite::Sprite(const char *mesh_id) : base::Entity2D()
 {
 	if (!J3D_CACHE2(exists, Mesh2D, mesh_id))
 		J3D_DEBUG_FATAL("Mesh could not be found: " << mesh_id);
@@ -25,7 +25,7 @@ Sprite::~Sprite() {}
 
 void Sprite::update()
 {
-	core::Entity2D::update();
+	base::Entity2D::update();
 }
 
 void Sprite::render()

@@ -2,11 +2,11 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/renderbuffer.h
+* j3d/base/renderbuffer.h
 *******************************************************************************/
-#ifndef __J3D_CORE_RENDERBUFFER_H__
-#define __J3D_CORE_RENDERBUFFER_H__
-namespace j3d { namespace core {
+#ifndef __J3D_BASE_RENDERBUFFER_H__
+#define __J3D_BASE_RENDERBUFFER_H__
+namespace j3d { namespace base {
 
 /*******************************************************************************
 * RENDERBUFFER

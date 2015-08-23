@@ -4,15 +4,15 @@
 * github.com/jawdev/j3d
 * j3d/camera_base.h
 *******************************************************************************/
-#ifndef __J3D_CORE_CAMERA_BASE__
-#define __J3D_CORE_CAMERA_BASE__
-namespace j3d { namespace core {
+#ifndef __J3D_BASE_CAMERA_BASE__
+#define __J3D_BASE_CAMERA_BASE__
+namespace j3d { namespace base {
 
 /*******************************************************************************
 * CAMERABASE
 *******************************************************************************/
 
-class CameraBase : public Entity, public ReshapeBatch, public Cacheable {
+class CameraBase : public Entity, public core::ReshapeBatch, public core::Cacheable {
 public:
 	static const char constexpr *J3D_CACHE_ID = "camera";
 

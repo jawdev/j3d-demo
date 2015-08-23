@@ -2,11 +2,11 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/renderbuffer_base.h
+* j3d/base/renderbuffer_base.h
 *******************************************************************************/
-#ifndef __J3D_CORE_RENDERBUFFER_BASE_H__
-#define __J3D_CORE_RENDERBUFFER_BASE_H__
-namespace j3d { namespace core {
+#ifndef __J3D_BASE_RENDERBUFFER_BASE_H__
+#define __J3D_BASE_RENDERBUFFER_BASE_H__
+namespace j3d { namespace base {
 
 class RenderbufferBase : public core::ReshapeBatch {
 public:

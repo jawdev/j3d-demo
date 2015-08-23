@@ -5,7 +5,7 @@
 * j3d/camera_base.cpp
 *******************************************************************************/
 #include "../j3d.h"
-namespace j3d { namespace core {
+namespace j3d { namespace base {
 
 /*******************************************************************************
 * CAMERABASE
@@ -43,8 +43,8 @@ mat4 &CameraBase::transform()
 {
 	if (o_locked && o_calcd_transform)
 		return o_mat_transform;
-	vmath::translation(&o_mat_pos, -o_pos);
-	vmath::rotation(&o_mat_rot, -o_rot);
+	matrix::translation(&o_mat_pos, -o_pos);
+	matrix::rotation(&o_mat_rot, -o_rot);
 	o_mat_transform = o_mat_rot * o_mat_pos;
 	o_mat_transform = o_mat_projection * o_mat_transform;
 	o_calcd_transform = true;

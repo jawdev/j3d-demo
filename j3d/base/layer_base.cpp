@@ -2,10 +2,10 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/layer_base.cpp
+* j3d/base/layer_base.cpp
 *******************************************************************************/
 #include "../j3d.h"
-namespace j3d { namespace core {
+namespace j3d { namespace base {
 
 /*******************************************************************************
 * LAYERBASE

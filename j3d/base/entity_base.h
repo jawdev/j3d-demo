@@ -2,18 +2,18 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/core/entity_base.h
+* j3d/base/entity_base.h
 *******************************************************************************/
-#ifndef __J3D_CORE_ENTITY_BASE_H__
-#define __J3D_CORE_ENTITY_BASE_H__
-namespace j3d { namespace core {
+#ifndef __J3D_BASE_ENTITY_BASE_H__
+#define __J3D_BASE_ENTITY_BASE_H__
+namespace j3d { namespace base {
 
 /*******************************************************************************
 * ENTITYBASE
 *******************************************************************************/
 
 template<class T>
-class EntityBase : public Feature, public UniformBindings {
+class EntityBase : public core::Feature, public core::UniformBindings {
 public:
 	EntityBase()
 	{

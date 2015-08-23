@@ -2,7 +2,7 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/math/vec.h
+* j3d/math/vector.h
 *******************************************************************************/
 namespace j3d {
 
