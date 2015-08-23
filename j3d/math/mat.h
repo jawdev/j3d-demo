@@ -153,6 +153,13 @@ struct mat4 {
 		return *this;
 	}
 
+	mat4 inverse()
+	{
+		mat4 m = *this;
+		m.invert();
+		return m;
+	}
+
 	void inverse(mat4 *m)
 	{
 		*m = *this;

@@ -22,14 +22,21 @@ protected:
 	void update();
 
 	void onKeyDown(unsigned char);
+	void onKeyUp(unsigned char);
+	void onMouseUp(int, int, int);
 
 private:
+	float m_timer;
+	int m_dir[2];
+	float m_rot[2];
+
 	Layer *mp_l1;
 	Camera *mp_cam;
 	ShaderProgram *mp_shader;
-	Light *mp_light;
 	Cube *mp_cube;
-	Cube *mp_cube2;
+
+	Mesh *mp_ray_mesh;
+	Object *mp_ray_obj;
 };
 
 #endif

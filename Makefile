@@ -1,7 +1,7 @@
 TARGET	= runme
-CC		= g++
+CC		= g++-5
 SHELL	:= /bin/bash
-CFLAGS	= -I. -Wall -std=c++11 -g -rdynamic -pthread -m64
+CFLAGS	= -I. -Wall -std=c++14 -g -rdynamic -pthread -m64
 LFLAGS	= -L. -lm -lGLEW -lGL -lGLU -lglut
 DEPS	:= $(shell find -name "*.h")
 SRCS	:= $(shell find -name "*.cpp")

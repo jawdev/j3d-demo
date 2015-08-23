@@ -69,16 +69,20 @@ public:
 	Mesh *pushIndices(const unsigned int *, const unsigned int &len);
 	Mesh *pushIndices(initializer_list<unsigned int>);
 
-	void build();
-	void render();
+	virtual void build();
+	virtual void bind();
+	virtual void render();
 
 	Mesh *optimize2D(bool = true);
 	
 	bool optimize2D() const;
+	const vec3 &min() const;
+	const vec3 &max() const;
 
 private:
 	bool isBuilt();
 	bool is2D();
+	void loadMinMax(const vec3 &v);
 	
 private:
 	mesh_draw_t m_draw_t;
@@ -87,6 +91,7 @@ private:
 	unsigned int m_restart_index;
 	bool m_has_restart;
 	bool m_built;
+	bool m_has_normals;
 	vector<vec4> m_vec_v;
 	vector<vec3> m_vec_n;
 	vector<unsigned int> m_vec_i;
@@ -98,6 +103,8 @@ private:
 	unsigned int m_sz_v;
 	unsigned int m_sz_n;
 	unsigned int m_sz_i;
+	vec3 m_vmin;
+	vec3 m_vmax;
 
 };
 

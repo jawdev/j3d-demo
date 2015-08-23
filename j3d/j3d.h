@@ -85,9 +85,12 @@ namespace j3d {
 #include "util/cache.h"
 #include "util/batches.h"
 
+#include "math/math.h"
 #include "math/vec.h"
 #include "math/mat.h"
 #include "math/vmath.h"
+#include "math/ray.h"
+#include "math/rmath.h"
 
 #include "core/flaggable.h"
 #include "core/cacheable.h"

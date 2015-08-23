@@ -20,6 +20,7 @@ Mesh::Mesh(const char *id, mesh_draw_t d, mesh_shape_t s,
 	m_has_restart = (m_restart_index > 0);
 	m_optimize_2d = false;
 	m_built = false;
+	m_has_normals = false;
 	mp_buffers = nullptr;
 	mp_vertices = nullptr;
 	mp_indices = nullptr;
@@ -51,6 +52,10 @@ Mesh *Mesh::pushVertex(const vec4 &v)
 	if (isBuilt() || is2D())
 		return this;
 	m_vec_v.push_back(v);
+	if (m_vec_v.size() == 1)
+		m_vmin = m_vmax = m_vec_v[0];
+	else
+		loadMinMax(m_vec_v[m_vec_v.size()-1]);
 	return this;
 }
 
@@ -59,7 +64,7 @@ Mesh *Mesh::pushVertices(const vec4 *vs, const unsigned int &len)
 	if (isBuilt() || is2D())
 		return this;
 	for (unsigned int i = 0; i < len; ++i)
-		m_vec_v.push_back(vs[i]);
+		pushVertex(vs[i]);
 	return this;
 }
 
@@ -68,7 +73,7 @@ Mesh *Mesh::pushVertices(initializer_list<vec4> vs)
 	if (isBuilt() || is2D())
 		return this;
 	for (vec4 v : vs)
-		m_vec_v.push_back(v);
+		pushVertex(v);
 	return this;
 }
 
@@ -81,6 +86,10 @@ Mesh *Mesh::pushVertex(const vec3 &v)
 	if (isBuilt() || is2D())
 		return this;
 	m_vec_v.push_back(vec4(v));
+	if (m_vec_v.size() == 1)
+		m_vmin = m_vmax = m_vec_v[0];
+	else
+		loadMinMax(m_vec_v[m_vec_v.size()-1]);
 	return this;
 }
 
@@ -89,7 +98,7 @@ Mesh *Mesh::pushVertices(const vec3 *vs, const unsigned int &len)
 	if (isBuilt() || is2D())
 		return this;
 	for (unsigned int i = 0; i < len; ++i)
-		m_vec_v.push_back(vec4(vs[i]));
+		pushVertex(vs[i]);
 	return this;
 }
 
@@ -98,7 +107,7 @@ Mesh *Mesh::pushVertices(initializer_list<vec3> vs)
 	if (isBuilt() || is2D())
 		return this;
 	for (vec3 v : vs)
-		m_vec_v.push_back(vec4(v));
+		pushVertex(v);
 	return this;
 }
 
@@ -112,6 +121,10 @@ Mesh *Mesh::pushVertex(const vec2 &v)
 		return this;
 	m_vec_v.push_back(vec4(v));
 	m_optimize_2d = true;
+	if (m_vec_v.size() == 1)
+		m_vmin = m_vmax = m_vec_v[0];
+	else
+		loadMinMax(m_vec_v[m_vec_v.size()-1]);
 	return this;
 }
 
@@ -120,7 +133,7 @@ Mesh *Mesh::pushVertices(const vec2 *vs, const unsigned int &len)
 	if (isBuilt())
 		return this;
 	for (unsigned int i = 0; i < len; ++i)
-		m_vec_v.push_back(vec4(vs[i]));
+		pushVertex(vs[i]);
 	m_optimize_2d = true;
 	return this;
 }
@@ -130,7 +143,7 @@ Mesh *Mesh::pushVertices(initializer_list<vec2> vs)
 	if (isBuilt())
 		return this;
 	for (vec2 v : vs)
-		m_vec_v.push_back(vec4(v));
+		pushVertex(v);
 	m_optimize_2d = true;
 	return this;
 }
@@ -227,8 +240,8 @@ void Mesh::build()
 	}
 	J3D_DEBUG_TODO_OK;
 
-	bool normals = (!m_optimize_2d && !m_vec_n.empty());
-	if (normals) {
+	m_has_normals = (!m_optimize_2d && !m_vec_n.empty());
+	if (m_has_normals) {
 		J3D_DEBUG_TODO("loading normals");
 		m_sz_n = m_vec_n.size() * 3 * sizeof(GLfloat);
 		mp_normals = new GLfloat[m_vec_n.size() * 3];
@@ -262,7 +275,7 @@ void Mesh::build()
 				GL_STATIC_DRAW);
 	case mesh_draw_t::ARRAY:
 		glBindBuffer(GL_ARRAY_BUFFER, mp_buffers[0]);
-		if (normals) {
+		if (m_has_normals) {
 			glBufferData(GL_ARRAY_BUFFER, m_sz_v + m_sz_n, NULL,
 					GL_STATIC_DRAW);
 			glBufferSubData(GL_ARRAY_BUFFER, 0, m_sz_v, mp_vertices);
@@ -282,7 +295,7 @@ void Mesh::build()
 	else
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
-	if (normals) {
+	if (m_has_normals) {
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0,
 				(void *)((uintptr_t)m_sz_v));
 		glEnableVertexAttribArray(1);
@@ -293,10 +306,34 @@ void Mesh::build()
 	J3D_DEBUG_POP;
 }
 
+void Mesh::bind()
+{
+	switch (m_draw_t) {
+	case mesh_draw_t::ELEMENT:
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mp_buffers[1]);
+	case mesh_draw_t::ARRAY:
+		glBindBuffer(GL_ARRAY_BUFFER, mp_buffers[0]);
+		break;
+	default:
+		break;
+	}
+	if (!m_optimize_2d)
+		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
+	else
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(0);
+	if (m_has_normals) {
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0,
+				(void *)((uintptr_t)m_sz_v));
+		glEnableVertexAttribArray(1);
+	}
+}
+
 void Mesh::render()
 {
 	if (!m_built)
 		build();
+	bind();
 
 	switch (m_shape_t) {
 	case mesh_shape_t::LINE_STRIP:
@@ -332,6 +369,8 @@ void Mesh::render()
 Mesh *Mesh::optimize2D(bool b) { m_optimize_2d = b; return this; }
 
 bool Mesh::optimize2D() const { return m_optimize_2d; }
+const vec3 &Mesh::min() const { return m_vmin; }
+const vec3 &Mesh::max() const { return m_vmax; }
 
 ////////////////////////////////////////
 // EXTRAS
@@ -352,6 +391,24 @@ bool Mesh::is2D()
 		return true;
 	}
 	return false;
+}
+
+void Mesh::loadMinMax(const vec3 &v)
+{
+	if (v.x() < m_vmin.x())
+		m_vmin.x(v.x());
+	else if(v.x() > m_vmax.x())
+		m_vmax.x(v.x());
+	if (v.y() < m_vmin.y())
+		m_vmin.y(v.y());
+	else if(v.y() > m_vmax.y())
+		m_vmax.y(v.y());
+	if (m_optimize_2d)
+		return;
+	if (v.z() < m_vmin.z())
+		m_vmin.z(v.z());
+	else if(v.z() > m_vmax.z())
+		m_vmax.z(v.z());
 }
 
 }

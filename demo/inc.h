@@ -10,6 +10,7 @@
 #include "../j3d/j3d.h"
 using namespace j3d;
 
+#include "mesh_test.h"
 #include "cube.h"
 #include "demo.h"
 

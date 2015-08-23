@@ -2,32 +2,28 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/object.h
+* j3d/math/math.h
 *******************************************************************************/
-#ifndef __J3D_OBJECT_H__
-#define __J3D_OBJECT_H__
+#ifndef __J3D_MATH_MATH_H__
+#define __J3D_MATH_MATH_H__
 namespace j3d {
 
 /*******************************************************************************
-* OBJECT
+* MATH
 *******************************************************************************/
 
-class Object : public core::Entity {
-public:
-	Object(const string &mesh_id);
-	Object(const string &mesh_id, const string &shader_id);
-	virtual ~Object();
+struct math {
 
-private:
-	void init(const string &mesh_id);
+	static float min(float a, float b)
+	{
+		return (a < b ? a : b);
+	}
 
-public:
-	virtual void update();
-	virtual void render();
+	static float max(float a, float b)
+	{
+		return (a > b ? a : b);
+	}
 
-private:
-	Mesh *mp_mesh;
-	
 };
 
 }

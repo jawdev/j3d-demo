@@ -2,33 +2,19 @@
 * JAW DEVELOPMENT LLC
 * J3D
 * github.com/jawdev/j3d
-* j3d/object.h
+* j3d/core/aabb.h
 *******************************************************************************/
-#ifndef __J3D_OBJECT_H__
-#define __J3D_OBJECT_H__
-namespace j3d {
+#ifndef __J3D_CORE_AABB_H__
+#define __J3D_CORE_AABB_H__
+namespace j3d { namespace core {
 
 /*******************************************************************************
-* OBJECT
+* AABB
 *******************************************************************************/
 
-class Object : public core::Entity {
-public:
-	Object(const string &mesh_id);
-	Object(const string &mesh_id, const string &shader_id);
-	virtual ~Object();
+struct AABB {
 
-private:
-	void init(const string &mesh_id);
-
-public:
-	virtual void update();
-	virtual void render();
-
-private:
-	Mesh *mp_mesh;
-	
 };
 
-}
+} }
 #endif

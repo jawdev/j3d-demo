@@ -48,6 +48,6 @@ vec4 vec4::operator*(const mat4 &m) const
 }
 
 vec4::operator vec2() { return vec2(x(), y()); }
-vec4::operator vec3() { return vec3(x(), y()); }
+vec4::operator vec3() { return vec3(x(), y(), z()); }
 
 }

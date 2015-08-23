@@ -11,23 +11,27 @@ namespace j3d {
 * OBJECT
 *******************************************************************************/
 
-Object::Object(string mesh_id) :
+Object::Object(const string &mesh_id) :
 		core::Entity()
 {
-	if (!J3D_CACHE2(exists, Mesh, mesh_id))
-		J3D_DEBUG_FATAL("Mesh could not be found: " << mesh_id);
-	mp_mesh = J3D_CACHE_GET(Mesh, mesh_id);
+	init(mesh_id);
 }
 
-Object::Object(string mesh_id, string shader_id) :
+Object::Object(const string &mesh_id, const string &shader_id) :
 		core::Entity(shader_id)
 {
-	if (!J3D_CACHE2(exists, Mesh, mesh_id))
-		J3D_DEBUG_FATAL("Mesh could not be found: " << mesh_id);
-	mp_mesh = J3D_CACHE_GET(Mesh, mesh_id);
+	init(mesh_id);
 }
 
 Object::~Object() {}
+
+void Object::init(const string &mesh_id)
+{
+	if (!J3D_CACHE2(exists, Mesh, mesh_id))
+		J3D_DEBUG_FATAL("Mesh could not be found: " << mesh_id);
+	mp_mesh = J3D_CACHE_GET(Mesh, mesh_id);
+	aabb(mp_mesh->min(), mp_mesh->max());
+}
 
 void Object::update()
 {

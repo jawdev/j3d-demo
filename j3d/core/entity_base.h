@@ -124,6 +124,21 @@ public:
 		return this;
 	}
 
+	virtual EntityBase<T> *aabb(const T &max)
+	{
+		o_aabb[0] = max;
+		o_aabb[0] *= -1;
+		o_aabb[1] = max;
+		return this;
+	}
+
+	virtual EntityBase<T> *aabb(const T &min, const T &max)
+	{
+		o_aabb[0] = min;
+		o_aabb[1] = max;
+		return this;
+	}
+
 	///////////////////////////////////////
 	// GET
 
@@ -135,6 +150,12 @@ public:
 	virtual bool attached() const { return (op_attachment != nullptr); }
 	virtual EntityBase<T> *attachment() const { return op_attachment; }
 
+	virtual void aabb(T *min, T *max) const
+	{
+		min->assign(o_pos + o_aabb[0]);
+		max->assign(o_pos + o_aabb[1]);
+	}
+
 protected:
 	bool o_locked;
 	T o_pos;
@@ -144,6 +165,7 @@ protected:
 	T o_vel;
 	T o_rvel;
 	EntityBase<T> *op_attachment;
+	T o_aabb[2];
 
 };
 

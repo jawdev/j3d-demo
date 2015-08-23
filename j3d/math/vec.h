@@ -26,7 +26,7 @@ struct vec {
 	//////////////////////////////////////////////
 	// MATH
 
-	vec<N, T> &normalize()
+	vec &normalize()
 	{
 		float mag = 0;
 		int i;
@@ -46,6 +46,19 @@ struct vec {
 		return v.normalize();
 	}
 
+	vec &invert()
+	{
+		for (int i = 0; i < N; ++i)
+			data[i] = 1.0 / data[i];
+		return *this;
+	}
+
+	vec inverse() const
+	{
+		vec<N, T> v(this.data);
+		return v.invert();
+	}
+
 	//////////////////////////////////////////////
 	// OPERATORS
 
@@ -57,7 +70,7 @@ struct vec {
 		return vout;
 	}
 
-	vec operator+(const vec &v) const
+	vec operator+(const vec<N, T> &v) const
 	{
 		vec<N, T> vout;
 		for (int i = 0; i < N; ++i)
@@ -65,7 +78,7 @@ struct vec {
 		return vout;
 	}
 
-	vec operator-(const vec &v) const
+	vec operator-(const vec<N, T> &v) const
 	{
 		vec<N, T> vout;
 		for (int i = 0; i < N; ++i)
@@ -169,7 +182,7 @@ struct vec {
 	//////////////////////////////////////////////
 	// EXTRAS
 	
-	template<int, class>
+	template<const int, class>
 	friend ostream &operator<<(ostream &, const vec<N, T> &);
 
 };
@@ -196,6 +209,9 @@ struct vec2 : public vec<2, vectype> {
 	vec2(vectype x = 0, vectype y = 0) :
 			vec<2, vectype>({x, y}) {}
 
+	vec2 &x(const float &f) { data[0] = f; return *this; }
+	vec2 &y(const float &f) { data[1] = f; return *this; }
+
 	const vectype &x() const { return data[0]; }
 	const vectype &y() const { return data[1]; }
 
@@ -215,6 +231,10 @@ struct vec3 : public vec<3, vectype> {
 
 	vec3(vectype x = 0, vectype y = 0, vectype z = 0) :
 			vec<3, vectype>({x, y, z}) {}
+
+	vec3 &x(const float &f) { data[0] = f; return *this; }
+	vec3 &y(const float &f) { data[1] = f; return *this; }
+	vec3 &z(const float &f) { data[2] = f; return *this; }
 
 	const vectype &x() const { return data[0]; }
 	const vectype &y() const { return data[1]; }
@@ -265,6 +285,11 @@ struct vec4 : public vec<4, float> {
 	{
 		lock_w = _lock_w;
 	}
+
+	vec4 &x(const float &f) { data[0] = f; return *this; }
+	vec4 &y(const float &f) { data[1] = f; return *this; }
+	vec4 &z(const float &f) { data[2] = f; return *this; }
+	vec4 &w(const float &f) { data[3] = f; return *this; }
 
 	const vectype &x() const { return data[0]; }
 	const vectype &y() const { return data[1]; }
