@@ -30,16 +30,17 @@ void Cacheable::cacheActivate()
 	util::cache::activate(m_id1, m_id2);
 }
 
-const char *Cacheable::cacheId()
+const string &Cacheable::cacheId()
 {
-	return m_id2.c_str();
+	return m_id2;
 }
 
-const char *Cacheable::cacheIdFull()
+string Cacheable::cacheIdFull()
 {
 	stringstream ss;
+	ss.clear();
 	ss << m_id1 << "." << m_id2 << " -> " << (void *)this;
-	return ss.str().c_str();
+	return ss.str();
 }
 
 } }

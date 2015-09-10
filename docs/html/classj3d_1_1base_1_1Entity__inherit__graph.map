@@ -1,0 +1,9 @@
+<map id="j3d::base::Entity" name="j3d::base::Entity">
+<area shape="rect" id="node5" href="$classj3d_1_1base_1_1CameraBase.html" title="j3d::base::CameraBase" alt="" coords="5,244,164,271"/>
+<area shape="rect" id="node7" href="$classj3d_1_1Light.html" title="j3d::Light" alt="" coords="189,244,263,271"/>
+<area shape="rect" id="node8" href="$classj3d_1_1Object.html" title="j3d::Object" alt="" coords="287,244,373,271"/>
+<area shape="rect" id="node2" href="$classj3d_1_1base_1_1EntityBase.html" title="j3d::base::EntityBase\l\&lt; vec3 \&gt;" alt="" coords="153,80,299,121"/>
+<area shape="rect" id="node3" href="$classj3d_1_1core_1_1Feature.html" title="j3d::core::Feature" alt="" coords="77,5,201,32"/>
+<area shape="rect" id="node4" href="$classj3d_1_1core_1_1UniformBindings.html" title="j3d::core::UniformBindings" alt="" coords="226,5,402,32"/>
+<area shape="rect" id="node6" href="$classj3d_1_1Camera.html" title="j3d::Camera" alt="" coords="38,319,131,345"/>
+</map>

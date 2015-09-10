@@ -1,0 +1,36 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classj3d_1_1core_1_1Batch.html" title="j3d::core::Batch" alt="" coords="261,96,376,123"/>
+<area shape="rect" id="node2" href="$classj3d_1_1core_1_1ControlBatch.html" title="j3d::core::ControlBatch" alt="" coords="461,121,617,148"/>
+<area shape="rect" id="node4" href="$classj3d_1_1core_1_1ReshapeBatch.html" title="j3d::core::ReshapeBatch" alt="" coords="456,71,623,97"/>
+<area shape="rect" id="node3" href="$classj3d_1_1Scene.html" title="j3d::Scene" alt="" coords="723,121,807,148"/>
+<area shape="rect" id="node5" href="$classj3d_1_1base_1_1CameraBase.html" title="j3d::base::CameraBase" alt="" coords="685,289,844,316"/>
+<area shape="rect" id="node7" href="$classj3d_1_1base_1_1RenderbufferBase.html" title="j3d::base::RenderbufferBase" alt="" coords="671,56,859,83"/>
+<area shape="rect" id="node6" href="$classj3d_1_1Camera.html" title="j3d::Camera" alt="" coords="947,391,1041,417"/>
+<area shape="rect" id="node8" href="$classj3d_1_1base_1_1Renderbuffer.html" title="j3d::base::Renderbuffer" alt="" coords="915,5,1073,32"/>
+<area shape="rect" id="node9" href="$classj3d_1_1base_1_1Renderbuffer2D.html" title="j3d::base::Renderbuffer2D" alt="" coords="907,56,1081,83"/>
+<area shape="rect" id="node10" href="$classj3d_1_1core_1_1Cacheable.html" title="j3d::core::Cacheable" alt="" coords="468,239,611,265"/>
+<area shape="rect" id="node11" href="$classj3d_1_1Mesh.html" title="j3d::Mesh" alt="" coords="725,239,804,265"/>
+<area shape="rect" id="node16" href="$classj3d_1_1ShaderProgram.html" title="j3d::ShaderProgram" alt="" coords="696,340,833,367"/>
+<area shape="rect" id="node17" href="$classj3d_1_1ShaderProgram_1_1Shader.html" title="j3d::ShaderProgram\l::Shader" alt="" coords="696,173,833,214"/>
+<area shape="rect" id="node12" href="$classj3d_1_1BoxMesh.html" title="j3d::BoxMesh" alt="" coords="943,289,1045,316"/>
+<area shape="rect" id="node13" href="$classj3d_1_1FloorMesh.html" title="j3d::FloorMesh" alt="" coords="940,340,1048,367"/>
+<area shape="rect" id="node14" href="$classj3d_1_1Mesh2D.html" title="j3d::Mesh2D" alt="" coords="946,239,1042,265"/>
+<area shape="rect" id="node15" href="$classj3d_1_1RectMesh.html" title="j3d::RectMesh" alt="" coords="1129,239,1236,265"/>
+<area shape="rect" id="node18" href="$classj3d_1_1ShaderProgram_1_1FragmentShader.html" title="j3d::ShaderProgram\l::FragmentShader" alt="" coords="925,107,1063,149"/>
+<area shape="rect" id="node19" href="$classj3d_1_1ShaderProgram_1_1VertexShader.html" title="j3d::ShaderProgram\l::VertexShader" alt="" coords="925,173,1063,214"/>
+<area shape="rect" id="node20" href="$classj3d_1_1core_1_1Feature.html" title="j3d::core::Feature" alt="" coords="31,496,155,523"/>
+<area shape="rect" id="node21" href="$classj3d_1_1base_1_1EntityBase.html" title="j3d::base::EntityBase\l\&lt; vec2 \&gt;" alt="" coords="245,507,392,549"/>
+<area shape="rect" id="node24" href="$classj3d_1_1base_1_1EntityBase.html" title="j3d::base::EntityBase\l\&lt; vec3 \&gt;" alt="" coords="245,390,392,431"/>
+<area shape="rect" id="node28" href="$classj3d_1_1base_1_1EntityBase.html" title="j3d::base::EntityBase\&lt; T \&gt;" alt="" coords="229,456,408,483"/>
+<area shape="rect" id="node29" href="$classj3d_1_1core_1_1FeatureGroup.html" title="j3d::core::FeatureGroup" alt="" coords="239,573,398,600"/>
+<area shape="rect" id="node22" href="$classj3d_1_1base_1_1Entity2D.html" title="j3d::base::Entity2D" alt="" coords="472,515,607,541"/>
+<area shape="rect" id="node23" href="$classj3d_1_1Sprite.html" title="j3d::Sprite" alt="" coords="724,515,805,541"/>
+<area shape="rect" id="node25" href="$classj3d_1_1base_1_1Entity.html" title="j3d::base::Entity" alt="" coords="481,396,598,423"/>
+<area shape="rect" id="node26" href="$classj3d_1_1Light.html" title="j3d::Light" alt="" coords="727,445,802,472"/>
+<area shape="rect" id="node27" href="$classj3d_1_1Object.html" title="j3d::Object" alt="" coords="722,395,807,421"/>
+<area shape="rect" id="node30" href="$classj3d_1_1core_1_1Group.html" title="j3d::core::Group" alt="" coords="36,599,151,625"/>
+<area shape="rect" id="node31" href="$classj3d_1_1base_1_1LayerBase.html" title="j3d::base::LayerBase" alt="" coords="246,624,391,651"/>
+<area shape="rect" id="node32" href="$classj3d_1_1Layer.html" title="j3d::Layer" alt="" coords="500,599,579,625"/>
+<area shape="rect" id="node33" href="$classj3d_1_1Layer2D.html" title="j3d::Layer2D" alt="" coords="491,649,587,676"/>
+<area shape="rect" id="node34" href="$classj3d_1_1core_1_1UniformBindings.html" title="j3d::core::UniformBindings" alt="" coords="5,427,181,453"/>
+</map>

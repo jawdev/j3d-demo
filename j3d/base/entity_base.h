@@ -126,16 +126,16 @@ public:
 
 	virtual EntityBase<T> *aabb(const T &max)
 	{
-		o_aabb[0] = max;
-		o_aabb[0] *= -1;
-		o_aabb[1] = max;
+		o_aabb.min = max;
+		o_aabb.min *= -1.0f;
+		o_aabb.max = max;
 		return this;
 	}
 
 	virtual EntityBase<T> *aabb(const T &min, const T &max)
 	{
-		o_aabb[0] = min;
-		o_aabb[1] = max;
+		o_aabb.min = min;
+		o_aabb.max = max;
 		return this;
 	}
 
@@ -150,10 +150,14 @@ public:
 	virtual bool attached() const { return (op_attachment != nullptr); }
 	virtual EntityBase<T> *attachment() const { return op_attachment; }
 
-	virtual void aabb(T *min, T *max) const
+	virtual void aabb(j3d::aabb<T> *out) const
 	{
-		min->assign(o_pos + o_aabb[0]);
-		max->assign(o_pos + o_aabb[1]);
+		out->assign(o_pos + o_aabb.min, o_pos + o_aabb.max);
+	}
+
+	virtual j3d::aabb<T> aabb() const
+	{
+		return j3d::aabb<T>(o_pos + o_aabb.min, o_pos + o_aabb.max);
 	}
 
 protected:
@@ -165,7 +169,7 @@ protected:
 	T o_vel;
 	T o_rvel;
 	EntityBase<T> *op_attachment;
-	T o_aabb[2];
+	j3d::aabb<T> o_aabb;
 
 };
 

@@ -14,7 +14,7 @@ namespace j3d {
 
 struct collision {
 
-	static bool ray_aabb(ray3, vec3 min, vec3 max);
+	static bool ray_aabb(ray3, const aabb3 &);
 
 };
 

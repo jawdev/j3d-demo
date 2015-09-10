@@ -1,0 +1,10 @@
+<map id="j3d::Camera" name="j3d::Camera">
+<area shape="rect" id="node2" href="$classj3d_1_1base_1_1CameraBase.html" title="j3d::base::CameraBase" alt="" coords="240,244,399,271"/>
+<area shape="rect" id="node3" href="$classj3d_1_1base_1_1Entity.html" title="j3d::base::Entity" alt="" coords="95,169,213,196"/>
+<area shape="rect" id="node4" href="$classj3d_1_1base_1_1EntityBase.html" title="j3d::base::EntityBase\l\&lt; vec3 \&gt;" alt="" coords="81,80,227,121"/>
+<area shape="rect" id="node5" href="$classj3d_1_1core_1_1Feature.html" title="j3d::core::Feature" alt="" coords="5,5,129,32"/>
+<area shape="rect" id="node6" href="$classj3d_1_1core_1_1UniformBindings.html" title="j3d::core::UniformBindings" alt="" coords="154,5,330,32"/>
+<area shape="rect" id="node7" href="$classj3d_1_1core_1_1ReshapeBatch.html" title="j3d::core::ReshapeBatch" alt="" coords="236,169,403,196"/>
+<area shape="rect" id="node8" href="$classj3d_1_1core_1_1Batch.html" title="j3d::core::Batch" alt="" coords="262,87,377,114"/>
+<area shape="rect" id="node9" href="$classj3d_1_1core_1_1Cacheable.html" title="j3d::core::Cacheable" alt="" coords="427,169,569,196"/>
+</map>

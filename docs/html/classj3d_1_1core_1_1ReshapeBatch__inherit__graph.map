@@ -1,0 +1,8 @@
+<map id="j3d::core::ReshapeBatch" name="j3d::core::ReshapeBatch">
+<area shape="rect" id="node3" href="$classj3d_1_1base_1_1CameraBase.html" title="j3d::base::CameraBase" alt="" coords="5,155,164,181"/>
+<area shape="rect" id="node5" href="$classj3d_1_1base_1_1RenderbufferBase.html" title="j3d::base::RenderbufferBase" alt="" coords="188,155,376,181"/>
+<area shape="rect" id="node2" href="$classj3d_1_1core_1_1Batch.html" title="j3d::core::Batch" alt="" coords="126,5,241,32"/>
+<area shape="rect" id="node4" href="$classj3d_1_1Camera.html" title="j3d::Camera" alt="" coords="38,229,131,256"/>
+<area shape="rect" id="node6" href="$classj3d_1_1base_1_1Renderbuffer.html" title="j3d::base::Renderbuffer" alt="" coords="179,229,337,256"/>
+<area shape="rect" id="node7" href="$classj3d_1_1base_1_1Renderbuffer2D.html" title="j3d::base::Renderbuffer2D" alt="" coords="361,229,536,256"/>
+</map>

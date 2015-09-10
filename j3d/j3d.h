@@ -87,6 +87,7 @@ namespace j3d {
 
 #include "math/math.h"
 #include "math/vector.h"
+#include "math/aabb.h"
 #include "math/matrix.h"
 #include "math/ray.h"
 #include "math/collision.h"

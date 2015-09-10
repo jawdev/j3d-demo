@@ -30,8 +30,9 @@ private:
 
 #define J3D_BATCH(_obj, _func, ...) do {\
 	util::batchgroup *grp = util::batches::get(_obj::J3D_BATCH_ID);\
-	for (size_t i = 0; i < grp->size(); ++i)\
-		((_obj *)grp->at(i))->_func( __VA_ARGS__ );\
+	if (grp != nullptr)\
+		for (size_t i = 0; i < grp->size(); ++i)\
+			((_obj *)grp->at(i))->_func( __VA_ARGS__ );\
 } while (0)
 
 } }

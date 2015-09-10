@@ -1,0 +1,6 @@
+<map id="j3d::base::Entity2D" name="j3d::base::Entity2D">
+<area shape="rect" id="node5" href="$classj3d_1_1Sprite.html" title="j3d::Sprite" alt="" coords="113,244,195,271"/>
+<area shape="rect" id="node2" href="$classj3d_1_1base_1_1EntityBase.html" title="j3d::base::EntityBase\l\&lt; vec2 \&gt;" alt="" coords="81,80,227,121"/>
+<area shape="rect" id="node3" href="$classj3d_1_1core_1_1Feature.html" title="j3d::core::Feature" alt="" coords="5,5,129,32"/>
+<area shape="rect" id="node4" href="$classj3d_1_1core_1_1UniformBindings.html" title="j3d::core::UniformBindings" alt="" coords="154,5,330,32"/>
+</map>

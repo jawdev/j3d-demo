@@ -1,0 +1,82 @@
+\hypertarget{classj3d_1_1base_1_1CameraBase}{}\section{j3d\+:\+:base\+:\+:Camera\+Base Class Reference}
+\label{classj3d_1_1base_1_1CameraBase}\index{j3d\+::base\+::\+Camera\+Base@{j3d\+::base\+::\+Camera\+Base}}
+
+
+Inheritance diagram for j3d\+:\+:base\+:\+:Camera\+Base\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classj3d_1_1base_1_1CameraBase__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for j3d\+:\+:base\+:\+:Camera\+Base\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classj3d_1_1base_1_1CameraBase__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classj3d_1_1base_1_1CameraBase_aa42dd40367d33cda277db47986ebe958}{}{\bfseries Camera\+Base} (string id, bool activate=true)\label{classj3d_1_1base_1_1CameraBase_aa42dd40367d33cda277db47986ebe958}
+
+\item 
+\hypertarget{classj3d_1_1base_1_1CameraBase_a707c9d371db5939b702c743e5bf41ae0}{}virtual void {\bfseries activate} ()\label{classj3d_1_1base_1_1CameraBase_a707c9d371db5939b702c743e5bf41ae0}
+
+\item 
+\hypertarget{classj3d_1_1base_1_1CameraBase_abc5d1d16fa0669c321e6735e6a774d58}{}virtual void {\bfseries reshape} (int w=0, int h=0)\label{classj3d_1_1base_1_1CameraBase_abc5d1d16fa0669c321e6735e6a774d58}
+
+\item 
+\hypertarget{classj3d_1_1base_1_1CameraBase_aaff78745b288d498b9b3f069f1170b35}{}virtual \hyperlink{structj3d_1_1mat4}{mat4} \& {\bfseries projection} ()=0\label{classj3d_1_1base_1_1CameraBase_aaff78745b288d498b9b3f069f1170b35}
+
+\item 
+\hypertarget{classj3d_1_1base_1_1CameraBase_a64e7991e4684abc92b502e9d9c780081}{}virtual \hyperlink{structj3d_1_1mat4}{mat4} \& {\bfseries transform} ()\label{classj3d_1_1base_1_1CameraBase_a64e7991e4684abc92b502e9d9c780081}
+
+\item 
+\hypertarget{classj3d_1_1base_1_1CameraBase_a03717e9181662ec952b99089382d6277}{}virtual void {\bfseries render} ()\label{classj3d_1_1base_1_1CameraBase_a03717e9181662ec952b99089382d6277}
+
+\item 
+\hypertarget{classj3d_1_1base_1_1CameraBase_aa5f08a22122e4f38191057337934bd98}{}\hyperlink{classj3d_1_1base_1_1CameraBase}{Camera\+Base} $\ast$ {\bfseries near} (float)\label{classj3d_1_1base_1_1CameraBase_aa5f08a22122e4f38191057337934bd98}
+
+\item 
+\hypertarget{classj3d_1_1base_1_1CameraBase_a11eb03e24c5ffc3a6f89ef120fb7a997}{}\hyperlink{classj3d_1_1base_1_1CameraBase}{Camera\+Base} $\ast$ {\bfseries far} (float)\label{classj3d_1_1base_1_1CameraBase_a11eb03e24c5ffc3a6f89ef120fb7a997}
+
+\item 
+\hypertarget{classj3d_1_1base_1_1CameraBase_a97019dfc8ed728db47311db65d9256cc}{}virtual float {\bfseries near} () const \label{classj3d_1_1base_1_1CameraBase_a97019dfc8ed728db47311db65d9256cc}
+
+\item 
+\hypertarget{classj3d_1_1base_1_1CameraBase_ad4dfe6fe4462e44ebc4cf105f683b626}{}virtual float {\bfseries far} () const \label{classj3d_1_1base_1_1CameraBase_ad4dfe6fe4462e44ebc4cf105f683b626}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classj3d_1_1base_1_1CameraBase_ac22a6ffdaa7b3b764b04df74a709e1c0}{}static const char constexpr $\ast$ {\bfseries J3\+D\+\_\+\+C\+A\+C\+H\+E\+\_\+\+I\+D} = \char`\"{}camera\char`\"{}\label{classj3d_1_1base_1_1CameraBase_ac22a6ffdaa7b3b764b04df74a709e1c0}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classj3d_1_1base_1_1CameraBase_a23d168f7ff1a3574265f327b9f6db632}{}\hyperlink{structj3d_1_1mat4}{mat4} {\bfseries o\+\_\+mat\+\_\+projection}\label{classj3d_1_1base_1_1CameraBase_a23d168f7ff1a3574265f327b9f6db632}
+
+\item 
+\hypertarget{classj3d_1_1base_1_1CameraBase_a80964876077f13e779d762015b3f0b93}{}float {\bfseries o\+\_\+near}\label{classj3d_1_1base_1_1CameraBase_a80964876077f13e779d762015b3f0b93}
+
+\item 
+\hypertarget{classj3d_1_1base_1_1CameraBase_ae0a16fcd9438bca468226f3e6d1b3022}{}float {\bfseries o\+\_\+far}\label{classj3d_1_1base_1_1CameraBase_ae0a16fcd9438bca468226f3e6d1b3022}
+
+\item 
+\hypertarget{classj3d_1_1base_1_1CameraBase_a444f7e015d1e3ddba872796bc664957a}{}string {\bfseries o\+\_\+uniform\+\_\+id}\label{classj3d_1_1base_1_1CameraBase_a444f7e015d1e3ddba872796bc664957a}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/media/will/ratchet/\+Projects/\+J\+A\+W/j3d-\/demo/j3d/base/camera\+\_\+base.\+h\item 
+/media/will/ratchet/\+Projects/\+J\+A\+W/j3d-\/demo/j3d/base/camera\+\_\+base.\+cpp\end{DoxyCompactItemize}

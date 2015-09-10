@@ -18,8 +18,8 @@ public:
 	virtual ~Cacheable();
 	virtual void cacheActivate();
 
-	const char *cacheId();
-	const char *cacheIdFull();
+	const string &cacheId();
+	string cacheIdFull();
 
 private:
 	string m_id1;

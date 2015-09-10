@@ -30,6 +30,7 @@ private:
 	int m_dir[2];
 	float m_rot[2];
 
+/*
 	Layer *mp_l1;
 	Camera *mp_cam;
 	ShaderProgram *mp_shader;
@@ -37,6 +38,7 @@ private:
 
 	Mesh *mp_ray_mesh;
 	Object *mp_ray_obj;
+*/
 };
 
 #endif
